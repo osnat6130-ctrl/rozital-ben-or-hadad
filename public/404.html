@@ -1,0 +1,22 @@
+<!doctype html>
+<!--
+  GitHub Pages הוא אחסון סטטי בלבד - הוא לא יודע שהנתיבים כמו /about
+  שייכים ל-React Router, ומחזיר 404 בכל רענון עמוק (למשל F5 בתוך /contact).
+
+  הפתרון הסטנדרטי (spa-github-pages): קובץ 404 הזה שומר את הנתיב המבוקש
+  ומפנה ל-index.html, וסקריפט קטן ב-index.html (ב-index.html.template)
+  משחזר את הנתיב לפני שה-React מתחיל לרוץ - כך שהניתוב הרגיל של
+  React Router ממשיך לעבוד כרגיל.
+-->
+<html lang="he" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      var base = "/rozital-ben-or-hadad";
+      var path = location.pathname.slice(base.length) + location.search + location.hash;
+      sessionStorage.setItem("spa-redirect", path);
+      location.replace(base + "/");
+    </script>
+  </head>
+  <body></body>
+</html>

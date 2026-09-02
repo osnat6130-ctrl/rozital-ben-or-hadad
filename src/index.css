@@ -1,0 +1,206 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   פלטת הצבעים המרכזית של האתר
+   ------------------------------------------------------------
+   ‼️ זהו המקום היחיד שצריך לשנות בו צבעים.
+   הפלטה הנוכחית נגזרה מהלוגו של רוזיטל (טורקיז + צהוב).
+   כשיתקבלו צבעי מותג סופיים - מחליפים כאן בלבד.
+   הערכים בפורמט HSL ללא פסיקים (כמו ב-shadcn/ui).
+   ============================================================ */
+@layer base {
+  :root {
+    /* --- מותג --- */
+    --brand: 187 68% 37%; /* טורקיז הלוגו */
+    --brand-dark: 191 60% 24%;
+    --brand-light: 186 52% 55%;
+    --brand-soft: 186 55% 94%;
+
+    --gold: 49 89% 63%; /* צהוב הלוגו */
+    --gold-dark: 42 82% 50%;
+    --gold-soft: 48 90% 94%;
+
+    /* --- ה-Hero הכהה של דף הבית ("אור בין הידיים") ---
+       פלטה נפרדת, כי זה האזור היחיד באתר שיושב על רקע כהה. */
+    --hero: 193 45% 9%;
+    --hero-2: 193 40% 14%;
+    --hero-ink: 42 45% 95%;
+    --hero-muted: 190 16% 72%;
+
+    /* --- בסיס --- */
+    --background: 40 38% 98%;
+    --surface: 0 0% 100%;
+    --text: 197 28% 16%;
+    --muted-text: 199 12% 43%;
+    --border: 195 20% 90%;
+
+    /* --- צבע התחום (accent) --- ברירת מחדל = צבע המותג.
+       כל דף שירות דורס אותו דרך ServiceTheme. */
+    --accent: var(--brand);
+    --accent-dark: var(--brand-dark);
+    --accent-soft: var(--brand-soft);
+  }
+
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-bg font-sans text-ink antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display font-bold leading-tight text-brand-dark;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* מצבי פוקוס נגישים בכל האתר */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+    border-radius: 0.5rem;
+  }
+
+  ::selection {
+    @apply bg-gold/50 text-brand-dark;
+  }
+}
+
+@layer components {
+  /* --- כפתורים --- */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3
+           font-display text-base font-bold transition-all duration-300
+           active:scale-[0.97] sm:text-lg;
+  }
+
+  .btn-primary {
+    @apply btn bg-accent text-white shadow-soft hover:shadow-lift
+           hover:brightness-110 md:hover:-translate-y-0.5;
+  }
+
+  .btn-gold {
+    @apply btn bg-gold text-brand-dark shadow-soft hover:shadow-lift
+           hover:brightness-105 md:hover:-translate-y-0.5;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-accent bg-transparent text-accent
+           hover:bg-accent hover:text-white;
+  }
+
+  .btn-whatsapp {
+    @apply btn bg-whatsapp text-white shadow-soft hover:shadow-lift
+           hover:brightness-105 md:hover:-translate-y-0.5;
+  }
+
+  .card {
+    @apply rounded-3xl bg-surface shadow-card ring-1 ring-line/70;
+  }
+
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full bg-accent-soft px-4 py-1.5
+           font-display text-sm font-bold text-accent-dark;
+  }
+
+  /* קו הדגשה מתחת לכותרת */
+  .underline-brush {
+    @apply relative inline-block;
+  }
+  .underline-brush::after {
+    content: "";
+    @apply absolute inset-x-0 -bottom-1 h-[0.32em] rounded-full bg-gold/70;
+    z-index: -1;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* רקע עדין בגוון התחום */
+  .bg-accent-wash {
+    background-image: radial-gradient(
+        70% 60% at 15% 0%,
+        hsl(var(--accent) / 0.1),
+        transparent 60%
+      ),
+      radial-gradient(60% 55% at 90% 20%, hsl(var(--gold) / 0.16), transparent 65%);
+  }
+
+  /* גלילה אופקית נעימה בגלריות במובייל */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* ============================================================
+   Scroll reveal - נשלט ע"י src/components/Reveal.tsx
+   ============================================================ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal="pop"] {
+  transform: translateY(24px) scale(0.95);
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+[data-reveal="side"] {
+  transform: translateX(32px);
+}
+[data-reveal="calm"] {
+  transform: translateY(14px);
+  transition-duration: 0.9s;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   כיבוד העדפת תנועה מופחתת - חובה נגישות
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

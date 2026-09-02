@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# TODO: להחליף לדומיין האמיתי
+Sitemap: https://rozital.co.il/sitemap.xml
