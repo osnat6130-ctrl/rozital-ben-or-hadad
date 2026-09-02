@@ -1,6 +1,5 @@
 import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
-import ContactForm from "@/components/ContactForm";
 import { LogoMark } from "@/components/Logo";
 import { MailIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { site, telLink, whatsappLink } from "@/data/site";
@@ -29,10 +28,10 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="section pt-12" aria-labelledby="contact-form-title">
-        <div className="container grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+      <section className="section pt-12">
+        <div className="container">
           {/* --- דרכי יצירת קשר --- */}
-          <div className="space-y-4">
+          <div className="mx-auto max-w-lg space-y-4">
             <Reveal>
               <a
                 href={whatsappLink()}
@@ -99,17 +98,6 @@ export default function Contact() {
               </div>
             </Reveal>
           </div>
-
-          {/* --- טופס --- */}
-          <Reveal delay={120}>
-            <div className="card p-6 sm:p-9">
-              <h2 id="contact-form-title" className="text-2xl sm:text-3xl">
-                השאירו פרטים ואחזור אליכם :)
-              </h2>
-              <p className="mt-2 text-muted">כמה פרטים קטנים, וזהו.</p>
-              <ContactForm source="/contact" className="mt-7" plural />
-            </div>
-          </Reveal>
         </div>
       </section>
     </>

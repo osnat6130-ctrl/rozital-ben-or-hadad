@@ -4,7 +4,6 @@ import ServiceTheme from "@/components/ServiceTheme";
 import SectionTitle from "@/components/SectionTitle";
 import ImageGallery from "@/components/ImageGallery";
 import HeroMedia from "@/components/HeroMedia";
-import ContactForm from "@/components/ContactForm";
 import Testimonials from "@/components/Testimonials";
 import CTASection from "@/components/CTASection";
 import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
@@ -293,16 +292,16 @@ export default function ServicePage({ id }: Props) {
         </section>
       )}
 
-      {/* ================= טופס ================= */}
+      {/* ================= יצירת קשר ================= */}
       <section id="contact" className="section scroll-mt-24 bg-accent-soft/45" aria-labelledby="form-title">
-        <div className="container grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <Reveal>
+        <div className="container">
+          <Reveal className="mx-auto max-w-xl text-center">
             <h2 id="form-title" className="text-3xl text-accent-dark sm:text-4xl">
               {service.cta.title}
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted">{service.cta.text}</p>
 
-            <div className="mt-8 space-y-3">
+            <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <a
                 href={whatsappLink(`היי רוזיטל, אשמח לפרטים על ${service.cardTitle} :)`)}
                 target="_blank"
@@ -312,20 +311,10 @@ export default function ServicePage({ id }: Props) {
                 <WhatsappIcon className="h-5 w-5" />
                 שלחו וואטסאפ
               </a>
-              <a href={telLink} className="btn-outline w-full sm:w-auto sm:mr-3">
+              <a href={telLink} className="btn-outline w-full sm:w-auto">
                 <PhoneIcon className="h-5 w-5" />
                 <span dir="ltr">{site.phone.display}</span>
               </a>
-            </div>
-          </Reveal>
-
-          <Reveal delay={120}>
-            <div className="card p-6 sm:p-8">
-              <ContactForm
-                defaultService={service.cardTitle}
-                source={service.path}
-                plural={service.formPlural}
-              />
             </div>
           </Reveal>
         </div>

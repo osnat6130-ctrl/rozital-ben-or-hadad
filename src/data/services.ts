@@ -48,8 +48,6 @@ export type Service = {
   /** תמונת רוחב לאזור "למי זה מתאים" - יחס 16:7 */
   bannerImage: string;
   gallery: { src: string; alt: string }[];
-  /** פנייה בלשון רבים בטופס יצירת הקשר, במקום נקבה-יחיד. ברירת מחדל: לא */
-  formPlural?: boolean;
   /** המלצות אמיתיות. האזור מוצג רק בתחומים שיש להם המלצות */
   testimonials?: Testimonial[];
   /** כותרת אזור ההמלצות. ברירת מחדל: "מה אומרים אחרי המפגש" */
@@ -92,7 +90,6 @@ export const services: Service[] = [
       { src: "/images/lectures-5.jpg", alt: "משתתפים סביב שולחנות מקשיבים להרצאה" },
       { src: "/images/lectures-6.jpg", alt: "רוזיטל מרצה מול קבוצת הורים" },
     ],
-    formPlural: true,
     testimonialsTitle: "מה אומרים אחרי ההרצאה",
     testimonials: [
       {
@@ -270,7 +267,6 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית בסדנת בת מצווה" },
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
     ],
-    formPlural: true,
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
       src: "/images/bat-mitzvah-feedback.jpg",
