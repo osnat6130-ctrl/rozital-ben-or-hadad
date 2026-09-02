@@ -320,11 +320,13 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
-      <CTASection
-        title="רוצה לשמוע עוד על הפעילות?"
-        text="אני כאן לכל שאלה - בלי התחייבות ובלי לחץ."
-        whatsappMessage={`היי רוזיטל, אשמח לשמוע עוד על ${service.cardTitle} :)`}
-      />
+      {!service.hideBottomCta && (
+        <CTASection
+          title="רוצה לשמוע עוד על הפעילות?"
+          text="אני כאן לכל שאלה - בלי התחייבות ובלי לחץ."
+          whatsappMessage={`היי רוזיטל, אשמח לשמוע עוד על ${service.cardTitle} :)`}
+        />
+      )}
     </ServiceTheme>
   );
 }
