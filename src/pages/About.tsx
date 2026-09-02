@@ -150,7 +150,6 @@ export default function About() {
       <CTASection
         title="הכול מתחיל בשיחה אחת"
         text="ספרו לי מה מחפשים ונראה יחד מה מתאים 🙂"
-        callLabel="התקשרו עכשיו"
       />
     </>
   );

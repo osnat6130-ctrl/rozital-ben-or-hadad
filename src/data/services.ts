@@ -56,8 +56,6 @@ export type Service = {
   testimonialsImage?: { src: string; alt: string };
   sections: ServiceSection[];
   cta: { title: string; text: string };
-  /** מסתיר את מלבן ה-CTA השני (הגנרי) בתחתית העמוד. ברירת מחדל: מוצג */
-  hideBottomCta?: boolean;
   seo: { title: string; description: string };
 };
 
@@ -232,7 +230,6 @@ export const services: Service[] = [
       title: "רוצים להביא המון שמחה לקבוצה שלכם?",
       text: "ספרו לי על האירוע ונבנה יחד חוויה שכולם ידברו עליה אחר כך.",
     },
-    hideBottomCta: true,
     seo: {
       title: "סדנת יוגה צחוק לנשים ולקבוצות | רוזיטל בן אור חדד",
       description:

@@ -1,6 +1,6 @@
 import Reveal from "./Reveal";
 import { PhoneIcon, WhatsappIcon } from "./Icons";
-import { telLink, whatsappLink } from "@/data/site";
+import { site, telLink, whatsappLink } from "@/data/site";
 
 type Props = {
   title: string;
@@ -9,8 +9,6 @@ type Props = {
   whatsappMessage?: string;
   /** דריסה אופציונלית של צבע הרקע (ברירת מחדל bg-accent-soft) */
   className?: string;
-  /** דריסה אופציונלית לטקסט כפתור "התקשרי עכשיו" */
-  callLabel?: string;
 };
 
 export default function CTASection({
@@ -18,7 +16,6 @@ export default function CTASection({
   text,
   whatsappMessage,
   className = "bg-accent-soft",
-  callLabel = "התקשרי עכשיו",
 }: Props) {
   return (
     <section className={`section relative overflow-hidden ${className}`} aria-labelledby="cta-title">
@@ -55,7 +52,7 @@ export default function CTASection({
 
           <a href={telLink} className="btn-primary w-full sm:w-auto">
             <PhoneIcon className="h-5 w-5" />
-            {callLabel}
+            <span dir="ltr">{site.phone.display}</span>
           </a>
         </Reveal>
       </div>

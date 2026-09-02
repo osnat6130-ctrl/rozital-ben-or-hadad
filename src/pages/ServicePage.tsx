@@ -5,7 +5,6 @@ import SectionTitle from "@/components/SectionTitle";
 import ImageGallery from "@/components/ImageGallery";
 import HeroMedia from "@/components/HeroMedia";
 import Testimonials from "@/components/Testimonials";
-import CTASection from "@/components/CTASection";
 import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
 import { site, telLink, whatsappLink } from "@/data/site";
@@ -320,13 +319,6 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
-      {!service.hideBottomCta && (
-        <CTASection
-          title="רוצה לשמוע עוד על הפעילות?"
-          text="אני כאן לכל שאלה - בלי התחייבות ובלי לחץ."
-          whatsappMessage={`היי רוזיטל, אשמח לשמוע עוד על ${service.cardTitle} :)`}
-        />
-      )}
     </ServiceTheme>
   );
 }
