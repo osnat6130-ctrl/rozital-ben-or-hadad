@@ -323,7 +323,6 @@ export default function ServicePage({ id }: Props) {
       <CTASection
         title="רוצה לשמוע עוד על הפעילות?"
         text="אני כאן לכל שאלה - בלי התחייבות ובלי לחץ."
-        formTarget="#contact"
         whatsappMessage={`היי רוזיטל, אשמח לשמוע עוד על ${service.cardTitle} :)`}
       />
     </ServiceTheme>

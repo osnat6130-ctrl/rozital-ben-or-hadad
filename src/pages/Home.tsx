@@ -56,9 +56,7 @@ export default function Home() {
       <CTASection
         title="מוכנים למצוא את הפעילות שמתאימה לכם?"
         text="אשמח לשמוע מה מחפשים, ולעזור לבחור את החוויה הנכונה בדיוק בשבילכם."
-        formTarget="/contact"
         callLabel="התקשרו עכשיו"
-        formLabel="השאירו פרטים"
         className="bg-brand-soft"
       />
     </>

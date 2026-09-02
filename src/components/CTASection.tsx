@@ -1,34 +1,25 @@
-import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
-import { MailIcon, PhoneIcon, WhatsappIcon } from "./Icons";
+import { PhoneIcon, WhatsappIcon } from "./Icons";
 import { telLink, whatsappLink } from "@/data/site";
 
 type Props = {
   title: string;
   text?: string;
-  /** יעד הכפתור "השאירי פרטים" - עוגן בעמוד או קישור לעמוד צור קשר */
-  formTarget?: string;
   /** הודעת וואטסאפ מותאמת לתחום */
   whatsappMessage?: string;
   /** דריסה אופציונלית של צבע הרקע (ברירת מחדל bg-accent-soft) */
   className?: string;
   /** דריסה אופציונלית לטקסט כפתור "התקשרי עכשיו" */
   callLabel?: string;
-  /** דריסה אופציונלית לטקסט כפתור "השאירי פרטים" */
-  formLabel?: string;
 };
 
 export default function CTASection({
   title,
   text,
-  formTarget = "#contact",
   whatsappMessage,
   className = "bg-accent-soft",
   callLabel = "התקשרי עכשיו",
-  formLabel = "השאירי פרטים",
 }: Props) {
-  const isAnchor = formTarget.startsWith("#");
-
   return (
     <section className={`section relative overflow-hidden ${className}`} aria-labelledby="cta-title">
       {/* עיטורים רכים ברקע */}
@@ -66,18 +57,6 @@ export default function CTASection({
             <PhoneIcon className="h-5 w-5" />
             {callLabel}
           </a>
-
-          {isAnchor ? (
-            <a href={formTarget} className="btn-outline w-full sm:w-auto">
-              <MailIcon className="h-5 w-5" />
-              {formLabel}
-            </a>
-          ) : (
-            <Link to={formTarget} className="btn-outline w-full sm:w-auto">
-              <MailIcon className="h-5 w-5" />
-              {formLabel}
-            </Link>
-          )}
         </Reveal>
       </div>
     </section>
