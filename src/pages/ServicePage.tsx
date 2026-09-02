@@ -310,7 +310,7 @@ export default function ServicePage({ id }: Props) {
                 <WhatsappIcon className="h-5 w-5" />
                 שלחו וואטסאפ
               </a>
-              <a href={telLink} className="btn-outline w-full sm:w-auto">
+              <a href={telLink} className="btn-primary w-full sm:w-auto">
                 <PhoneIcon className="h-5 w-5" />
                 <span dir="ltr">{site.phone.display}</span>
               </a>
