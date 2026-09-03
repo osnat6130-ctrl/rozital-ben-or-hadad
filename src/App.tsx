@@ -4,6 +4,7 @@ import Home from "@/pages/Home";
 import ServicePage from "@/pages/ServicePage";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
+import Accessibility from "@/pages/Accessibility";
 import NotFound from "@/pages/NotFound";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/bat-mitzvah" element={<ServicePage id="bat-mitzvah" />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/accessibility" element={<Accessibility />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

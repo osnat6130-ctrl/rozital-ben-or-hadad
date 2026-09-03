@@ -90,29 +90,34 @@ export default function Footer() {
           <p>
             © {year} {site.name}. כל הזכויות שמורות.
           </p>
-          <p className="inline-flex items-center gap-2 text-white/45">
-            {site.credit.url ? (
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <Link to="/accessibility" className="transition-colors hover:text-gold">
+              הצהרת נגישות
+            </Link>
+            <p className="inline-flex items-center gap-2 text-white/45">
+              {site.credit.url ? (
+                <a
+                  href={site.credit.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-colors hover:text-gold"
+                >
+                  {site.credit.text}
+                </a>
+              ) : (
+                site.credit.text
+              )}
               <a
-                href={site.credit.url}
+                href="https://wa.me/972556825885"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors hover:text-gold"
+                aria-label="שליחת הודעה בוואטסאפ לאוסנת בניסטי"
+                className="text-whatsapp transition-colors hover:text-gold"
               >
-                {site.credit.text}
+                <WhatsappIcon className="h-4 w-4" />
               </a>
-            ) : (
-              site.credit.text
-            )}
-            <a
-              href="https://wa.me/972556825885"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="שליחת הודעה בוואטסאפ לאוסנת בניסטי"
-              className="text-whatsapp transition-colors hover:text-gold"
-            >
-              <WhatsappIcon className="h-4 w-4" />
-            </a>
-          </p>
+            </p>
+          </div>
         </div>
       </div>
     </footer>
