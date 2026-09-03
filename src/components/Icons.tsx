@@ -93,6 +93,14 @@ export const QuoteIcon = (p: IconProps) => (
   </svg>
 );
 
+/** סמל נגישות - דמות בתוך עיגול */
+export const AccessibilityIcon = (p: IconProps) => (
+  <svg {...base} strokeWidth={2} {...p}>
+    <circle cx="12" cy="5.6" r="2.3" />
+    <path d="M12 8.4v3.1M6.2 10.1 12 8.8l5.8 1.3M8.6 20 12 11.5 15.4 20" />
+  </svg>
+);
+
 export const iconMap = {
   heart: HeartIcon,
   badge: BadgeIcon,
