@@ -3,6 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import FloatingActions from "./FloatingActions";
+import AccessibilityWidget from "./AccessibilityWidget";
 import { cn } from "@/lib/utils";
 
 /** גלילה לראש העמוד בכל מעבר בין דפים (למעט עוגנים) */
@@ -46,6 +47,7 @@ export default function Layout() {
 
       <Footer />
       <FloatingActions />
+      <AccessibilityWidget />
     </div>
   );
 }

@@ -204,3 +204,32 @@
     transform: none !important;
   }
 }
+
+/* ============================================================
+   ווידג'ט הנגישות - src/components/AccessibilityWidget.tsx
+   ============================================================ */
+html.a11y-contrast {
+  --background: 0 0% 100%;
+  --surface: 0 0% 100%;
+  --text: 0 0% 0%;
+  --muted-text: 0 0% 15%;
+  --border: 0 0% 25%;
+}
+
+html.a11y-underline-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+html.a11y-reduce-motion,
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+}
+html.a11y-reduce-motion [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}

@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { AccessibilityIcon, PhoneIcon, WhatsappIcon } from "./Icons";
+import { PhoneIcon, WhatsappIcon } from "./Icons";
 import { site, telLink, whatsappLink } from "@/data/site";
 
 /**
@@ -25,26 +24,7 @@ export default function FloatingActions() {
         </span>
       </a>
 
-      <Link
-        to="/accessibility"
-        aria-label="הצהרת נגישות"
-        className="group fixed bottom-7 left-7 z-40 hidden h-14 w-14 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift transition-transform duration-300 hover:scale-110 lg:flex"
-      >
-        <AccessibilityIcon className="h-7 w-7" />
-        <span className="pointer-events-none absolute left-[calc(100%+0.75rem)] whitespace-nowrap rounded-full bg-brand-dark px-4 py-2 font-display text-sm font-bold text-white opacity-0 shadow-soft transition-all duration-300 group-hover:opacity-100">
-          הצהרת נגישות
-        </span>
-      </Link>
-
       {/* --- מובייל --- */}
-      <Link
-        to="/accessibility"
-        aria-label="הצהרת נגישות"
-        className="fixed bottom-[86px] left-3 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift lg:hidden"
-      >
-        <AccessibilityIcon className="h-5 w-5" />
-      </Link>
-
       <div
         className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur-md lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
