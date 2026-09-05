@@ -1,9 +1,9 @@
-import { PhoneIcon, WhatsappIcon } from "./Icons";
-import { site, telLink, whatsappLink } from "@/data/site";
+import { WhatsappIcon } from "./Icons";
+import { whatsappLink } from "@/data/site";
 
 /**
  * WhatsApp צף בכל העמודים (דסקטופ),
- * ובמובייל - סרגל תחתון קבוע עם וואטסאפ + חיוג.
+ * ובמובייל - סרגל תחתון קבוע עם אייקון וואטסאפ בלבד.
  * הרווח התחתון של התוכן מנוהל ב-Layout (pb-[76px] lg:pb-0).
  */
 export default function FloatingActions() {
@@ -29,7 +29,7 @@ export default function FloatingActions() {
         className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur-md lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="flex items-center gap-2 px-3 py-2.5">
+        <div className="flex items-center justify-center px-3 py-2.5">
           <a
             href={whatsappLink()}
             target="_blank"
@@ -38,14 +38,6 @@ export default function FloatingActions() {
             className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white shadow-soft"
           >
             <WhatsappIcon className="h-6 w-6" />
-          </a>
-          <a
-            href={telLink}
-            className="btn flex-1 bg-brand !px-4 !py-3 !text-[0.98rem] whitespace-nowrap text-white shadow-soft"
-            aria-label={`חיוג לרוזיטל ${site.phone.display}`}
-          >
-            <PhoneIcon className="h-5 w-5" />
-            להתקשר
           </a>
         </div>
       </div>
