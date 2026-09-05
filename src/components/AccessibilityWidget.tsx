@@ -88,8 +88,6 @@ export default function AccessibilityWidget() {
   // אתחול עצל - טוען את ההעדפות השמורות כבר ברינדור הראשון,
   // כדי שלא "ירוצו" מול ה-effect שמחיל ושומר בכל שינוי.
   const [prefs, setPrefs] = useState<Prefs>(loadPrefs);
-  const [mobileVisible, setMobileVisible] = useState(true);
-  const lastScrollY = useRef(0);
   const panelRef = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
 
@@ -97,21 +95,6 @@ export default function AccessibilityWidget() {
     applyPrefs(prefs);
     savePrefs(prefs);
   }, [prefs]);
-
-  // במובייל - מסתירה את הכפתור הצף בגלילה למטה, ומחזירה אותו בגלילה למעלה,
-  // כדי שלא יישאר צף מעל הפוטר לאורך כל הגלילה.
-  useEffect(() => {
-    lastScrollY.current = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      const diff = y - lastScrollY.current;
-      if (Math.abs(diff) < 8) return;
-      setMobileVisible(diff < 0 || y < 80);
-      lastScrollY.current = y;
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // סגירת הפאנל במעבר בין עמודים, וב-Escape
   useEffect(() => setOpen(false), [pathname]);
@@ -158,10 +141,7 @@ export default function AccessibilityWidget() {
         aria-label="פתיחת תפריט התאמות נגישות"
         aria-expanded={open}
         aria-controls="a11y-panel"
-        className={cn(
-          "fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift transition-all duration-300 lg:hidden",
-          mobileVisible || open ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0",
-        )}
+        className="fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift lg:hidden"
       >
         <AccessibilityIcon className="h-6 w-6" />
       </button>
