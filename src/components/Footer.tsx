@@ -94,29 +94,16 @@ export default function Footer() {
             <Link to="/accessibility" className="transition-colors hover:text-gold">
               הצהרת נגישות
             </Link>
-            <p className="inline-flex items-center gap-2 border-b border-white/25 pb-0.5 text-white">
-              {site.credit.url ? (
-                <a
-                  href={site.credit.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-gold"
-                >
-                  {site.credit.text}
-                </a>
-              ) : (
-                site.credit.text
-              )}
-              <a
-                href="https://wa.me/972556825885"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="שליחת הודעה בוואטסאפ לאוסנת בניסטי"
-                className="text-whatsapp transition-colors hover:text-gold"
-              >
-                <WhatsappIcon className="h-4 w-4" />
-              </a>
-            </p>
+            <a
+              href="https://wa.me/972556825885"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="שליחת הודעה בוואטסאפ לאוסנת בניסטי"
+              className="inline-flex items-center gap-2 border-b border-white/25 pb-0.5 text-white transition-colors hover:text-gold"
+            >
+              {site.credit.text}
+              <WhatsappIcon className="h-4 w-4 text-whatsapp" />
+            </a>
           </div>
         </div>
       </div>
