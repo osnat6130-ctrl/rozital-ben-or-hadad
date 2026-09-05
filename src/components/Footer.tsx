@@ -94,7 +94,7 @@ export default function Footer() {
             <Link to="/accessibility" className="transition-colors hover:text-gold">
               הצהרת נגישות
             </Link>
-            <p className="inline-flex items-center gap-2 text-white/45">
+            <p className="inline-flex items-center gap-2 border-b border-white/25 pb-0.5 text-white">
               {site.credit.url ? (
                 <a
                   href={site.credit.url}
