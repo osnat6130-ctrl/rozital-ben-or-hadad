@@ -32,8 +32,7 @@ export default function Layout() {
   const headerOverlaysHero = pathname === "/";
 
   return (
-    /* pb - מפצה על סרגל הפעולות הקבוע במובייל, כדי שלא יסתיר את הפוטר */
-    <div className="flex min-h-screen flex-col pb-[72px] lg:pb-0">
+    <div className="flex min-h-screen flex-col">
       <ScrollToTop />
       <Header />
 

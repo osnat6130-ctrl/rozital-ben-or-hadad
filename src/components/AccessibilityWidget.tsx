@@ -141,9 +141,9 @@ export default function AccessibilityWidget() {
         aria-label="פתיחת תפריט התאמות נגישות"
         aria-expanded={open}
         aria-controls="a11y-panel"
-        className="fixed bottom-[86px] left-3 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift lg:hidden"
+        className="fixed bottom-5 left-5 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-brand-dark text-white shadow-lift lg:hidden"
       >
-        <AccessibilityIcon className="h-5 w-5" />
+        <AccessibilityIcon className="h-6 w-6" />
       </button>
 
       {/* --- הפאנל --- */}
@@ -154,7 +154,7 @@ export default function AccessibilityWidget() {
         aria-modal="true"
         aria-label="התאמות נגישות"
         className={cn(
-          "fixed bottom-24 left-3 z-50 w-[calc(100%-1.5rem)] max-w-xs origin-bottom-left rounded-3xl bg-surface p-5 shadow-lift ring-1 ring-line/70 transition-all duration-300 sm:left-7",
+          "fixed bottom-20 left-5 z-50 w-[calc(100%-2.5rem)] max-w-xs origin-bottom-left rounded-3xl bg-surface p-5 shadow-lift ring-1 ring-line/70 transition-all duration-300 sm:left-7",
           "lg:bottom-24",
           open
             ? "translate-y-0 scale-100 opacity-100"
