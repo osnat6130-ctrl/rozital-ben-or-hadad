@@ -29,19 +29,19 @@ export default function FloatingActions() {
         className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 backdrop-blur-md lg:hidden"
         style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="grid grid-cols-2 gap-2 px-3 py-2.5">
+        <div className="flex items-center gap-2 px-3 py-2.5">
           <a
             href={whatsappLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-whatsapp !px-4 !py-3 !text-[0.98rem] whitespace-nowrap"
+            aria-label="שליחת הודעה בוואטסאפ"
+            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-whatsapp text-white shadow-soft"
           >
-            <WhatsappIcon className="h-5 w-5" />
-            שלחו וואטסאפ
+            <WhatsappIcon className="h-6 w-6" />
           </a>
           <a
             href={telLink}
-            className="btn bg-brand !px-4 !py-3 !text-[0.98rem] whitespace-nowrap text-white shadow-soft"
+            className="btn flex-1 bg-brand !px-4 !py-3 !text-[0.98rem] whitespace-nowrap text-white shadow-soft"
             aria-label={`חיוג לרוזיטל ${site.phone.display}`}
           >
             <PhoneIcon className="h-5 w-5" />
