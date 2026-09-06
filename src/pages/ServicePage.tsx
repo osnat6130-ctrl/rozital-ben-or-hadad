@@ -212,8 +212,8 @@ export default function ServicePage({ id }: Props) {
                       rel="noopener noreferrer"
                       className="btn-whatsapp w-full shrink-0 sm:w-auto"
                     >
-                      <WhatsappIcon className="h-5 w-5" />
                       {service.spotlight.banner.button}
+                      <WhatsappIcon className="h-5 w-5" />
                     </a>
                   </div>
                 )}
