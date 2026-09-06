@@ -345,8 +345,7 @@ export const services: Service[] = [
       accentDark: "262 45% 34%",
       accentSoft: "262 60% 88%",
     },
-    /* ‼️ TODO: תמונות זמניות מהתחומים האחרים עד שיתקבלו תמונות מסדנאות הורים וילדים */
-    cardImage: "/images/bat-mitzvah-4.jpg",
+    cardImage: "/images/parents-kids-card.jpg",
     heroImage: "/images/siblings-2.jpg",
     bannerImage: "/images/siblings-1.jpg",
     gallery: [
