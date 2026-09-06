@@ -151,7 +151,7 @@ export default function ServicePage({ id }: Props) {
       {/* ================= אזור מודגש מתחת ל-Hero =================
           מוצג רק בתחומים שהוגדר להם spotlight (כרגע: קבוצת העצמה לאחים) */}
       {service.spotlight && (
-        <section className="pb-4 pt-8 md:pb-6 md:pt-12" aria-labelledby="service-spotlight">
+        <section className="pb-2 pt-8 md:pb-3 md:pt-12" aria-labelledby="service-spotlight">
           <div className="container">
             <Reveal variant={reveal}>
               <div className="relative overflow-hidden rounded-[2rem] bg-surface p-8 shadow-card ring-1 ring-line/60 md:p-12">
@@ -221,7 +221,10 @@ export default function ServicePage({ id }: Props) {
       {/* ================= "למי זה מתאים" =================
           קומפוזיציה שונה בכוונה מזו של ה-Hero: באנר רוחב, כותרת ממורכזת,
           וקהלי היעד ככרטיסים - במקום עוד פיצול טקסט/תמונה. */}
-      <section className="section bg-accent-soft/40" aria-labelledby="service-intro">
+      <section
+        className={`section bg-accent-soft/40 ${service.spotlight ? "pt-8 md:pt-12" : ""}`}
+        aria-labelledby="service-intro"
+      >
         <div className="container">
           <Reveal variant={reveal}>
             <div className="relative overflow-hidden rounded-[2rem] shadow-card">
