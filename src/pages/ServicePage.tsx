@@ -117,9 +117,14 @@ export default function ServicePage({ id }: Props) {
             </Reveal>
 
             <Reveal delay={100}>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted lg:mx-0 lg:text-xl">
-                {service.heroSubtitle}
-              </p>
+              {[service.heroSubtitle].flat().map((paragraph, i) => (
+                <p
+                  key={paragraph}
+                  className={`mx-auto max-w-xl text-lg leading-relaxed text-muted lg:mx-0 lg:text-xl ${i === 0 ? "mt-6" : "mt-4"}`}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </Reveal>
 
             <Reveal delay={180}>
