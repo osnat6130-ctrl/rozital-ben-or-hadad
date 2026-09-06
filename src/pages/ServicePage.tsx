@@ -130,11 +130,8 @@ export default function ServicePage({ id }: Props) {
             <Reveal delay={180}>
               {service.heroCtaNote && (
                 <div className="mt-6 flex flex-col items-center lg:w-64 lg:items-center">
-                  <p className="font-display font-bold text-accent-dark">{service.heroCtaNote}</p>
-                  <ArrowDownIcon
-                    aria-hidden
-                    className="mt-1 h-8 w-8 animate-bounce text-accent"
-                  />
+                  <p className="font-display font-bold text-ink">{service.heroCtaNote}</p>
+                  <ArrowDownIcon aria-hidden className="mt-1 h-8 w-8 animate-bounce text-ink" />
                 </div>
               )}
               <div
