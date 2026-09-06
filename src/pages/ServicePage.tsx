@@ -324,7 +324,7 @@ export default function ServicePage({ id }: Props) {
                 {last.paragraphs?.map((paragraph) => (
                   <p
                     key={paragraph}
-                    className="relative mx-auto mt-3 max-w-2xl text-lg leading-relaxed text-white/90 first-of-type:mt-5"
+                    className="relative mx-auto mt-1.5 max-w-2xl text-lg leading-normal text-white/90 first-of-type:mt-4"
                   >
                     {paragraph}
                   </p>
