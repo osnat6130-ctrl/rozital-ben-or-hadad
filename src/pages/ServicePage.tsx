@@ -32,7 +32,7 @@ function SectionBody({ section }: { section: ServiceSection }) {
   return (
     <>
       {section.paragraphs?.map((paragraph) => (
-        <p key={paragraph} className="mt-4 text-lg leading-relaxed text-muted">
+        <p key={paragraph} className="mt-3 text-lg leading-relaxed text-muted">
           {paragraph}
         </p>
       ))}
@@ -290,7 +290,7 @@ export default function ServicePage({ id }: Props) {
 
       {/* ================= סעיפי אמצע ================= */}
       {middle.length > 0 && (
-        <section className="section">
+        <section className="section pb-0">
           <div className="container grid gap-6 md:grid-cols-2 md:gap-7">
             {middle.map((section, i) => (
               <Reveal key={section.title} variant={reveal} delay={i * 120}>
