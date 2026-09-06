@@ -52,6 +52,8 @@ export type Service = {
   theme: { accent: string; accentDark: string; accentSoft: string };
   cardImage: string;
   heroImage: string;
+  /** תמונת ה-Hero לאורך (3:4) במקום לרוחב - כשהתמונה היא פורטרט */
+  heroPortrait?: boolean;
   /** סרטון אופציונלי ל-Hero. התמונה משמשת כפוסטר ומוצגת ראשונה */
   heroVideo?: string;
   /** תמונת רוחב לאזור "למי זה מתאים" - יחס 16:7 */
@@ -416,6 +418,7 @@ export const services: Service[] = [
     },
     cardImage: "/images/bat-mitzvah-card.jpg",
     heroImage: "/images/bat-mitzvah-hero.jpg",
+    heroPortrait: true,
     bannerImage: "/images/bat-mitzvah-banner.jpg",
     gallery: [
       { src: "/images/bat-mitzvah-feedback.jpg", alt: "דף משוב בכתב יד מאמהות ובנות שהשתתפו בסדנה" },

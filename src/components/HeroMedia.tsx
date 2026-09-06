@@ -7,6 +7,8 @@ type Props = {
   /** סרטון אופציונלי. אם אין - מוצגת התמונה בלבד */
   video?: string;
   alt: string;
+  /** תמונה לאורך (3:4) במקום לרוחב (4:3) - לתמונות פורטרט שנחתכות יותר מדי */
+  portrait?: boolean;
   className?: string;
 };
 
@@ -21,10 +23,11 @@ type Props = {
  *   - הדפדפן מדווח על חיסכון בנתונים או חיבור איטי
  * במקרים האלה נשארת התמונה, עם כפתור הפעלה למי שרוצה לצפות.
  */
-export default function HeroMedia({ image, video, alt, className }: Props) {
+export default function HeroMedia({ image, video, alt, portrait = false, className }: Props) {
   const [playing, setPlaying] = useState(false);
   const [allowed, setAllowed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const aspect = portrait ? "aspect-[3/4]" : "aspect-[4/3]";
 
   useEffect(() => {
     if (!video) return;
@@ -51,9 +54,9 @@ export default function HeroMedia({ image, video, alt, className }: Props) {
         src={asset(image)}
         alt={alt}
         width={900}
-        height={675}
+        height={portrait ? 1200 : 675}
         decoding="async"
-        className={cn("aspect-[4/3] w-full object-cover", className)}
+        className={cn(aspect, "w-full object-cover", className)}
       />
     );
   }
@@ -72,7 +75,7 @@ export default function HeroMedia({ image, video, alt, className }: Props) {
         aria-label={alt}
         onPlaying={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
-        className="aspect-[4/3] w-full object-cover"
+        className={cn(aspect, "w-full object-cover")}
       />
 
       {/* כפתור הפעלה - מוצג כשהסרטון לא מתנגן (תנועה מופחתת, חיבור איטי,

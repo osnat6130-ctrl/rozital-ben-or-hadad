@@ -157,6 +157,7 @@ export default function ServicePage({ id }: Props) {
             <HeroMedia
               image={service.heroImage}
               video={service.heroVideo}
+              portrait={service.heroPortrait}
               alt={service.title}
               className="w-full rounded-[2rem] shadow-lift"
             />
