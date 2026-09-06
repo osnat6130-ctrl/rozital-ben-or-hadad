@@ -291,6 +291,16 @@ export default function ServicePage({ id }: Props) {
                     ))}
                   </ul>
                 )}
+                {last.cta && (
+                  <a
+                    href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-whatsapp relative mt-8"
+                  >
+                    {last.cta}
+                  </a>
+                )}
               </div>
             </Reveal>
           </div>
