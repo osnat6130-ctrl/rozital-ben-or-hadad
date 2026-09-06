@@ -348,7 +348,7 @@ export default function ServicePage({ id }: Props) {
                     )}
                     <ArrowDownIcon
                       aria-hidden
-                      className={`relative mx-auto h-8 w-8 animate-bounce text-white/90 ${last.ctaNote ? "mt-1" : "mt-4"}`}
+                      className={`relative mx-auto h-8 w-8 animate-bounce text-ink ${last.ctaNote ? "mt-1" : "mt-4"}`}
                     />
                     <a
                       href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
