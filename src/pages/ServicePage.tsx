@@ -402,8 +402,8 @@ export default function ServicePage({ id }: Props) {
                 rel="noopener noreferrer"
                 className="btn-whatsapp w-full sm:w-auto"
               >
-                <WhatsappIcon className="h-5 w-5" />
                 {service.cta.button ?? "שלחו וואטסאפ"}
+                <WhatsappIcon className="h-5 w-5" />
               </a>
               <a href={telLink} className="btn-primary w-full sm:w-auto">
                 <PhoneIcon className="h-5 w-5" />
