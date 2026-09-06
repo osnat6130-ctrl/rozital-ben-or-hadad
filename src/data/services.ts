@@ -341,7 +341,7 @@ export const services: Service[] = [
       { src: "/images/siblings-2.jpg", alt: "הורים וילדים יוצרים לב עם הידיים בסדנה" },
       { src: "/images/parents-kids-1.jpg", alt: "הורים וילדים במשחק כוסות בסדנת יוגה צחוק" },
       { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
-      { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית ושמחה במפגש" },
+      { src: "/images/parents-kids-4.jpg", alt: "משחק לימבו של הורים וילדים בסדנה" },
       { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
       { src: "/images/parents-kids-3.jpg", alt: "הורים וילדים מרימים ידיים יחד בתרגיל יוגה צחוק" },
     ],
