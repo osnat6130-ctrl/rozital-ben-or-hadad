@@ -183,6 +183,27 @@ export default function ServicePage({ id }: Props) {
                     className="relative mt-10"
                   />
                 )}
+                {service.spotlight.banner && (
+                  <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
+                    <div>
+                      <h3 className="text-2xl text-white">{service.spotlight.banner.title}</h3>
+                      {service.spotlight.banner.text && (
+                        <p className="mt-2 max-w-xl leading-relaxed text-white/90">
+                          {service.spotlight.banner.text}
+                        </p>
+                      )}
+                    </div>
+                    <a
+                      href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.spotlight.title} :)`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp w-full shrink-0 sm:w-auto"
+                    >
+                      <WhatsappIcon className="h-5 w-5" />
+                      {service.spotlight.banner.button}
+                    </a>
+                  </div>
+                )}
               </div>
             </Reveal>
           </div>

@@ -57,7 +57,11 @@ export type Service = {
   /** תמונה נוספת באזור ההמלצות (למשל דף משוב בכתב יד), עם לחיצה להגדלה */
   testimonialsImage?: { src: string; alt: string };
   /** אזור מודגש מיד מתחת ל-Hero, לפעילות ייחודית בתחום. מוצג רק בתחומים שהוגדר להם */
-  spotlight?: ServiceSection & { images?: { src: string; alt: string }[] };
+  spotlight?: ServiceSection & {
+    images?: { src: string; alt: string }[];
+    /** באנר קריאה לפעולה בתחתית האזור, עם כפתור וואטסאפ */
+    banner?: { title: string; text?: string; button: string };
+  };
   sections: ServiceSection[];
   cta: { title: string; text: string };
   seo: { title: string; description: string };
@@ -139,6 +143,11 @@ export const services: Service[] = [
         { src: "/images/siblings-3.jpg", alt: "רגעי הסיום: הילדים מקבלים תעודות סיום מרוזיטל" },
         { src: "/images/siblings-4.jpg", alt: "פלייר קבוצת תמיכה והעצמה לאחים מיוחדים - המרכז למשפחה, עיריית יבנה" },
       ],
+      banner: {
+        title: "רוצים לפתוח קבוצה כזו אצלכם?",
+        text: "הקבוצה מתאימה למרכזים למשפחה, רשויות, עמותות ובתי ספר. ספרו לי על הקבוצה שלכם ונתאים יחד את סדרת המפגשים.",
+        button: "שלחו וואטסאפ",
+      },
     },
     sections: [
       {
