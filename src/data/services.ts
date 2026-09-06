@@ -42,6 +42,8 @@ export type Service = {
   heroSubtitle: string | string[];
   /** תווית כפתור הוואטסאפ ב-Hero. ברירת מחדל: "שלחו וואטסאפ" */
   heroCta?: string;
+  /** חץ קופץ מעל כפתור ה-Hero, שמסמן שצריך ללחוץ עליו */
+  heroCtaArrow?: boolean;
   /** עוצמת האנימציות בדף - נקבעת לפי אופי התחום */
   motion: ServiceMotion;
   /** גווני התחום (HSL, ללא פסיקים) */
@@ -324,6 +326,7 @@ export const services: Service[] = [
       "הפעילות מגיעה ישירות אליכם לקבוצה, לבית הספר או לקהילה שלכם :)",
     ],
     heroCta: "בואו נצחק ונהנה יחד ❤️",
+    heroCtaArrow: true,
     motion: "joyful",
     theme: {
       accent: "262 48% 55%",
