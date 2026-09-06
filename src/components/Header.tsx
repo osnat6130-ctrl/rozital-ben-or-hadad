@@ -11,9 +11,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  /* ה-Hero של דף הבית כהה, ולכן בראש הדף ה-Header שקוף עם טקסט בהיר
-     ויושב על גבי התמונה. ברגע שגוללים הוא הופך לפס בהיר רגיל. */
-  const overDarkHero = pathname === "/" && !scrolled;
+  /* בראש דף הבית ה-Header שקוף ויושב על גבי ה-Hero.
+     ברגע שגוללים הוא הופך לפס בהיר רגיל. */
+  const overHero = pathname === "/" && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -37,7 +37,7 @@ export default function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
-          overDarkHero
+          overHero
             ? "bg-transparent"
             : scrolled
               ? "bg-surface/95 shadow-soft backdrop-blur-md"
@@ -46,7 +46,7 @@ export default function Header() {
       >
         <div className="container flex h-[72px] items-center justify-between gap-4 md:h-20">
           <Link to="/" aria-label={`${site.name} - לדף הבית`} className="shrink-0">
-            <Logo invert={overDarkHero} />
+            <Logo />
           </Link>
 
           <nav aria-label="ניווט ראשי" className="hidden lg:block">
@@ -58,13 +58,7 @@ export default function Header() {
                     className={({ isActive }) =>
                       cn(
                         "relative block rounded-full px-4 py-2 font-display text-[0.97rem] font-bold transition-colors duration-200",
-                        overDarkHero
-                          ? isActive
-                            ? "text-gold"
-                            : "text-hero-ink/80 hover:text-gold"
-                          : isActive
-                            ? "text-brand"
-                            : "text-ink/75 hover:text-brand",
+                        isActive ? "text-brand" : "text-ink/75 hover:text-brand",
                       )
                     }
                   >
@@ -88,12 +82,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href={telLink}
-              className={cn(
-                "btn hidden !px-5 !py-2.5 !text-base shadow-soft hover:shadow-lift md:hover:-translate-y-0.5 sm:inline-flex",
-                overDarkHero
-                  ? "bg-gold text-hero hover:brightness-105"
-                  : "bg-accent text-white hover:brightness-110",
-              )}
+              className="btn hidden bg-accent !px-5 !py-2.5 !text-base text-white shadow-soft hover:brightness-110 hover:shadow-lift md:hover:-translate-y-0.5 sm:inline-flex"
               aria-label={`חיוג לרוזיטל: ${site.phone.display}`}
             >
               <PhoneIcon className="h-5 w-5" />
@@ -104,10 +93,8 @@ export default function Header() {
               type="button"
               onClick={() => setMenuOpen(true)}
               className={cn(
-                "inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors lg:hidden",
-                overDarkHero
-                  ? "bg-hero-ink/12 text-hero-ink hover:bg-gold hover:text-hero"
-                  : "bg-brand-soft text-brand-dark hover:bg-brand hover:text-white",
+                "inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-dark transition-colors hover:bg-brand hover:text-white lg:hidden",
+                overHero ? "bg-surface/70" : "bg-brand-soft",
               )}
               aria-label="פתיחת תפריט"
               aria-expanded={menuOpen}
