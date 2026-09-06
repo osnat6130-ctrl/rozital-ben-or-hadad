@@ -99,7 +99,7 @@ export default function Accessibility() {
                   className="btn-whatsapp w-full sm:w-auto"
                 >
                   <WhatsappIcon className="h-5 w-5" />
-                  שלחו וואטסאפ 🙂
+                  שלחו וואטסאפ
                 </a>
                 <a href={telLink} className="btn-outline w-full sm:w-auto">
                   <PhoneIcon className="h-5 w-5" />
