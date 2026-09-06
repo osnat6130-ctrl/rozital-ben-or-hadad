@@ -183,6 +183,14 @@ export default function ServicePage({ id }: Props) {
                     className="relative mt-10"
                   />
                 )}
+                {service.spotlight.testimonials && service.spotlight.testimonials.length > 0 && (
+                  <div className="relative mt-12">
+                    <h3 className="text-center text-2xl text-accent-dark sm:text-3xl">
+                      מה אומרים ההורים
+                    </h3>
+                    <Testimonials items={service.spotlight.testimonials} motion={service.motion} />
+                  </div>
+                )}
                 {service.spotlight.banner && (
                   <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
                     <div>
