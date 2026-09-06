@@ -37,16 +37,22 @@ export default function ImageGallery({ images, motion = "calm", className }: Pro
           <div key={group[0].src} className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {group.map((image, j) => {
               const i = g * 3 + j;
+              // תמונה שנשארה לבד בשלשה האחרונה נפרסת לרוחב כל השורה
+              const alone = group.length === 1;
               return (
                 <Reveal
                   key={image.src}
                   variant={reveal}
                   delay={j * 90}
                   className={cn(
-                    j === 0 && "col-span-2 md:row-span-2",
+                    j === 0 && (alone ? "col-span-2 md:col-span-3" : "col-span-2 md:row-span-2"),
                     // הגדולה תופסת 2x2 משבצות, ולכן ריבועית בדסקטופ - אחרת תמונת
                     // פורטרט גבוהה מותחת את השורות ופותחת רווחים בין הקטנות
-                    j === 0 ? "aspect-[4/3] md:aspect-square" : "aspect-square",
+                    j === 0
+                      ? alone
+                        ? "aspect-[4/3] md:aspect-[16/7]"
+                        : "aspect-[4/3] md:aspect-square"
+                      : "aspect-square",
                   )}
                 >
                   <button

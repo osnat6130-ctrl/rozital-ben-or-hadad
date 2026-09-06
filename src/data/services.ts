@@ -427,6 +427,7 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-4.jpg", alt: "אם ובת מדליקות נרות בטקס בת מצווה" },
       { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית בסדנת בת מצווה" },
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
+      { src: "/images/bat-mitzvah-7.jpg", alt: "אמהות ובנות סביב השולחן בסדנת בת מצווה" },
     ],
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
