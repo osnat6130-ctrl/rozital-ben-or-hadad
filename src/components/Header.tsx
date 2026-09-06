@@ -57,7 +57,7 @@ export default function Header() {
                     to={item.to}
                     className={({ isActive }) =>
                       cn(
-                        "relative block rounded-full px-4 py-2 font-display text-[0.97rem] font-bold transition-colors duration-200",
+                        "relative block whitespace-nowrap rounded-full px-3 py-2 font-display text-[0.95rem] font-bold transition-colors duration-200 xl:px-4 xl:text-[0.97rem]",
                         isActive ? "text-brand" : "text-ink/75 hover:text-brand",
                       )
                     }
@@ -82,7 +82,7 @@ export default function Header() {
           <div className="flex items-center gap-2">
             <a
               href={telLink}
-              className="btn hidden bg-accent !px-5 !py-2.5 !text-base text-white shadow-soft hover:brightness-110 hover:shadow-lift md:hover:-translate-y-0.5 sm:inline-flex"
+              className="btn hidden whitespace-nowrap bg-accent !px-5 !py-2.5 !text-base text-white shadow-soft hover:brightness-110 hover:shadow-lift md:hover:-translate-y-0.5 sm:inline-flex"
               aria-label={`חיוג לרוזיטל: ${site.phone.display}`}
             >
               <PhoneIcon className="h-5 w-5" />

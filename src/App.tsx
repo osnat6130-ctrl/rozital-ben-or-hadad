@@ -13,9 +13,10 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          {/* שלושת דפי השירות משתמשים באותה קומפוננטה, עם נתונים שונים */}
+          {/* דפי השירות משתמשים באותה קומפוננטה, עם נתונים שונים */}
           <Route path="/lectures" element={<ServicePage id="lectures" />} />
           <Route path="/laughter-yoga" element={<ServicePage id="laughter-yoga" />} />
+          <Route path="/parents-kids" element={<ServicePage id="parents-kids" />} />
           <Route path="/bat-mitzvah" element={<ServicePage id="bat-mitzvah" />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

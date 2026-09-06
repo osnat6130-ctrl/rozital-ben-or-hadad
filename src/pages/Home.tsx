@@ -35,14 +35,14 @@ export default function Home() {
 
       <HomeHero />
 
-      {/* --- שלושת התחומים --- */}
+      {/* --- התחומים --- */}
       <section id="services" className="section scroll-mt-24" aria-labelledby="services-title">
         <div className="container">
           <SectionTitle
             title={<span id="services-title">איך אני יכולה לעזור לכם?</span>}
           />
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3 md:gap-7">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-7 xl:grid-cols-4">
             {services.map((service, i) => (
               <ServiceCard key={service.id} service={service} index={i} />
             ))}

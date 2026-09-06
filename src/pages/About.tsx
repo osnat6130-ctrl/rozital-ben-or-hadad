@@ -116,7 +116,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ================= שלושת התחומים ================= */}
+      {/* ================= התחומים ================= */}
       <section className="section bg-brand-soft" aria-labelledby="about-services-title">
         <div className="container">
           <SectionTitle
@@ -124,7 +124,7 @@ export default function About() {
             subtitle="לכל קהל התאמה משלו - אבל האנרגיה תמיד אותה אנרגיה."
           />
 
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             {services.map((service, i) => (
               <Reveal key={service.id} delay={i * 110}>
                 <ServiceTheme theme={service.theme} className="h-full">
