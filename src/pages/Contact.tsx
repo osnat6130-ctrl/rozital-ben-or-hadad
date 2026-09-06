@@ -1,7 +1,7 @@
 import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
 import WhatsappForm from "@/components/WhatsappForm";
-import { LogoMark } from "@/components/Logo";
+import Logo from "@/components/Logo";
 import { MailIcon, PhoneIcon } from "@/components/Icons";
 import { site, telLink } from "@/data/site";
 import { services } from "@/data/services";
@@ -62,7 +62,7 @@ export default function Contact() {
                 />
 
                 <div className="relative flex h-full flex-col">
-                  <LogoMark className="h-16" alt="" />
+                  <Logo variant="horizontal" withTagline invert className="w-fit" />
                   <h2 className="mt-6 text-3xl text-white">אשמח לשמוע מכם</h2>
                   <p className="mt-3 leading-relaxed text-white/80">
                     שיחת טלפון או פנייה דרך הטופס - מה שנוח לכם. כל פנייה מגיעה אלי אישית.
