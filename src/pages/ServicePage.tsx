@@ -309,7 +309,7 @@ export default function ServicePage({ id }: Props) {
         <section className="section" aria-labelledby="service-highlight">
           <div className="container">
             <Reveal variant={reveal}>
-              <div className="relative overflow-hidden rounded-[2rem] bg-accent px-7 py-12 text-center text-white md:px-16 md:py-16">
+              <div className="relative overflow-hidden rounded-[2rem] bg-accent px-7 py-10 text-center text-white md:px-16 md:py-12">
                 <span
                   aria-hidden
                   className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10"
@@ -324,7 +324,7 @@ export default function ServicePage({ id }: Props) {
                 {last.paragraphs?.map((paragraph) => (
                   <p
                     key={paragraph}
-                    className="relative mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/90"
+                    className="relative mx-auto mt-3 max-w-2xl text-lg leading-relaxed text-white/90 first-of-type:mt-5"
                   >
                     {paragraph}
                   </p>
