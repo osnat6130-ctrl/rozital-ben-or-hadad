@@ -341,9 +341,14 @@ export default function ServicePage({ id }: Props) {
                 )}
                 {last.cta && (
                   <>
+                    {last.ctaNote && (
+                      <p className="relative mt-5 font-display text-lg font-bold text-ink">
+                        {last.ctaNote}
+                      </p>
+                    )}
                     <ArrowDownIcon
                       aria-hidden
-                      className="relative mx-auto mt-4 h-8 w-8 animate-bounce text-white/90"
+                      className={`relative mx-auto h-8 w-8 animate-bounce text-white/90 ${last.ctaNote ? "mt-1" : "mt-4"}`}
                     />
                     <a
                       href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
