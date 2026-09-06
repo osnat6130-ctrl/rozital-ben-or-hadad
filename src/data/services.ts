@@ -403,7 +403,7 @@ export const services: Service[] = [
   {
     id: "bat-mitzvah",
     path: "/bat-mitzvah",
-    navLabel: "בת מצווה",
+    navLabel: "בנות מצווה",
     title: "פעילות בת מצווה",
     cardTitle: "פעילות בת מצווה",
     cardText:

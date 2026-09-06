@@ -64,7 +64,7 @@ export const navItems: NavItem[] = [
   { label: "צרכים מיוחדים", to: "/lectures" },
   { label: "יוגה צחוק", to: "/laughter-yoga" },
   { label: "הורים וילדים", to: "/parents-kids" },
-  { label: "בת מצווה", to: "/bat-mitzvah" },
+  { label: "בנות מצווה", to: "/bat-mitzvah" },
   { label: "אודות", to: "/about" },
   { label: "צור קשר", to: "/contact" },
 ];
