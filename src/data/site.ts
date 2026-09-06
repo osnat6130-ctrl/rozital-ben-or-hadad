@@ -32,6 +32,9 @@ export const site = {
     whatsapp: "972543979639",
   },
 
+  /** המספר שאליו נשלחות פניות מטופס יצירת הקשר (פורמט בינלאומי, בלי +) */
+  contactFormWhatsapp: "972556825885",
+
   /** ‼️ TODO: להחליף לדומיין האמיתי (וגם ב-index.html / robots.txt / sitemap.xml) */
   url: "https://rozital.co.il",
 
@@ -49,9 +52,12 @@ export const site = {
   },
 } as const;
 
-/** בונה קישור וואטסאפ עם הודעה מוכנה */
-export function whatsappLink(message: string = site.whatsappDefaultMessage) {
-  return `https://wa.me/${site.phone.whatsapp}?text=${encodeURIComponent(message)}`;
+/** בונה קישור וואטסאפ עם הודעה מוכנה. ברירת המחדל: המספר של רוזיטל */
+export function whatsappLink(
+  message: string = site.whatsappDefaultMessage,
+  number: string = site.phone.whatsapp,
+) {
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
 }
 
 /** בונה קישור חיוג */

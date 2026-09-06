@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { WhatsappIcon } from "./Icons";
 import { services } from "@/data/services";
-import { whatsappLink } from "@/data/site";
+import { site, whatsappLink } from "@/data/site";
 
 const fieldClass =
   "w-full rounded-2xl border border-line bg-surface px-4 py-3 text-ink placeholder:text-muted/60 transition-colors focus:border-accent";
@@ -27,7 +27,11 @@ export default function WhatsappForm() {
       topic && `נושא: ${topic}`,
       `הודעה: ${message.trim()}`,
     ].filter(Boolean);
-    window.open(whatsappLink(lines.join("\n")), "_blank", "noopener,noreferrer");
+    window.open(
+      whatsappLink(lines.join("\n"), site.contactFormWhatsapp),
+      "_blank",
+      "noopener,noreferrer",
+    );
   };
 
   return (
