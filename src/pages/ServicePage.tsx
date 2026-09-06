@@ -187,11 +187,11 @@ export default function ServicePage({ id }: Props) {
                   <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
                     <div>
                       <h3 className="text-2xl text-white">{service.spotlight.banner.title}</h3>
-                      {service.spotlight.banner.text && (
-                        <p className="mt-2 max-w-xl leading-relaxed text-white/90">
-                          {service.spotlight.banner.text}
+                      {service.spotlight.banner.paragraphs?.map((paragraph) => (
+                        <p key={paragraph} className="mt-3 max-w-2xl leading-relaxed text-white/90">
+                          {paragraph}
                         </p>
-                      )}
+                      ))}
                     </div>
                     <a
                       href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.spotlight.title} :)`)}

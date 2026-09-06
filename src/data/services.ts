@@ -60,7 +60,7 @@ export type Service = {
   spotlight?: ServiceSection & {
     images?: { src: string; alt: string }[];
     /** באנר קריאה לפעולה בתחתית האזור, עם כפתור וואטסאפ */
-    banner?: { title: string; text?: string; button: string };
+    banner?: { title: string; paragraphs?: string[]; button: string };
   };
   sections: ServiceSection[];
   cta: { title: string; text: string };
@@ -144,8 +144,11 @@ export const services: Service[] = [
         { src: "/images/siblings-4.jpg", alt: "פלייר קבוצת תמיכה והעצמה לאחים מיוחדים - המרכז למשפחה, עיריית יבנה" },
       ],
       banner: {
-        title: "רוצים לפתוח קבוצה כזו אצלכם?",
-        text: "הקבוצה מתאימה למרכזים למשפחה, רשויות, עמותות ובתי ספר. ספרו לי על הקבוצה שלכם ונתאים יחד את סדרת המפגשים.",
+        title: "רוצים להביא את השינוי הזה אליכם?",
+        paragraphs: [
+          "כי הורים, צוותי חינוך ומשפחות לא צריכים להישאר לבד עם העומס. בין אם אתם מנהלים מרכז למשפחה, מובילים פעילות ברשות מקומית, בעמותה או בבית ספר - יש לכם את הכוח להעניק להם מרחב בטוח, מחבק ומלא בכלים מעשיים.",
+          "ספרו לי על הקהילה שלכם, ויחד נבנה סדרת מפגשים מדויקת, מרגשת ומשנת חיים שנוגעת בדיוק איפה שצריך.",
+        ],
         button: "שלחו וואטסאפ",
       },
     },
