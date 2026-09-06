@@ -37,7 +37,8 @@ export default function ImageGallery({ images, motion = "calm", className }: Pro
           <div key={group[0].src} className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {group.map((image, j) => {
               const i = g * 3 + j;
-              // תמונה שנשארה לבד בשלשה האחרונה נפרסת לרוחב כל השורה
+              // תמונה שנשארה לבד בשלשה האחרונה מוצגת ממורכזת ובגודל מתון,
+              // ובלי חיתוך - כדי שגם פלייר או תמונה לגובה ייראו במלואם
               const alone = group.length === 1;
               return (
                 <Reveal
@@ -45,28 +46,33 @@ export default function ImageGallery({ images, motion = "calm", className }: Pro
                   variant={reveal}
                   delay={j * 90}
                   className={cn(
-                    j === 0 && (alone ? "col-span-2 md:col-span-3" : "col-span-2 md:row-span-2"),
+                    j === 0 &&
+                      (alone
+                        ? "col-span-2 mx-auto w-full max-w-lg md:col-span-3"
+                        : "col-span-2 md:row-span-2"),
                     // הגדולה תופסת 2x2 משבצות, ולכן ריבועית בדסקטופ - אחרת תמונת
                     // פורטרט גבוהה מותחת את השורות ופותחת רווחים בין הקטנות
-                    j === 0
-                      ? alone
-                        ? "aspect-[4/3] md:aspect-[16/7]"
-                        : "aspect-[4/3] md:aspect-square"
-                      : "aspect-square",
+                    j === 0 && !alone ? "aspect-[4/3] md:aspect-square" : "aspect-[4/3]",
                   )}
                 >
                   <button
                     type="button"
                     onClick={() => setActive(i)}
                     aria-label={`הגדלת התמונה: ${image.alt}`}
-                    className="group relative block h-full w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-line/60 transition-shadow duration-300 hover:shadow-card"
+                    className={cn(
+                      "group relative block h-full w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-line/60 transition-shadow duration-300 hover:shadow-card",
+                      alone && "bg-accent-soft/25",
+                    )}
                   >
                     <img
                       src={asset(image.src)}
                       alt={image.alt}
                       loading="lazy"
                       decoding="async"
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className={cn(
+                        "h-full w-full transition-transform duration-700 ease-out group-hover:scale-105",
+                        alone ? "object-contain" : "object-cover",
+                      )}
                     />
                     <span className="absolute inset-0 flex items-center justify-center bg-accent-dark/0 transition-colors duration-300 group-hover:bg-accent-dark/35">
                       <ZoomIcon className="h-9 w-9 scale-75 text-white opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100" />
