@@ -68,7 +68,8 @@ export type Service = {
     banner?: { title: string; paragraphs?: string[]; button: string };
   };
   sections: ServiceSection[];
-  cta: { title: string; text: string };
+  /** אזור יצירת הקשר בתחתית הדף. button - תווית כפתור הוואטסאפ (ברירת מחדל: "שלחו וואטסאפ") */
+  cta: { title: string; text: string; button?: string };
   seo: { title: string; description: string };
 };
 
@@ -200,6 +201,7 @@ export const services: Service[] = [
     cta: {
       title: "רוצים להביא את השינוי הזה אליכם?",
       text: "כי לקהילה שלכם מגיע מרחב בטוח, מחבק ומלא בכלים מעשיים. אשמח להכיר את הקהילה שלכם, ולרקום יחד מפגש מדויק שנוגע ישר בלב.",
+      button: "שריינו מקום מהלב בוואטסאפ",
     },
     seo: {
       title: "הרצאות להורים לילדים עם צרכים מיוחדים | רוזיטל בן אור חדד",
