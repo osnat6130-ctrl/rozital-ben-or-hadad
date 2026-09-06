@@ -148,6 +148,40 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
+      {/* ================= אזור מודגש מתחת ל-Hero =================
+          מוצג רק בתחומים שהוגדר להם spotlight (כרגע: קבוצת העצמה לאחים) */}
+      {service.spotlight && (
+        <section className="pb-4 pt-8 md:pb-6 md:pt-12" aria-labelledby="service-spotlight">
+          <div className="container">
+            <Reveal variant={reveal}>
+              <div className="relative overflow-hidden rounded-[2rem] bg-surface p-8 shadow-card ring-1 ring-line/60 md:p-12">
+                <span
+                  aria-hidden
+                  className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent-soft/60 blur-2xl"
+                />
+                <div className="relative grid gap-8 md:grid-cols-2 md:gap-12">
+                  <div>
+                    <h2 id="service-spotlight" className="text-3xl text-accent-dark sm:text-4xl">
+                      {service.spotlight.title}
+                    </h2>
+                    {service.spotlight.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className="mt-4 text-lg leading-relaxed text-muted">
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  {service.spotlight.bullets && (
+                    <div className="md:pt-2">
+                      <Bullets items={service.spotlight.bullets} />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* ================= "למי זה מתאים" =================
           קומפוזיציה שונה בכוונה מזו של ה-Hero: באנר רוחב, כותרת ממורכזת,
           וקהלי היעד ככרטיסים - במקום עוד פיצול טקסט/תמונה. */}
