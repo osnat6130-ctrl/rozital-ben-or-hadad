@@ -32,7 +32,7 @@ function SectionBody({ section }: { section: ServiceSection }) {
   return (
     <>
       {section.paragraphs?.map((paragraph) => (
-        <p key={paragraph} className="mt-3 text-lg leading-relaxed text-muted">
+        <p key={paragraph} className="mt-3 text-lg leading-normal text-muted">
           {paragraph}
         </p>
       ))}
