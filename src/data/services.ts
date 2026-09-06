@@ -340,7 +340,7 @@ export const services: Service[] = [
     gallery: [
       { src: "/images/siblings-2.jpg", alt: "הורים וילדים יוצרים לב עם הידיים בסדנה" },
       { src: "/images/parents-kids-1.jpg", alt: "הורים וילדים במשחק כוסות בסדנת יוגה צחוק" },
-      { src: "/images/bat-mitzvah-2.jpg", alt: "רגע מרגש בפעילות משפחתית" },
+      { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
       { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית ושמחה במפגש" },
       { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת במפגש משפחתי" },
