@@ -129,7 +129,7 @@ export default function WhatsappForm() {
         </div>
 
         <button type="submit" className="btn-whatsapp mt-7 w-full !py-4 !text-lg">
-          שלח פניה לוואטסאפ
+          שלח פניה לוואטסאפ 🙂
           <WhatsappIcon className="h-6 w-6" />
         </button>
 
