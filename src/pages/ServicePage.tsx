@@ -136,7 +136,7 @@ export default function ServicePage({ id }: Props) {
                   className="btn-whatsapp w-full sm:w-auto"
                 >
                   <WhatsappIcon className="h-5 w-5" />
-                  שלחו וואטסאפ
+                  {service.heroCta ?? "שלחו וואטסאפ"}
                 </a>
               </div>
             </Reveal>
