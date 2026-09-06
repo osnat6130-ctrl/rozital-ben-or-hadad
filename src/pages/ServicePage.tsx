@@ -128,14 +128,17 @@ export default function ServicePage({ id }: Props) {
             </Reveal>
 
             <Reveal delay={180}>
-              {service.heroCtaArrow && (
-                <ArrowDownIcon
-                  aria-hidden
-                  className="mx-auto mt-6 h-8 w-8 animate-bounce text-accent lg:mx-0 lg:ms-24"
-                />
+              {service.heroCtaNote && (
+                <div className="mt-6 flex flex-col items-center lg:w-64 lg:items-center">
+                  <p className="font-display font-bold text-accent-dark">{service.heroCtaNote}</p>
+                  <ArrowDownIcon
+                    aria-hidden
+                    className="mt-1 h-8 w-8 animate-bounce text-accent"
+                  />
+                </div>
               )}
               <div
-                className={`flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start ${service.heroCtaArrow ? "mt-2" : "mt-8"}`}
+                className={`flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start ${service.heroCtaNote ? "mt-2" : "mt-8"}`}
               >
                 <a
                   href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.cardTitle} :)`)}
