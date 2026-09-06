@@ -50,14 +50,14 @@ export default function Header() {
           </Link>
 
           <nav aria-label="ניווט ראשי" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-0.5">
               {navItems.map((item) => (
                 <li key={item.to}>
                   <NavLink
                     to={item.to}
                     className={({ isActive }) =>
                       cn(
-                        "relative block whitespace-nowrap rounded-full px-3 py-2 font-display text-[0.95rem] font-bold transition-colors duration-200 xl:px-4 xl:text-[0.97rem]",
+                        "relative block whitespace-nowrap rounded-full px-2.5 py-2 font-display text-[0.95rem] font-bold transition-colors duration-200 xl:px-3 xl:text-[0.97rem]",
                         isActive ? "text-brand" : "text-ink/75 hover:text-brand",
                       )
                     }
@@ -67,7 +67,7 @@ export default function Header() {
                         {item.label}
                         <span
                           className={cn(
-                            "absolute inset-x-3 -bottom-0.5 h-[3px] rounded-full bg-gold transition-all duration-300",
+                            "absolute inset-x-2.5 -bottom-0.5 h-[3px] rounded-full bg-gold transition-all duration-300 xl:inset-x-3",
                             isActive ? "opacity-100" : "opacity-0",
                           )}
                         />
