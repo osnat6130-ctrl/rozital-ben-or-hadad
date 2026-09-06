@@ -343,7 +343,7 @@ export const services: Service[] = [
       { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
       { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית ושמחה במפגש" },
       { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
-      { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת במפגש משפחתי" },
+      { src: "/images/parents-kids-3.jpg", alt: "הורים וילדים מרימים ידיים יחד בתרגיל יוגה צחוק" },
     ],
     sections: [
       {
