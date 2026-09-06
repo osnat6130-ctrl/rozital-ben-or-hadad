@@ -51,11 +51,8 @@ export default function WhatsappForm() {
         <h2 id="contact-form-title" className="text-2xl sm:text-3xl">
           השאירו פנייה
         </h2>
-        <p className="mt-2 leading-relaxed text-muted">
-          מלאו את הפרטים, ובלחיצה על כפתור השליחה ההודעה תישלח אלי לוואטסאפ.
-        </p>
 
-        <div className="mt-7 grid gap-5 sm:grid-cols-2">
+        <div className="mt-6 grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="contact-name" className={labelClass}>
               שם מלא
