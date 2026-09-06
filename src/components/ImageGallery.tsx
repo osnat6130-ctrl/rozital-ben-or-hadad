@@ -52,7 +52,11 @@ export default function ImageGallery({ images, motion = "calm", className }: Pro
                         : "col-span-2 md:row-span-2"),
                     // הגדולה תופסת 2x2 משבצות, ולכן ריבועית בדסקטופ - אחרת תמונת
                     // פורטרט גבוהה מותחת את השורות ופותחת רווחים בין הקטנות
-                    j === 0 && !alone ? "aspect-[4/3] md:aspect-square" : "aspect-[4/3]",
+                    alone
+                      ? "aspect-[4/3]"
+                      : j === 0
+                        ? "aspect-[4/3] md:aspect-square"
+                        : "aspect-square",
                   )}
                 >
                   <button
