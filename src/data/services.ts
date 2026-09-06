@@ -59,6 +59,8 @@ export type Service = {
   /** תמונת רוחב לאזור "למי זה מתאים" - יחס 16:7 */
   bannerImage: string;
   gallery: { src: string; alt: string }[];
+  /** סרטון באזור משלו אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי) */
+  video?: { src: string; title?: string };
   /** המלצות אמיתיות. האזור מוצג רק בתחומים שיש להם המלצות */
   testimonials?: Testimonial[];
   /** כותרת אזור ההמלצות. ברירת מחדל: "מה אומרים אחרי המפגש" */
@@ -429,6 +431,7 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
       { src: "/images/bat-mitzvah-7.jpg", alt: "אמהות ובנות סביב השולחן בסדנת בת מצווה" },
     ],
+    video: { src: "/videos/bat-mitzvah.mp4", title: "רגעים מהסדנה" },
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
       src: "/images/bat-mitzvah-feedback.jpg",

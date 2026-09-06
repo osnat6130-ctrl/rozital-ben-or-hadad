@@ -382,6 +382,27 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
+      {/* ================= סרטון =================
+          מוצג רק בתחומים שהוגדר להם סרטון */}
+      {service.video && (
+        <section className="section pt-0" aria-labelledby="video-title">
+          <div className="container">
+            <SectionTitle
+              title={<span id="video-title">{service.video.title ?? "רגעים מהסדנה"}</span>}
+            />
+            <Reveal variant={reveal} className="mt-10">
+              <video
+                src={asset(service.video.src)}
+                controls
+                playsInline
+                preload="metadata"
+                className="mx-auto max-h-[80vh] w-auto max-w-full rounded-[2rem] bg-black shadow-lift"
+              />
+            </Reveal>
+          </div>
+        </section>
+      )}
+
       {/* ================= המלצות =================
           מוצג רק בתחומים שיש להם המלצות אמיתיות */}
       {service.testimonials && service.testimonials.length > 0 && (
