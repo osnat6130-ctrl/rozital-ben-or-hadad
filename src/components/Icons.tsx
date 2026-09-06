@@ -73,6 +73,13 @@ export const ArrowIcon = (p: IconProps) => (
   </svg>
 );
 
+export const ArrowDownIcon = (p: IconProps) => (
+  <svg {...base} strokeWidth={2.2} {...p}>
+    <path d="M12 4v16" />
+    <path d="m5 13 7 7 7-7" />
+  </svg>
+);
+
 export const CheckIcon = (p: IconProps) => (
   <svg {...base} strokeWidth={2.2} {...p}>
     <path d="m5 12.5 4.5 4.5L19 7.5" />

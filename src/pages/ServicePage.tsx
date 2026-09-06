@@ -5,7 +5,7 @@ import SectionTitle from "@/components/SectionTitle";
 import ImageGallery from "@/components/ImageGallery";
 import HeroMedia from "@/components/HeroMedia";
 import Testimonials from "@/components/Testimonials";
-import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
+import { ArrowDownIcon, CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
 import { site, telLink, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
@@ -292,14 +292,20 @@ export default function ServicePage({ id }: Props) {
                   </ul>
                 )}
                 {last.cta && (
-                  <a
-                    href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-whatsapp relative mt-8"
-                  >
-                    {last.cta}
-                  </a>
+                  <>
+                    <ArrowDownIcon
+                      aria-hidden
+                      className="relative mx-auto mt-4 h-8 w-8 animate-bounce text-white/90"
+                    />
+                    <a
+                      href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp relative mt-3"
+                    >
+                      {last.cta}
+                    </a>
+                  </>
                 )}
               </div>
             </Reveal>
