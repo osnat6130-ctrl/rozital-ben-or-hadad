@@ -341,6 +341,7 @@ export default function ServicePage({ id }: Props) {
                       className="btn-whatsapp relative mt-3"
                     >
                       {last.cta}
+                      <WhatsappIcon className="h-5 w-5" />
                     </a>
                   </>
                 )}
