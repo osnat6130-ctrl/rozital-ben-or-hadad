@@ -2,8 +2,8 @@ import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
 import WhatsappForm from "@/components/WhatsappForm";
 import { LogoMark } from "@/components/Logo";
-import { MailIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
-import { site, telLink, whatsappLink } from "@/data/site";
+import { MailIcon, PhoneIcon } from "@/components/Icons";
+import { site, telLink } from "@/data/site";
 
 export default function Contact() {
   return (
@@ -40,25 +40,6 @@ export default function Contact() {
             {/* --- דרכי יצירת קשר ישירות --- */}
             <div className="space-y-4">
               <Reveal delay={80}>
-                <a
-                  href={whatsappLink()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-4 rounded-3xl bg-whatsapp p-6 shadow-card transition-all duration-300 md:hover:-translate-y-1"
-                >
-                  <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/15 text-white">
-                    <WhatsappIcon className="h-7 w-7" />
-                  </span>
-                  <span>
-                    <span className="block font-display text-lg font-bold text-white">
-                      וואטסאפ
-                    </span>
-                    <span className="text-white/85">הכי מהיר - הודעה ואני חוזרת אליכם</span>
-                  </span>
-                </a>
-              </Reveal>
-
-              <Reveal delay={140}>
                 <a
                   href={telLink}
                   className="group flex items-center gap-4 rounded-3xl bg-surface p-6 shadow-card ring-1 ring-line/70 transition-all duration-300 md:hover:-translate-y-1"
