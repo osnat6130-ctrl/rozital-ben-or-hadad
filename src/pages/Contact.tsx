@@ -43,8 +43,8 @@ export default function Contact() {
               בואו <span className="underline-brush">נדבר</span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              יש שאלה? רוצים לשמוע פרטים או לבדוק תאריך? אשמח לשמוע מכם - ואחזור אליכם
-              בהקדם.
+              רוצים לדעת איך זה עובד, לבדוק תאריך פנוי או לשאול שאלה? אני כאן בשבילכם.
+              תשאירו פרטים ואני אחזור אליכם בהקדם :)
             </p>
           </Reveal>
 
