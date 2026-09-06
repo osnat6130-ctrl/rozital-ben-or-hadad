@@ -39,7 +39,7 @@ export default function Home() {
       <section id="services" className="section scroll-mt-24" aria-labelledby="services-title">
         <div className="container">
           <SectionTitle
-            title={<span id="services-title">איזה תחום הכי מדבר אליכם?</span>}
+            title={<span id="services-title">איך אני יכולה לעזור לכם?</span>}
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-3 md:gap-7">
