@@ -351,7 +351,7 @@ export const services: Service[] = [
     bannerImage: "/images/siblings-1.jpg",
     gallery: [
       { src: "/images/parents-kids-6.jpg", alt: "אמהות וילדות מצטלמות סלפי בסיום הסדנה" },
-      { src: "/images/parents-kids-1.jpg", alt: "הורים וילדים במשחק כוסות בסדנת יוגה צחוק" },
+      { src: "/images/parents-kids-7.jpg", alt: "רוזיטל ומשתתפת עם מסכה ואביזרי צחוק בסדנה" },
       { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
       { src: "/images/parents-kids-4.jpg", alt: "משחק לימבו של הורים וילדים בסדנה" },
       { src: "/images/parents-kids-5.jpg", alt: "הורים וילדים במשחק מסכות בסדנה" },
