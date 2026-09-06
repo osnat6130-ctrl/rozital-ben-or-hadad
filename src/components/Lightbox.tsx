@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { CloseIcon } from "./Icons";
 import { asset } from "@/lib/utils";
 
@@ -49,7 +50,9 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Props) 
   if (!isOpen) return null;
   const image = images[index];
 
-  return (
+  // מרונדר ישירות ב-body: אב עם transform / will-change (למשל Reveal) הופך
+  // ל"מסגרת" של position: fixed, וכל התצוגה הייתה נכלאת בתוך הכרטיס.
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
@@ -103,6 +106,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }: Props) 
           </button>
         </div>
       )}
-    </div>
+    </div>,
+    document.body,
   );
 }
