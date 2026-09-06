@@ -418,7 +418,7 @@ export const services: Service[] = [
     heroImage: "/images/bat-mitzvah-hero.jpg",
     bannerImage: "/images/bat-mitzvah-banner.jpg",
     gallery: [
-      { src: "/images/bat-mitzvah-1.jpg", alt: "כיבוד וקינוחים שהוכנו לסדנת בת מצווה" },
+      { src: "/images/bat-mitzvah-feedback.jpg", alt: "דף משוב בכתב יד מאמהות ובנות שהשתתפו בסדנה" },
       { src: "/images/bat-mitzvah-2.jpg", alt: "רגע מרגש בפעילות בת מצווה" },
       { src: "/images/bat-mitzvah-3.jpg", alt: "עיצוב נרות המספר 12 בסדנת בת מצווה" },
       { src: "/images/bat-mitzvah-4.jpg", alt: "אם ובת מדליקות נרות בטקס בת מצווה" },
