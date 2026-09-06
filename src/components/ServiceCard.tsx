@@ -36,7 +36,7 @@ export default function ServiceCard({ service, index = 0 }: Props) {
           </div>
 
           <div className="flex flex-1 flex-col p-6 sm:p-7">
-            <h3 className="font-display text-lg font-extrabold text-accent-dark sm:text-xl">
+            <h3 className="font-display text-lg font-bold text-accent-dark sm:text-xl">
               {service.cardTitle}
             </h3>
             <p className="mt-3 flex-1 leading-relaxed text-muted">{service.cardText}</p>

@@ -110,7 +110,7 @@ export default function ServicePage({ id }: Props) {
               {/* משפט המפתח של התחום. מעוצב ככותרת אך אינו h1 נוסף,
                   כדי לא לשבור את היררכיית הכותרות של העמוד. */}
               {service.heroTagline && (
-                <p className="mt-3 font-display text-4xl font-extrabold leading-[1.15] text-accent sm:text-5xl">
+                <p className="mt-3 font-display text-4xl font-bold leading-[1.15] text-accent sm:text-5xl">
                   {service.heroTagline}
                 </p>
               )}
