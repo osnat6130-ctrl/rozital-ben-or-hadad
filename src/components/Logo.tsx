@@ -77,13 +77,15 @@ export default function Logo({
 
       {/* השם ומתחתיו הסלוגן, ממורכז - בדיוק כמו בלוגו המקורי */}
       <span className="flex flex-col items-center gap-1">
+        {/* על רקע כהה: גרסה לבנה של השם שבה "אור" נשארת צהובה כמו בלוגו
+            (public/logo-name-light.png, נוצרת ע"י scripts/make-logo-light.mjs) */}
         <img
-          src={asset("/logo-name.png")}
+          src={asset(invert ? "/logo-name-light.png" : "/logo-name.png")}
           alt={site.name}
           width={579}
           height={65}
           decoding="async"
-          className={cn("h-[22px] w-auto object-contain sm:h-6", invert && "brightness-0 invert")}
+          className="h-[22px] w-auto object-contain sm:h-6"
         />
         {withTagline && (
           <img
