@@ -24,7 +24,7 @@ export default function HomeHero() {
         className="absolute inset-0"
         style={{
           backgroundImage:
-            "radial-gradient(60% 55% at 78% 30%, hsl(var(--brand-light) / 0.22), transparent 68%)",
+            "radial-gradient(60% 55% at 78% 30%, hsl(var(--brand-light) / 0.14), transparent 68%)",
         }}
       />
 
