@@ -390,13 +390,13 @@ export default function ServicePage({ id }: Props) {
             <SectionTitle
               title={<span id="video-title">{service.video.title ?? "רגעים מהסדנה"}</span>}
             />
-            <Reveal variant={reveal} className="mt-10">
+            <Reveal variant={reveal} className="mx-auto mt-10 max-w-3xl">
               <video
                 src={asset(service.video.src)}
                 controls
                 playsInline
                 preload="metadata"
-                className="mx-auto max-h-[80vh] w-auto max-w-full rounded-[2rem] bg-black shadow-lift"
+                className="aspect-video w-full rounded-2xl bg-black object-contain shadow-card"
               />
             </Reveal>
           </div>
