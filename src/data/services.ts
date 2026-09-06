@@ -60,7 +60,7 @@ export type Service = {
   bannerImage: string;
   gallery: { src: string; alt: string }[];
   /** סרטון באזור משלו אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי) */
-  video?: { src: string; title?: string };
+  video?: { src: string };
   /** המלצות אמיתיות. האזור מוצג רק בתחומים שיש להם המלצות */
   testimonials?: Testimonial[];
   /** כותרת אזור ההמלצות. ברירת מחדל: "מה אומרים אחרי המפגש" */
@@ -431,7 +431,7 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
       { src: "/images/bat-mitzvah-7.jpg", alt: "אמהות ובנות סביב השולחן בסדנת בת מצווה" },
     ],
-    video: { src: "/videos/bat-mitzvah.mp4", title: "רגעים מהסדנה" },
+    video: { src: "/videos/bat-mitzvah.mp4" },
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
       src: "/images/bat-mitzvah-feedback.jpg",

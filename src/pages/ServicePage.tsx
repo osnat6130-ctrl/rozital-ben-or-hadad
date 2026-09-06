@@ -385,12 +385,9 @@ export default function ServicePage({ id }: Props) {
       {/* ================= סרטון =================
           מוצג רק בתחומים שהוגדר להם סרטון */}
       {service.video && (
-        <section className="section pt-0" aria-labelledby="video-title">
+        <section className="section pt-0" aria-label="סרטון מהסדנה">
           <div className="container">
-            <SectionTitle
-              title={<span id="video-title">{service.video.title ?? "רגעים מהסדנה"}</span>}
-            />
-            <Reveal variant={reveal} className="mx-auto mt-10 max-w-3xl">
+            <Reveal variant={reveal} className="mx-auto max-w-3xl">
               <video
                 src={asset(service.video.src)}
                 controls
