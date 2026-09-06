@@ -339,7 +339,7 @@ export const services: Service[] = [
     bannerImage: "/images/siblings-1.jpg",
     gallery: [
       { src: "/images/siblings-2.jpg", alt: "הורים וילדים יוצרים לב עם הידיים בסדנה" },
-      { src: "/images/bat-mitzvah-4.jpg", alt: "אם ובת ברגע משותף בסדנה" },
+      { src: "/images/parents-kids-1.jpg", alt: "הורים וילדים במשחק כוסות בסדנת יוגה צחוק" },
       { src: "/images/bat-mitzvah-2.jpg", alt: "רגע מרגש בפעילות משפחתית" },
       { src: "/images/bat-mitzvah-5.jpg", alt: "אווירה חגיגית ושמחה במפגש" },
       { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
