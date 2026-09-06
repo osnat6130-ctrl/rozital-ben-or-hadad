@@ -40,7 +40,7 @@ export default function WhatsappForm() {
         השאירו פנייה
       </h2>
       <p className="mt-2 text-muted">
-        מלאו את הפרטים, ובלחיצה על הכפתור ההודעה תיפתח בוואטסאפ - מוכנה לשליחה.
+        מלאו את הפרטים, ובלחיצה על כפתור השליחה ההודעה תישלח אלי לוואטסאפ.
       </p>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
