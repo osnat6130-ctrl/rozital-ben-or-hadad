@@ -176,6 +176,13 @@ export default function ServicePage({ id }: Props) {
                     </div>
                   )}
                 </div>
+                {service.spotlight.images && (
+                  <ImageGallery
+                    images={service.spotlight.images}
+                    motion={service.motion}
+                    className="relative mt-10"
+                  />
+                )}
               </div>
             </Reveal>
           </div>

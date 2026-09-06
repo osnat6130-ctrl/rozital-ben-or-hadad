@@ -55,7 +55,7 @@ export type Service = {
   /** תמונה נוספת באזור ההמלצות (למשל דף משוב בכתב יד), עם לחיצה להגדלה */
   testimonialsImage?: { src: string; alt: string };
   /** אזור מודגש מיד מתחת ל-Hero, לפעילות ייחודית בתחום. מוצג רק בתחומים שהוגדר להם */
-  spotlight?: ServiceSection;
+  spotlight?: ServiceSection & { images?: { src: string; alt: string }[] };
   sections: ServiceSection[];
   cta: { title: string; text: string };
   seo: { title: string; description: string };
@@ -130,6 +130,12 @@ export const services: Service[] = [
         "כלים פשוטים להתמודדות עם רגשות",
         "חיבור לילדים אחרים שחווים משהו דומה",
         "הרבה צחוק, משחק ותחושת שייכות",
+      ],
+      images: [
+        { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
+        { src: "/images/siblings-2.jpg", alt: "מדריכות ומשתתפות יוצרות לב עם הידיים במפגש" },
+        { src: "/images/siblings-3.jpg", alt: "רגעי הסיום: הילדים מקבלים תעודות סיום מרוזיטל" },
+        { src: "/images/siblings-4.jpg", alt: "פלייר קבוצת תמיכה והעצמה לאחים מיוחדים - המרכז למשפחה, עיריית יבנה" },
       ],
     },
     sections: [
