@@ -47,7 +47,7 @@ export default function CTASection({
             className="btn-whatsapp w-full sm:w-auto"
           >
             <WhatsappIcon className="h-5 w-5" />
-            שלחו וואטסאפ
+            לפרטים ולהרשמה
           </a>
 
           <a href={telLink} className="btn-primary w-full sm:w-auto">

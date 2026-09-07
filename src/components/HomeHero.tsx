@@ -66,7 +66,7 @@ export default function HomeHero() {
                 className="btn-whatsapp w-full sm:w-auto"
               >
                 <WhatsappIcon className="h-5 w-5" />
-                שלחו וואטסאפ
+                לפרטים ולהרשמה
               </a>
             </div>
           </Reveal>
