@@ -250,7 +250,7 @@ export default function ServicePage({ id }: Props) {
                 playsInline
                 preload="metadata"
                 aria-label={service.title}
-                className="mx-auto aspect-[9/16] w-full max-w-sm rounded-[2rem] bg-black object-contain shadow-card"
+                className="mx-auto aspect-square w-full max-w-2xl rounded-[2rem] bg-black object-cover shadow-card"
               />
             ) : (
             <div className="relative overflow-hidden rounded-[2rem] shadow-card">
