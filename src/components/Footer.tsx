@@ -76,9 +76,13 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container flex flex-col items-center justify-between gap-2 py-4 text-center text-sm text-white/55 sm:flex-row sm:text-right">
-          <p>
-            © {year} {site.name}. כל הזכויות שמורות.
-          </p>
+          {/* בס"ד ראשון בסדר ה-DOM, ולכן בעברית הוא נמצא בקצה הימני */}
+          <div className="flex flex-col items-center gap-1 sm:flex-row sm:gap-3">
+            <span>בס"ד</span>
+            <p>
+              © {year} {site.name}. כל הזכויות שמורות.
+            </p>
+          </div>
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <Link to="/accessibility" className="transition-colors hover:text-gold">
               הצהרת נגישות
