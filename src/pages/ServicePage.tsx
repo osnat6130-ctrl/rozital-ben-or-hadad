@@ -170,12 +170,17 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
-      {/* ================= באנר שכנוע מתחת ל-Hero ================= */}
+      {/* ================= באנר שכנוע מתחת ל-Hero =================
+          רקע חצוי חד: למעלה לבן, ולמטה אותו גוון בדיוק של האזור הבא
+          ("למי זה מתאים"), כדי שהמעבר בין האזורים ייראה רציף. */}
       {service.heroBanner && (
-        <section className="pt-8 md:pt-12" aria-labelledby="service-hero-banner">
+        <section
+          className="bg-[linear-gradient(to_bottom,#ffffff_0,#ffffff_50%,hsl(var(--accent-soft)_/_0.4)_50%,hsl(var(--accent-soft)_/_0.4)_100%)] pt-8 md:pt-12"
+          aria-labelledby="service-hero-banner"
+        >
           <div className="container">
             <Reveal variant={reveal}>
-              <div className="flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white shadow-card md:flex-row md:justify-between md:px-9 md:text-right">
+              <div className="flex flex-col items-center gap-5 rounded-[2rem] bg-accent px-6 py-7 text-center text-white shadow-card md:flex-row md:justify-between md:px-9 md:text-right">
                 <div>
                   <h2 id="service-hero-banner" className="text-2xl text-white">
                     {service.heroBanner.title}
