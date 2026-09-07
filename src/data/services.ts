@@ -426,6 +426,7 @@ export const services: Service[] = [
     },
     cardImage: "/images/bat-mitzvah-card.jpg",
     heroCta: "דברו איתי ונרקום אירוע קסום",
+    heroCtaNote: "להרשמה לחצו כאן:",
     heroImage: "/images/bat-mitzvah-hero.jpg",
     heroPortrait: true,
     bannerImage: "/images/bat-mitzvah-banner.jpg",
