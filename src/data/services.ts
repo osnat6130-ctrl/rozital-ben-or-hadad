@@ -65,6 +65,8 @@ export type Service = {
   /** סרטונים באזור משלהם אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי).
    *  שניים ומעלה מוצגים זה לצד זה בדסקטופ, ואחד מתחת לשני במובייל. */
   videos?: { src: string }[];
+  /** כותרת מעל הסרטונים. בלעדיה האזור מוצג בלי כותרת */
+  videosTitle?: string;
   /** המלצות אמיתיות. האזור מוצג רק בתחומים שיש להם המלצות */
   testimonials?: Testimonial[];
   /** כותרת אזור ההמלצות. ברירת מחדל: "מה אומרים אחרי המפגש" */
@@ -445,6 +447,7 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
     ],
     videos: [{ src: "/videos/bat-mitzvah.mp4" }, { src: "/videos/bat-mitzvah-2.mp4" }],
+    videosTitle: "רוצים לראות איך זה עובד? קבלו הצצה",
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
       src: "/images/bat-mitzvah-feedback.jpg",

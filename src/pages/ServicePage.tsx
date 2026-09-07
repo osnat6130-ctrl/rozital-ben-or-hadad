@@ -395,8 +395,19 @@ export default function ServicePage({ id }: Props) {
       {/* ================= סרטון =================
           מוצג רק בתחומים שהוגדר להם סרטון */}
       {service.videos && service.videos.length > 0 && (
-        <section className="section pt-0" aria-label="סרטונים מהסדנה">
+        <section
+          className="section pt-0"
+          aria-label={service.videosTitle ? undefined : "סרטונים מהסדנה"}
+          aria-labelledby={service.videosTitle ? "service-videos" : undefined}
+        >
           <div className="container">
+            {service.videosTitle && (
+              <Reveal variant={reveal} className="mx-auto mb-8 max-w-2xl text-center">
+                <h2 id="service-videos" className="text-3xl text-accent-dark sm:text-4xl">
+                  {service.videosTitle}
+                </h2>
+              </Reveal>
+            )}
             <Reveal variant={reveal} className="mx-auto max-w-3xl">
               {/* היחס נגזר מהסרטונים עצמם (מצולמים בטלפון, לאורך),
                   כדי שלא ייווצרו פסים שחורים רחבים משני הצדדים */}
