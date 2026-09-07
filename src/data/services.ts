@@ -250,8 +250,8 @@ export const services: Service[] = [
       { src: "/images/parents-kids-6.jpg", alt: "אמהות וילדות מצטלמות סלפי בסיום הסדנה" },
       { src: "/images/parents-kids-7.jpg", alt: "רוזיטל ומשתתפת עם מסכה ואביזרי צחוק בסדנה" },
       { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
-      { src: "/images/parents-kids-8.jpg", alt: "רוזיטל מנחה מפגש קבוצתי מול המצגת" },
       { src: "/images/parents-kids-5.jpg", alt: "הורים וילדים במשחק מסכות בסדנה" },
+      { src: "/images/parents-kids-9.jpg", alt: "פעילות ערב בחצר - הורים וילדים במשחק עם מסכות" },
       { src: "/images/parents-kids-3.jpg", alt: "הורים וילדים מרימים ידיים יחד בתרגיל יוגה צחוק" },
     ],
     sections: [
