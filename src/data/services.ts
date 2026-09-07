@@ -148,7 +148,6 @@ export const services: Service[] = [
       ],
       images: [
         { src: "/images/siblings-1.jpg", alt: "רוזיטל מנחה מפגש קבוצתי במעגל" },
-        { src: "/images/siblings-2.jpg", alt: "מדריכות ומשתתפות יוצרות לב עם הידיים במפגש" },
         { src: "/images/siblings-3.jpg", alt: "רגעי הסיום: הילדים מקבלים תעודות סיום מרוזיטל" },
         { src: "/images/siblings-4.jpg", alt: "פלייר קבוצת תמיכה והעצמה לאחים מיוחדים - המרכז למשפחה, עיריית יבנה" },
       ],
