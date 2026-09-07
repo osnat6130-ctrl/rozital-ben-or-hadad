@@ -131,10 +131,6 @@ export default function Contact() {
                       ))}
                     </ul>
                   </div>
-
-                  <p className="mt-auto pt-10 font-display text-lg font-bold text-gold">
-                    {site.tagline}
-                  </p>
                 </div>
               </div>
             </Reveal>
