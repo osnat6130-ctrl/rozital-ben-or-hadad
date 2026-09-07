@@ -394,17 +394,24 @@ export default function ServicePage({ id }: Props) {
 
       {/* ================= סרטון =================
           מוצג רק בתחומים שהוגדר להם סרטון */}
-      {service.video && (
-        <section className="section pt-0" aria-label="סרטון מהסדנה">
+      {service.videos && service.videos.length > 0 && (
+        <section className="section pt-0" aria-label="סרטונים מהסדנה">
           <div className="container">
             <Reveal variant={reveal} className="mx-auto max-w-3xl">
-              <video
-                src={asset(service.video.src)}
-                controls
-                playsInline
-                preload="metadata"
-                className="aspect-video w-full rounded-2xl bg-black object-contain shadow-card"
-              />
+              {/* היחס נגזר מהסרטונים עצמם (מצולמים בטלפון, לאורך),
+                  כדי שלא ייווצרו פסים שחורים רחבים משני הצדדים */}
+              <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+                {service.videos.map((clip) => (
+                  <video
+                    key={clip.src}
+                    src={asset(clip.src)}
+                    controls
+                    playsInline
+                    preload="metadata"
+                    className="aspect-[392/848] w-full rounded-2xl bg-black object-contain shadow-card"
+                  />
+                ))}
+              </div>
             </Reveal>
           </div>
         </section>

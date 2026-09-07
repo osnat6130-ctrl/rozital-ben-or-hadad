@@ -62,8 +62,9 @@ export type Service = {
    *  bannerImage ממשיך לשמש כתמונת הפוסטר לפני הניגון. */
   bannerVideo?: string;
   gallery: { src: string; alt: string }[];
-  /** סרטון באזור משלו אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי) */
-  video?: { src: string };
+  /** סרטונים באזור משלהם אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי).
+   *  שניים ומעלה מוצגים זה לצד זה בדסקטופ, ואחד מתחת לשני במובייל. */
+  videos?: { src: string }[];
   /** המלצות אמיתיות. האזור מוצג רק בתחומים שיש להם המלצות */
   testimonials?: Testimonial[];
   /** כותרת אזור ההמלצות. ברירת מחדל: "מה אומרים אחרי המפגש" */
@@ -443,7 +444,7 @@ export const services: Service[] = [
       { src: "/images/bat-mitzvah-7.jpg", alt: "אמהות ובנות סביב השולחן בסדנת בת מצווה" },
       { src: "/images/bat-mitzvah-6.jpg", alt: "פינת צילום מעוצבת בסדנת אימא ובת מצווה" },
     ],
-    video: { src: "/videos/bat-mitzvah.mp4" },
+    videos: [{ src: "/videos/bat-mitzvah.mp4" }, { src: "/videos/bat-mitzvah-2.mp4" }],
     testimonialsTitle: "מה אומרות אחרי הסדנה",
     testimonialsImage: {
       src: "/images/bat-mitzvah-feedback.jpg",
