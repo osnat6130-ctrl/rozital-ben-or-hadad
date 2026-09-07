@@ -517,12 +517,6 @@ export const services: Service[] = [
         text: "אין כמוך! 🤩❤️",
       },
       {
-        text: "חברה שלי האלופה! ❤️❤️👏🏻👏🏻",
-      },
-      {
-        text: "פשוט אלופה!! 😘🔥💪👑",
-      },
-      {
         text: "אין עליך! ❤️👏🏻👏🏻",
       },
       {
@@ -538,13 +532,7 @@ export const services: Service[] = [
         text: "אלופההה!!!",
       },
       {
-        text: "אלופההההה",
-      },
-      {
         text: "מהממת 💜",
-      },
-      {
-        text: "מקסים ❤️",
       },
       {
         text: "אלופה 🏆",
@@ -554,9 +542,6 @@ export const services: Service[] = [
       },
       {
         text: "אלופה! ❤️",
-      },
-      {
-        text: "אלופה",
       },
     ],
     sections: [
