@@ -175,7 +175,7 @@ export default function ServicePage({ id }: Props) {
         <section className="pt-8 md:pt-12" aria-labelledby="service-hero-banner">
           <div className="container">
             <Reveal variant={reveal}>
-              <div className="flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white shadow-card md:mx-12 md:flex-row md:justify-between md:px-9 md:text-right">
+              <div className="flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white shadow-card md:flex-row md:justify-between md:px-9 md:text-right">
                 <div>
                   <h2 id="service-hero-banner" className="text-2xl text-white">
                     {service.heroBanner.title}
