@@ -81,7 +81,15 @@ export default function ServicePage({ id }: Props) {
           className="absolute -left-24 top-0 h-72 w-72 rounded-full bg-accent/12 blur-3xl"
         />
 
-        <div className="container relative grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        {/* תמונת רוחב מקבלת עמודה רחבה יותר מהטקסט. בתמונת פורטרט
+            משאירים חצי-חצי, אחרת ה-Hero נעשה גבוה מדי. */}
+        <div
+          className={`container relative grid items-center gap-10 ${
+            service.heroPortrait
+              ? "lg:grid-cols-2 lg:gap-16"
+              : "lg:grid-cols-[1fr_1.3fr] lg:gap-10"
+          }`}
+        >
           <div className="text-center lg:text-right">
             <Reveal>
               {/* כותרת עליונה קטנה מעל כותרת ה-Hero. אופציונלי - מוצגת
