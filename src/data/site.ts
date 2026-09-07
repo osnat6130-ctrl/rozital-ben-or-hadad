@@ -1,53 +1,98 @@
 /* ============================================================================
-   קובץ הנתונים המרכזי של האתר
+   הגדרות האתר - טיפוסים ופונקציות עזר מעל קובץ התוכן
    ----------------------------------------------------------------------------
-   ‼️ מה שמסומן ב-TODO הוא תוכן זמני (placeholder) שממתין לחומרים מרוזיטל.
-      זהו המקום היחיד לעדכן פרטי קשר, סלוגן, טקסטים כלליים וקישורים.
+   ‼️ כל הטקסטים, פרטי הקשר והתמונות חיים ב-src/content/site.json - זה
+      הקובץ שפאנל הניהול עורך. כאן רק טיפוסים, נגזרות ופונקציות עזר.
    ========================================================================== */
+import siteJson from "@/content/site.json";
 
-export const site = {
-  /** שם המותג - מתוך הלוגו */
-  name: "רוזיטל בן אור חדד",
-  shortName: "רוזיטל בן אור חדד",
+export type SiteInfo = {
+  name: string;
+  shortName: string;
+  tagline: string;
+  heroImage: string;
+  heroFallbackImage: string;
+  /** כותרת ה-Hero בדף הבית, והמילים שמודגשות בזהב בסופה */
+  heroTitle: string;
+  heroTitleHighlight: string;
+  heroSubtitle: string;
+  /** כפתור הפעולה הראשי ב-Hero (גולל לתחומים) */
+  heroPrimaryCta: string;
+  phone: { display: string; dial: string; whatsapp: string };
+  url: string;
+  email: string;
+  serviceArea: string;
+  whatsappDefaultMessage: string;
+  credit: { text: string };
+};
 
-  /** הסלוגן מהלוגו - אושר מול רוזיטל */
-  tagline: "למצוא את האור בכל אחד",
+export type NavItem = { label: string; to: string };
 
-  /** התמונה הריבועית ב-Hero של דף הבית (הפורטרט של רוזיטל).
-   *  ‼️ לשמור את התמונה בנתיב הזה בדיוק: public/images/rozital-hero.jpg
-   *  עד שהקובץ יישמר, מוצגת אוטומטית התמונה הזמנית heroFallbackImage. */
-  heroImage: "/images/rozital-hero.jpg",
-  heroFallbackImage: "/images/hero-main.svg",
+export type HomeContent = {
+  servicesTitle: string;
+  reasonsTitle: string;
+  reasonsTitleHighlight: string;
+  cta: { title: string; text: string };
+};
 
-  /** ‼️ TODO (סלוגן שיווקי ל-Hero) - לעדכן כשיתקבל ניסוח סופי מרוזיטל */
-  heroTitle: "הרצאות, סדנאות ופעילויות שמדליקות אור",
-  heroSubtitle:
-    "הרצאות להורים / אחים / צוותי חינוך / בתי ספר, סדנאות יוגה צחוק ופעילות בת מצווה - חוויה מקצועית, חמה ומלאת שמחה, שמותאמת בדיוק לקהל שלכם.",
+export type AboutContent = {
+  image: string;
+  pageImage: string;
+  imageAlt: string;
+  previewTitle: string;
+  previewText: string;
+  pageIntro: string;
+  story: string[];
+  credentials: string[];
+  principles: { title: string; text: string }[];
+};
 
-  /** מספר הטלפון של רוזיטל. הפורמט הבינלאומי משמש לקישורי חיוג ולוואטסאפ.
-   *  ‼️ אם הוואטסאפ מנוהל במספר אחר - לעדכן כאן את השדה whatsapp בלבד. */
-  phone: {
-    display: "054-3979639",
-    dial: "+972543979639",
-    whatsapp: "972543979639",
-  },
+export type AboutPageContent = {
+  title: string;
+  certificatesTitle: string;
+  principlesTitle: string;
+  servicesTitle: string;
+  servicesSubtitle: string;
+  cta: { title: string; text: string };
+};
 
-  /** ‼️ TODO: להחליף לדומיין האמיתי (וגם ב-index.html / robots.txt / sitemap.xml) */
-  url: "https://rozital.co.il",
+export type ContactContent = {
+  eyebrow: string;
+  title: string;
+  titleHighlight: string;
+  intro: string;
+  panelTitle: string;
+  panelText: string;
+  steps: { title: string; text: string }[];
+  topicsLabel: string;
+};
 
-  /** ‼️ TODO: אימייל ליצירת קשר - אם רוזיטל רוצה להציג אותו */
-  email: "",
+export type Certificate = { src: string; title: string; issuer: string; meta: string };
 
-  /** ‼️ TODO: אזור פעילות - למלא רק אם רוזיטל תמסור. ריק = לא מוצג. */
-  serviceArea: "",
+export type ReasonIcon = "heart" | "badge" | "spark";
+export type Reason = { icon: ReasonIcon; title: string; text: string };
 
-  /** הודעה מוכנה מראש שנפתחת בוואטסאפ */
-  whatsappDefaultMessage: "היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים :)",
+type SiteContent = {
+  site: SiteInfo;
+  nav: NavItem[];
+  home: HomeContent;
+  about: AboutContent;
+  aboutPage: AboutPageContent;
+  contact: ContactContent;
+  certificates: Certificate[];
+  reasons: Reason[];
+};
 
-  credit: {
-    text: "בניה ועיצוב ע\"י אוסנת בניסטי",
-  },
-} as const;
+const content = siteJson as unknown as SiteContent;
+
+export const site = content.site;
+export const navItems = content.nav;
+export const home = content.home;
+export const about = content.about;
+export const aboutPage = content.aboutPage;
+export const contact = content.contact;
+export const certificates = content.certificates;
+export const reasons = content.reasons;
 
 /** בונה קישור וואטסאפ עם הודעה מוכנה */
 export function whatsappLink(message: string = site.whatsappDefaultMessage) {
@@ -56,130 +101,3 @@ export function whatsappLink(message: string = site.whatsappDefaultMessage) {
 
 /** בונה קישור חיוג */
 export const telLink = `tel:${site.phone.dial}`;
-
-export type NavItem = { label: string; to: string };
-
-export const navItems: NavItem[] = [
-  { label: "דף הבית", to: "/" },
-  { label: "צרכים מיוחדים", to: "/lectures" },
-  { label: "הורים וילדים", to: "/parents-kids" },
-  { label: "יוגה צחוק", to: "/laughter-yoga" },
-  { label: "בנות מצווה", to: "/bat-mitzvah" },
-  { label: "אודות", to: "/about" },
-  { label: "צור קשר", to: "/contact" },
-];
-
-/* ============================================================================
-   אודות רוזיטל - הטקסט האמיתי שהתקבל ממנה
-   ========================================================================== */
-export const about = {
-  /** הפורטרט באזור האודות בדף הבית. יחס 7:8 */
-  image: "/images/rozital.jpg",
-  /** הפורטרט בעמוד האודות עצמו - תמונה נפרדת מזו שבדף הבית. יחס 7:8 */
-  pageImage: "/images/rozital-about.jpg",
-  imageAlt: "רוזיטל בן אור חדד",
-
-  previewTitle: "נעים להכיר, אני רוזיטל",
-  previewText:
-    "אני אשת חינוך, מאמנת רגשית, מדריכת הורים ומנחת יוגה צחוק. מתוך ניסיוני המקצועי ואישיותי כאימא לבוגר עם צרכים מיוחדים, אני מעבירה הרצאות וסדנאות לילדים, הורים, נשים וצוותי חינוך.",
-
-  /** שורת התפקידים שמופיעה כתת-כותרת מתחת ל-H1 בעמוד האודות */
-  pageIntro:
-    "אשת חינוך, מאמנת רגשית לילדים ובני נוער, מדריכת הורים ומנחת יוגה צחוק מוסמכת.",
-
-  /** פסקאות הסיפור האישי */
-  story: [
-    "הדרך שלי לעולם ההרצאות, הפעילויות והסדנאות צמחה מתוך שילוב בין עשייה חינוכית של שנים, לבין הסיפור האישי שלי כאימא לבוגר עם צרכים מיוחדים. החיים לימדו אותי מקרוב על חוסן, קבלה, הורות ומשפחתיות - בעיקר על היכולת לבחור ולראות את האור גם בתוך הדרך המאתגרת ביותר.",
-    "מתוך הניסיון והלב, יצרתי מגוון סדנאות, הרצאות ופעילויות לילדים, להורים, לנשים, למשפחות ולצוותים חינוכיים. כל מפגש משלב תוכן מעמיק, כלים מעשיים, חיבור אנושי בגובה העיניים, הומור והמון שמחת חיים.",
-    "אני מאמינה בכל ליבי שבכל אדם טמונים כוחות עצומים - וכי בעזרת החיבור והמבט הנכון, אפשר לגלות אותם, לצמוח דרכם ולהאיר כל דרך.",
-  ],
-
-  /** רקע מקצועי והכשרות */
-  credentials: [
-    "אשת חינוך",
-    "מאמנת רגשית לילדים ובני נוער",
-    "מדריכת הורים",
-    "מנחת יוגה צחוק",
-  ],
-
-  /** "מה מנחה אותי בעשייה" - שלושת עקרונות העבודה */
-  principles: [
-    {
-      title: "חיבור בגובה העיניים",
-      text: "מפגש חם ומכיל שמאפשר לפתוח את הלב.",
-    },
-    {
-      title: "כלים מעשיים לחיים",
-      text: "שילוב בין תיאוריה, אימון רגשי ופרקטיקה יומיומית.",
-    },
-    {
-      title: "חוסן ושמחת חיים",
-      text: "שימוש בהומור, צחוק ואופטימיות כמנוע לצמיחה ולהתמודדות.",
-    },
-  ],
-} as const;
-
-/* ============================================================================
-   תעודות ההסמכה - הפרטים נלקחו מהתעודות עצמן
-   ----------------------------------------------------------------------------
-   ‼️ קבצי התמונה נוצרים על ידי scripts/prepare-certificates.mjs.
-      הסקריפט גם מסתיר את מספר תעודת הזהות בתעודות שכוללות אותו -
-      אין לפרסם מספר ת.ז. באתר ציבורי.
-   ========================================================================== */
-export const certificates = [
-  {
-    src: "/images/certificates/cert-6.jpg",
-    title: "מוסמכת בחינוך (M.Ed.)",
-    issuer: "המכללה האקדמית אחוה",
-    meta: "2018",
-  },
-  {
-    src: "/images/certificates/cert-5.jpg",
-    title: "תעודת הערכה על הישגים לימודיים",
-    issuer: "אחוה - המכללה האקדמית לחינוך",
-    meta: "2009",
-  },
-  {
-    src: "/images/certificates/cert-1.jpg",
-    title: "מאמנת ילדים ונוער בשיטת האימון האינטגרטיבי",
-    issuer: "מכון דרך הדעת",
-    meta: "2018",
-  },
-  {
-    src: "/images/certificates/cert-2.jpg",
-    title: "קורס גישור בחינוך",
-    issuer: "המרכז לדיאלוג אחר",
-    meta: "2019 · 30 שעות אקדמיות",
-  },
-  {
-    src: "/images/certificates/cert-4.jpg",
-    title: "מנטורית מדריכת הורים",
-    issuer: "בשביל ההורות",
-    meta: "2021 · 161 שעות אקדמיות",
-  },
-  {
-    src: "/images/certificates/cert-3.jpg",
-    title: 'השתלמות "קוד המנצח לצעירים"',
-    issuer: "בית הספר המרכזי להשתלמות מורים",
-    meta: "2021 · 116 שעות",
-  },
-] as const;
-
-/** שלוש הסיבות לבחור ברוזיטל - דף הבית */
-export const reasons = [
-  {
-    icon: "heart" as const,
-    title: "יחס אישי",
-    text: "כל מפגש נבנה סביב הקהל שמולי - מקשיבה, מתאימה ודואגת שכל אחת ואחד ירגישו נראים.",
-  },
-  {
-    icon: "badge" as const,
-    title: "מקצועיות",
-    text: "תכנים בנויים היטב, הנחיה בטוחה ומרחב מוגן - כדי שתוכלו פשוט להיות נוכחים וליהנות.",
-  },
-  {
-    icon: "spark" as const,
-    title: "אנרגיה ושמחה",
-    text: "אווירה חמה ומלאת חיוּת, שנשארת איתכם הרבה אחרי שהמפגש נגמר.",
-  },
-];

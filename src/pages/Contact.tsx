@@ -3,14 +3,8 @@ import Reveal from "@/components/Reveal";
 import WhatsappForm from "@/components/WhatsappForm";
 import Logo from "@/components/Logo";
 import { MailIcon, PhoneIcon } from "@/components/Icons";
-import { site, telLink } from "@/data/site";
+import { contact, site, telLink } from "@/data/site";
 import { services } from "@/data/services";
-
-const steps = [
-  { title: "ממלאים את הטופס", text: "שם, נושא וכמה מילים - זה כל מה שצריך." },
-  { title: "ההודעה נפתחת בוואטסאפ", text: "עם כל הפרטים כבר בפנים. רק לוחצים שליחה." },
-  { title: "אני חוזרת אליכם", text: "באופן אישי, ונתאים יחד את מה שמתאים לכם :)" },
-];
 
 export default function Contact() {
   return (
@@ -36,15 +30,14 @@ export default function Contact() {
           <Reveal className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center gap-2.5 font-display text-sm font-bold text-brand">
               <span aria-hidden className="h-px w-6 bg-brand" />
-              מחכה לשמוע מכם
+              {contact.eyebrow}
               <span aria-hidden className="h-px w-6 bg-brand" />
             </span>
             <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl">
-              בואו <span className="underline-brush">נדבר</span>
+              {contact.title} <span className="underline-brush">{contact.titleHighlight}</span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              רוצים לדעת איך זה עובד, לבדוק תאריך פנוי או לשאול שאלה? אני כאן בשבילכם.
-              תשאירו פרטים ואני אחזור אליכם בהקדם :)
+              {contact.intro}
             </p>
           </Reveal>
 
@@ -63,9 +56,9 @@ export default function Contact() {
 
                 <div className="relative flex h-full flex-col">
                   <Logo variant="horizontal" withTagline invert className="w-fit" />
-                  <h2 className="mt-6 text-3xl text-white">אשמח לשמוע מכם</h2>
+                  <h2 className="mt-6 text-3xl text-white">{contact.panelTitle}</h2>
                   <p className="mt-3 leading-relaxed text-white/80">
-                    שיחת טלפון או פנייה דרך הטופס - מה שנוח לכם. כל פנייה מגיעה אלי אישית.
+                    {contact.panelText}
                   </p>
 
                   <a
@@ -101,7 +94,7 @@ export default function Contact() {
                   )}
 
                   <ol className="mt-8 space-y-4">
-                    {steps.map((step, i) => (
+                    {contact.steps.map((step, i) => (
                       <li key={step.title} className="flex items-start gap-4">
                         <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 font-display text-sm font-bold text-gold ring-1 ring-white/15">
                           {i + 1}
@@ -119,7 +112,7 @@ export default function Contact() {
                   </ol>
 
                   <div className="mt-8">
-                    <p className="text-sm font-bold text-gold">אפשר לפנות בכל נושא</p>
+                    <p className="text-sm font-bold text-gold">{contact.topicsLabel}</p>
                     <ul className="mt-3 flex flex-wrap gap-2">
                       {services.map((service) => (
                         <li

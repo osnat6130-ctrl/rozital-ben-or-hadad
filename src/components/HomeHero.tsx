@@ -40,7 +40,7 @@ export default function HomeHero() {
 
           <Reveal delay={80}>
             <h1 className="font-serif text-[2.4rem] font-bold leading-[1.2] text-hero-ink sm:text-5xl lg:text-[3.4rem]">
-              הרצאות, סדנאות ופעילויות <span className="text-gold-dark">שמדליקות אור</span>
+              {site.heroTitle} <span className="text-gold-dark">{site.heroTitleHighlight}</span>
             </h1>
           </Reveal>
 
@@ -56,7 +56,7 @@ export default function HomeHero() {
                 href="#services"
                 className="btn-gold w-full sm:w-auto"
               >
-                מה מתאים לנו?
+                {site.heroPrimaryCta}
                 <ArrowIcon className="h-5 w-5" />
               </a>
               <a

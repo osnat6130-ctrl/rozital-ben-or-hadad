@@ -1,7 +1,7 @@
 import Reveal from "./Reveal";
 import SectionTitle from "./SectionTitle";
 import { iconMap } from "./Icons";
-import { reasons } from "@/data/site";
+import { home, reasons } from "@/data/site";
 
 export default function Reasons() {
   return (
@@ -10,7 +10,7 @@ export default function Reasons() {
         <SectionTitle
           title={
             <span id="reasons-title">
-              שלוש סיבות שכולן מספרות עליהן <span className="underline-brush">אחר כך</span>
+              {home.reasonsTitle} <span className="underline-brush">{home.reasonsTitleHighlight}</span>
             </span>
           }
         />

@@ -6,7 +6,7 @@ import Certificates from "@/components/Certificates";
 import CTASection from "@/components/CTASection";
 import ServiceTheme from "@/components/ServiceTheme";
 import { ArrowIcon } from "@/components/Icons";
-import { about, site } from "@/data/site";
+import { aboutPage, about, site } from "@/data/site";
 import { asset } from "@/lib/utils";
 import { services } from "@/data/services";
 
@@ -37,7 +37,7 @@ export default function About() {
           <div className="text-center md:text-right">
             <Reveal>
               <h1 className="text-4xl leading-[1.15] sm:text-5xl">
-                נעים להכיר, אני רוזיטל בן אור חדד
+                {aboutPage.title}
               </h1>
             </Reveal>
             <div className="mt-8 md:mt-10">
@@ -90,7 +90,7 @@ export default function About() {
       <section className="section" aria-labelledby="certificates-title">
         <div className="container">
           <SectionTitle
-            title={<span id="certificates-title">תעודות והסמכות</span>}
+            title={<span id="certificates-title">{aboutPage.certificatesTitle}</span>}
           />
           <Certificates />
         </div>
@@ -100,7 +100,7 @@ export default function About() {
       <section className="section pt-0" aria-labelledby="principles-title">
         <div className="container">
           <SectionTitle
-            title={<span id="principles-title">מה מנחה אותי בעשייה</span>}
+            title={<span id="principles-title">{aboutPage.principlesTitle}</span>}
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
@@ -120,8 +120,8 @@ export default function About() {
       <section className="section bg-brand-soft" aria-labelledby="about-services-title">
         <div className="container">
           <SectionTitle
-            title={<span id="about-services-title">הסדנאות והחוויות שאני מעבירה</span>}
-            subtitle="לכל קהל התאמה משלו - אבל האנרגיה תמיד אותה אנרגיה."
+            title={<span id="about-services-title">{aboutPage.servicesTitle}</span>}
+            subtitle={aboutPage.servicesSubtitle}
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
@@ -148,8 +148,8 @@ export default function About() {
       </section>
 
       <CTASection
-        title="הכול מתחיל בשיחה אחת"
-        text="ספרו לי מה מחפשים ונראה יחד מה מתאים 🙂"
+        title={aboutPage.cta.title}
+        text={aboutPage.cta.text}
       />
     </>
   );

@@ -6,7 +6,7 @@ import AboutPreview from "@/components/AboutPreview";
 import Reasons from "@/components/Reasons";
 import CTASection from "@/components/CTASection";
 import { services } from "@/data/services";
-import { site } from "@/data/site";
+import { home, site } from "@/data/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -39,7 +39,7 @@ export default function Home() {
       <section id="services" className="section scroll-mt-24" aria-labelledby="services-title">
         <div className="container">
           <SectionTitle
-            title={<span id="services-title">איך אני יכולה לעזור לכם?</span>}
+            title={<span id="services-title">{home.servicesTitle}</span>}
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-7 xl:grid-cols-4">
@@ -54,8 +54,8 @@ export default function Home() {
       <Reasons />
 
       <CTASection
-        title="מוכנים למצוא את הפעילות שמתאימה לכם?"
-        text="אשמח לשמוע מה אתם מחפשים, ולעזור לבחור את החוויה הנכונה בדיוק בשבילכם."
+        title={home.cta.title}
+        text={home.cta.text}
         className="bg-brand-soft"
       />
     </>
