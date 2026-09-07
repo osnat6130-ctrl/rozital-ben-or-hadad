@@ -162,6 +162,36 @@ export default function ServicePage({ id }: Props) {
         </div>
       </section>
 
+      {/* ================= באנר שכנוע מתחת ל-Hero ================= */}
+      {service.heroBanner && (
+        <section className="pt-8 md:pt-12" aria-labelledby="service-hero-banner">
+          <div className="container">
+            <Reveal variant={reveal}>
+              <div className="flex flex-col items-center gap-5 rounded-[2rem] bg-accent px-6 py-8 text-center text-white shadow-card md:flex-row md:justify-between md:px-10 md:text-right">
+                <div>
+                  <h2 id="service-hero-banner" className="text-2xl text-white sm:text-3xl">
+                    {service.heroBanner.title}
+                  </h2>
+                  {service.heroBanner.paragraphs?.map((paragraph) => (
+                    <p key={paragraph} className="mt-3 max-w-2xl leading-relaxed text-white/90">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+                <a
+                  href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.cardTitle} :)`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp w-full shrink-0 sm:w-auto"
+                >
+                  {service.heroBanner.button}
+                  <WhatsappIcon className="h-5 w-5" />
+                </a>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
       {/* ================= אזור מודגש מתחת ל-Hero =================
           מוצג רק בתחומים שהוגדר להם spotlight (כרגע: קבוצת העצמה לאחים) */}
       {service.spotlight && (

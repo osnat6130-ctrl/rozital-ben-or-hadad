@@ -56,6 +56,8 @@ export type Service = {
   heroPortrait?: boolean;
   /** סרטון אופציונלי ל-Hero. התמונה משמשת כפוסטר ומוצגת ראשונה */
   heroVideo?: string;
+  /** באנר שכנוע מיד מתחת ל-Hero, עם כפתור וואטסאפ. מוצג רק בתחומים שהוגדר להם */
+  heroBanner?: { title: string; paragraphs?: string[]; button: string };
   /** תמונת רוחב לאזור "למי זה מתאים" - יחס 16:7 */
   bannerImage: string;
   /** סרטון שמחליף את תמונת הרוחב באזור "למי זה מתאים".
@@ -250,6 +252,13 @@ export const services: Service[] = [
       accentSoft: "262 60% 88%",
     },
     cardImage: "/images/parents-kids-card.jpg",
+    heroBanner: {
+      title: "רוצים מפגש שכולם ייצאו ממנו מחייכים?",
+      paragraphs: [
+        "אני מגיעה אליכם עם הכול - האנרגיה, המשחקים והחיוכים. ספרו לי על הקבוצה שלכם, ונתאים יחד מפגש שמדבר בדיוק אליהם.",
+      ],
+      button: "בואו נדבר בוואטסאפ",
+    },
     heroImage: "/images/siblings-2.jpg",
     bannerImage: "/images/parents-kids-banner.jpg",
     bannerVideo: "/videos/parents-kids.mp4",
