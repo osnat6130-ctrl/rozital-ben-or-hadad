@@ -3,6 +3,7 @@ import { ArrowIcon, WhatsappIcon } from "./Icons";
 import { services } from "@/data/services";
 import { site, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
+import { cms } from "@/cms/paths";
 
 /* ============================================================================
    Hero של דף הבית - "אור בין הידיים"
@@ -34,18 +35,24 @@ export default function HomeHero() {
           <Reveal>
             <span className="mb-6 inline-flex items-center gap-2.5 font-display text-sm font-bold text-brand">
               <span aria-hidden className="h-px w-6 bg-brand" />
-              {site.tagline}
+              <span {...cms("site.site.tagline")}>{site.tagline}</span>
             </span>
           </Reveal>
 
           <Reveal delay={80}>
             <h1 className="font-serif text-[2.4rem] font-bold leading-[1.2] text-hero-ink sm:text-5xl lg:text-[3.4rem]">
-              {site.heroTitle} <span className="text-gold-dark">{site.heroTitleHighlight}</span>
+              <span {...cms("site.site.heroTitle")}>{site.heroTitle}</span>{" "}
+              <span {...cms("site.site.heroTitleHighlight")} className="text-gold-dark">
+                {site.heroTitleHighlight}
+              </span>
             </h1>
           </Reveal>
 
           <Reveal delay={160}>
-            <p className="mx-auto mt-6 max-w-[46ch] text-lg leading-[1.85] text-hero-muted lg:mx-0">
+            <p
+              {...cms("site.site.heroSubtitle")}
+              className="mx-auto mt-6 max-w-[46ch] text-lg leading-[1.85] text-hero-muted lg:mx-0"
+            >
               {site.heroSubtitle}
             </p>
           </Reveal>
@@ -56,7 +63,7 @@ export default function HomeHero() {
                 href="#services"
                 className="btn-gold w-full sm:w-auto"
               >
-                {site.heroPrimaryCta}
+                <span {...cms("site.site.heroPrimaryCta")}>{site.heroPrimaryCta}</span>
                 <ArrowIcon className="h-5 w-5" />
               </a>
               <a

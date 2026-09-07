@@ -29,12 +29,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    const parsed = savePayloadSchema.safeParse(await readJson(req));
+    // חשוב: zod משמש לאימות בלבד. כותבים את האובייקט המקורי ולא את
+    // parsed.data, כי zod בונה אובייקט חדש ומשנה את סדר המפתחות - וזה
+    // היה הופך שינוי של שורה אחת ל-diff של כל הקובץ, ומקלקל את ההיסטוריה.
+    const raw = await readJson<Record<string, unknown>>(req);
+    const parsed = savePayloadSchema.safeParse(raw);
     if (!parsed.success) {
       const issue = parsed.error.issues[0];
       return error(res, 400, `תוכן לא תקין: ${issue.path.join(".")} - ${issue.message}`);
     }
-    const { message, site, services, shas } = parsed.data;
+    const { message, shas } = parsed.data;
+    const site = raw.site as unknown;
+    const services = raw.services as unknown;
     if (!site && !services) return error(res, 400, "אין מה לשמור");
 
     const author = { name: session.name, email: `${session.username}@rozital-admin.local` };

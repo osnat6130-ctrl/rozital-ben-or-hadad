@@ -3,6 +3,7 @@ import Reveal from "./Reveal";
 import { ArrowIcon } from "./Icons";
 import { about } from "@/data/site";
 import { asset } from "@/lib/utils";
+import { cms } from "@/cms/paths";
 
 export default function AboutPreview() {
   return (
@@ -34,10 +35,12 @@ export default function AboutPreview() {
         {/* טקסט */}
         <div className="order-1 md:order-2">
           <Reveal>
-            <h2 id="about-preview-title" className="text-3xl sm:text-4xl">
+            <h2 id="about-preview-title" {...cms("site.about.previewTitle")} className="text-3xl sm:text-4xl">
               {about.previewTitle}
             </h2>
-            <p className="mt-5 text-lg leading-relaxed text-muted">{about.previewText}</p>
+            <p {...cms("site.about.previewText")} className="mt-5 text-lg leading-relaxed text-muted">
+              {about.previewText}
+            </p>
           </Reveal>
 
           <Reveal delay={120}>

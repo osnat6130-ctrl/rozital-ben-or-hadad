@@ -1,0 +1,44 @@
+/* עיצוב מצב העריכה - נטען רק למי שמחוברת */
+
+/* בזמן עריכה כל האלמנטים גלויים מיד - בלי אנימציית חשיפה */
+html.cms-editing [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* אלמנט שאפשר לערוך */
+html.cms-editing [data-cms] {
+  outline: 2px dashed hsl(var(--accent) / 0.45);
+  outline-offset: 3px;
+  border-radius: 6px;
+  cursor: text;
+  transition: outline-color 0.15s, background-color 0.15s;
+}
+html.cms-editing [data-cms]:hover {
+  outline-color: hsl(var(--accent));
+  background-color: hsl(var(--gold) / 0.18);
+}
+html.cms-editing [data-cms-type="image"],
+html.cms-editing [data-cms-type="video"] {
+  cursor: pointer;
+}
+
+/* בזמן הקלדה */
+html.cms-editing [data-cms][contenteditable="true"],
+html.cms-editing [data-cms][contenteditable="plaintext-only"] {
+  outline: 2px solid hsl(var(--accent));
+  background-color: hsl(var(--surface));
+  color: hsl(var(--text));
+  box-shadow: 0 8px 30px -10px hsl(var(--accent) / 0.4);
+}
+html.cms-editing [data-cms][contenteditable]:focus {
+  outline: 2px solid hsl(var(--accent));
+}
+
+/* קישורים וכפתורים לא מנווטים בזמן עריכה */
+html.cms-editing a[data-cms],
+html.cms-editing a:has([data-cms]) {
+  cursor: text;
+}

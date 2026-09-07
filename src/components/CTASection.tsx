@@ -1,6 +1,7 @@
 import Reveal from "./Reveal";
 import { PhoneIcon, WhatsappIcon } from "./Icons";
 import { site, telLink, whatsappLink } from "@/data/site";
+import { cms } from "@/cms/paths";
 
 type Props = {
   title: string;
@@ -9,6 +10,8 @@ type Props = {
   whatsappMessage?: string;
   /** דריסה אופציונלית של צבע הרקע (ברירת מחדל bg-accent-soft) */
   className?: string;
+  /** נתיב התוכן לעריכה במקום, למשל "site.home.cta" */
+  cmsPath?: string;
 };
 
 export default function CTASection({
@@ -16,6 +19,7 @@ export default function CTASection({
   text,
   whatsappMessage,
   className = "bg-accent-soft",
+  cmsPath,
 }: Props) {
   return (
     <section className={`section relative overflow-hidden ${className}`} aria-labelledby="cta-title">
@@ -31,11 +35,20 @@ export default function CTASection({
 
       <div className="container relative text-center">
         <Reveal>
-          <h2 id="cta-title" className="text-3xl text-accent-dark sm:text-4xl">
+          <h2
+            id="cta-title"
+            {...(cmsPath ? cms(`${cmsPath}.title`) : {})}
+            className="text-3xl text-accent-dark sm:text-4xl"
+          >
             {title}
           </h2>
           {text && (
-            <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted">{text}</p>
+            <p
+              {...(cmsPath ? cms(`${cmsPath}.text`) : {})}
+              className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-muted"
+            >
+              {text}
+            </p>
           )}
         </Reveal>
 

@@ -1,0 +1,156 @@
+/* ============================================================================
+   החנות של מצב העריכה
+   ----------------------------------------------------------------------------
+   העיקרון: התוכן של האתר חי באובייקטים שמיוצאים מ-src/data (services,
+   siteContent). כל הדפים קוראים מהם בזמן רינדור. מצב העריכה משנה את
+   האובייקטים האלה *במקום* (in place) - ולכן לא צריך לשנות אף דף, ואף
+   קומפוננטה לא צריכה לדעת שקיים פאנל.
+
+   "נתיב" (path) מזהה ערך בתוכן: "services.2.heroTitle",
+   "site.contact.steps.1.text". הרישא קובעת באיזה קובץ הוא נשמר.
+   ========================================================================== */
+import { useSyncExternalStore } from "react";
+import { services } from "@/data/services";
+import { siteContent } from "@/data/site";
+
+export type ContentFile = "site" | "services";
+
+type Snapshot = { site: unknown; services: unknown };
+
+const roots: Record<ContentFile, unknown> = { site: siteContent, services };
+
+let original: Snapshot | null = null;
+let shas: { site?: string; services?: string } = {};
+const dirty = new Set<string>();
+let version = 0;
+const listeners = new Set<() => void>();
+
+function emit() {
+  version++;
+  listeners.forEach((l) => l());
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+/** מספר גרסה שעולה בכל שינוי - לשימוש בקומפוננטות שצריכות להתעדכן */
+export function useCmsVersion() {
+  return useSyncExternalStore(subscribe, () => version);
+}
+
+export function useDirtyCount() {
+  return useSyncExternalStore(subscribe, () => dirty.size);
+}
+
+/* ---------- ניווט לפי נתיב ---------- */
+
+function splitPath(path: string): [ContentFile, string[]] {
+  const [file, ...rest] = path.split(".");
+  if (file !== "site" && file !== "services") throw new Error(`נתיב לא תקין: ${path}`);
+  return [file, rest];
+}
+
+export function getValue(path: string): unknown {
+  const [file, keys] = splitPath(path);
+  let node: unknown = roots[file];
+  for (const key of keys) {
+    if (node === null || typeof node !== "object") return undefined;
+    node = (node as Record<string, unknown>)[key];
+  }
+  return node;
+}
+
+export function setValue(path: string, value: unknown) {
+  const [file, keys] = splitPath(path);
+  let node: unknown = roots[file];
+  for (const key of keys.slice(0, -1)) {
+    node = (node as Record<string, unknown>)[key];
+    if (node === null || typeof node !== "object") throw new Error(`נתיב לא קיים: ${path}`);
+  }
+  (node as Record<string, unknown>)[keys[keys.length - 1]] = value;
+
+  const before = original ? getFrom(original[file], keys) : undefined;
+  if (JSON.stringify(before) === JSON.stringify(value)) dirty.delete(path);
+  else dirty.add(path);
+  emit();
+}
+
+function getFrom(root: unknown, keys: string[]): unknown {
+  let node = root;
+  for (const key of keys) {
+    if (node === null || typeof node !== "object") return undefined;
+    node = (node as Record<string, unknown>)[key];
+  }
+  return node;
+}
+
+/* ---------- סנכרון עם הריפו ---------- */
+
+/** מעדכן אובייקט קיים במקום כך שיהיה זהה למקור - בלי להחליף את
+ *  הרפרנס (כי כל הדפים מחזיקים אותו). */
+function assignDeep(target: unknown, source: unknown) {
+  if (Array.isArray(target) && Array.isArray(source)) {
+    target.length = source.length;
+    source.forEach((item, i) => {
+      if (item && typeof item === "object" && target[i] && typeof target[i] === "object") assignDeep(target[i], item);
+      else target[i] = structuredClone(item);
+    });
+    return;
+  }
+  if (target && typeof target === "object" && source && typeof source === "object") {
+    const t = target as Record<string, unknown>;
+    const s = source as Record<string, unknown>;
+    for (const key of Object.keys(t)) if (!(key in s)) delete t[key];
+    for (const [key, value] of Object.entries(s)) {
+      if (value && typeof value === "object" && t[key] && typeof t[key] === "object") assignDeep(t[key], value);
+      else t[key] = structuredClone(value);
+    }
+  }
+}
+
+/** נקרא כשנכנסים למצב עריכה: התוכן העדכני מהריפו הופך לבסיס */
+export function loadFromRepo(data: { site: unknown; services: unknown; shas: typeof shas }) {
+  assignDeep(roots.site, data.site);
+  assignDeep(roots.services, data.services);
+  original = { site: structuredClone(data.site), services: structuredClone(data.services) };
+  shas = { ...data.shas };
+  dirty.clear();
+  emit();
+}
+
+export function discardChanges() {
+  if (!original) return;
+  assignDeep(roots.site, original.site);
+  assignDeep(roots.services, original.services);
+  dirty.clear();
+  emit();
+}
+
+export function getDirtyPaths(): string[] {
+  return [...dirty];
+}
+
+/** מה לשלוח לשמירה: רק הקבצים שהשתנו, עם ה-sha שנקרא */
+export function buildSavePayload(message: string) {
+  const files = new Set(getDirtyPaths().map((p) => splitPath(p)[0]));
+  return {
+    message,
+    ...(files.has("site") ? { site: roots.site } : {}),
+    ...(files.has("services") ? { services: roots.services } : {}),
+    shas: {
+      ...(files.has("site") ? { site: shas.site } : {}),
+      ...(files.has("services") ? { services: shas.services } : {}),
+    },
+  };
+}
+
+/** אחרי שמירה מוצלחת: מה שנשמר הוא הבסיס החדש */
+export function markSaved(saved: Partial<Record<ContentFile, { sha: string }>>) {
+  if (saved.site) shas.site = saved.site.sha;
+  if (saved.services) shas.services = saved.services.sha;
+  original = { site: structuredClone(roots.site), services: structuredClone(roots.services) };
+  dirty.clear();
+  emit();
+}

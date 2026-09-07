@@ -4,6 +4,7 @@ import Lightbox from "./Lightbox";
 import { ZoomIcon } from "./Icons";
 import { certificates } from "@/data/site";
 import { asset } from "@/lib/utils";
+import { cms } from "@/cms/paths";
 
 /**
  * תעודות ההסמכה של רוזיטל - רשת תמונות שנפתחות בלייטבוקס בלחיצה.
@@ -39,12 +40,19 @@ export default function Certificates() {
             </span>
 
             <span className="flex flex-1 flex-col p-5">
-              <span className="font-display font-bold leading-snug text-brand-dark">
+              <span
+                {...cms(`site.certificates.${i}.title`)}
+                className="font-display font-bold leading-snug text-brand-dark"
+              >
                 {cert.title}
               </span>
-              <span className="mt-1.5 text-sm text-muted">{cert.issuer}</span>
+              <span {...cms(`site.certificates.${i}.issuer`)} className="mt-1.5 text-sm text-muted">
+                {cert.issuer}
+              </span>
               {cert.meta && (
-                <span className="mt-2 text-sm font-semibold text-brand">{cert.meta}</span>
+                <span {...cms(`site.certificates.${i}.meta`)} className="mt-2 text-sm font-semibold text-brand">
+                  {cert.meta}
+                </span>
               )}
             </span>
           </button>

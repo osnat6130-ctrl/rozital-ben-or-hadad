@@ -4,9 +4,12 @@ import Lightbox from "./Lightbox";
 import { QuoteIcon, ZoomIcon } from "./Icons";
 import type { ServiceMotion, Testimonial } from "@/data/services";
 import { asset } from "@/lib/utils";
+import { cms } from "@/cms/paths";
 
 type Props = {
   items: Testimonial[];
+  /** נתיב התוכן של המערך, למשל "services.0.testimonials" */
+  cmsPath?: string;
   motion?: ServiceMotion;
   /** תמונה נוספת להצגה כקלף בתוך הרשת (למשל דף משוב בכתב יד), עם לחיצה להגדלה */
   image?: { src: string; alt: string };
@@ -19,7 +22,7 @@ type Props = {
  * ועד פסקה שלמה), ובעמודות כל כרטיס תופס בדיוק את הגובה שלו - בלי
  * חורים לבנים שנוצרים ברשת כשכל השורה מתיישרת לכרטיס הארוך ביותר.
  */
-export default function Testimonials({ items, motion = "calm", image }: Props) {
+export default function Testimonials({ items, motion = "calm", image, cmsPath }: Props) {
   const [imageOpen, setImageOpen] = useState(false);
   const reveal = motion === "calm" ? "calm" : "pop";
 
@@ -49,7 +52,7 @@ export default function Testimonials({ items, motion = "calm", image }: Props) {
 
       {items.map((item, i) => (
         <Reveal
-          key={item.text}
+          key={i}
           variant={reveal}
           delay={(i % 3) * 90}
           className="mb-5 block break-inside-avoid"
@@ -59,7 +62,10 @@ export default function Testimonials({ items, motion = "calm", image }: Props) {
               className="absolute -left-1 -top-1 h-14 w-14 text-accent/10"
               aria-hidden
             />
-            <blockquote className="relative leading-relaxed text-muted">
+            <blockquote
+              {...(cmsPath ? cms(`${cmsPath}.${i}.text`) : {})}
+              className="relative leading-relaxed text-muted"
+            >
               {item.text}
             </blockquote>
             {item.context && (

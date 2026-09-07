@@ -4,6 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import FloatingActions from "./FloatingActions";
 import AccessibilityWidget from "./AccessibilityWidget";
+import CmsGate from "@/cms/gate";
 import { cn } from "@/lib/utils";
 
 /** גלילה לראש העמוד בכל מעבר בין דפים (למעט עוגנים) */
@@ -47,6 +48,8 @@ export default function Layout() {
       <Footer />
       <FloatingActions />
       <AccessibilityWidget />
+      {/* מצב העריכה - נטען רק למי שנכנסה דרך /admin */}
+      <CmsGate />
     </div>
   );
 }

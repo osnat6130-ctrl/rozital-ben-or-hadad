@@ -6,6 +6,7 @@ import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Accessibility from "@/pages/Accessibility";
 import NotFound from "@/pages/NotFound";
+import Admin from "@/pages/Admin";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

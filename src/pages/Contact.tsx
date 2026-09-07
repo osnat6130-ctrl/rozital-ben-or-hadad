@@ -5,6 +5,7 @@ import Logo from "@/components/Logo";
 import { MailIcon, PhoneIcon } from "@/components/Icons";
 import { contact, site, telLink } from "@/data/site";
 import { services } from "@/data/services";
+import { cms } from "@/cms/paths";
 
 export default function Contact() {
   return (
@@ -30,13 +31,19 @@ export default function Contact() {
           <Reveal className="mx-auto max-w-2xl text-center">
             <span className="inline-flex items-center gap-2.5 font-display text-sm font-bold text-brand">
               <span aria-hidden className="h-px w-6 bg-brand" />
-              {contact.eyebrow}
+              <span {...cms("site.contact.eyebrow")}>{contact.eyebrow}</span>
               <span aria-hidden className="h-px w-6 bg-brand" />
             </span>
             <h1 className="mt-4 text-4xl sm:text-5xl lg:text-6xl">
-              {contact.title} <span className="underline-brush">{contact.titleHighlight}</span>
+              <span {...cms("site.contact.title")}>{contact.title}</span>{" "}
+              <span {...cms("site.contact.titleHighlight")} className="underline-brush">
+                {contact.titleHighlight}
+              </span>
             </h1>
-            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+            <p
+              {...cms("site.contact.intro")}
+              className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted sm:text-xl"
+            >
               {contact.intro}
             </p>
           </Reveal>
@@ -56,8 +63,10 @@ export default function Contact() {
 
                 <div className="relative flex h-full flex-col">
                   <Logo variant="horizontal" withTagline invert className="w-fit" />
-                  <h2 className="mt-6 text-3xl text-white">{contact.panelTitle}</h2>
-                  <p className="mt-3 leading-relaxed text-white/80">
+                  <h2 {...cms("site.contact.panelTitle")} className="mt-6 text-3xl text-white">
+                    {contact.panelTitle}
+                  </h2>
+                  <p {...cms("site.contact.panelText")} className="mt-3 leading-relaxed text-white/80">
                     {contact.panelText}
                   </p>
 
@@ -95,15 +104,21 @@ export default function Contact() {
 
                   <ol className="mt-8 space-y-4">
                     {contact.steps.map((step, i) => (
-                      <li key={step.title} className="flex items-start gap-4">
+                      <li key={i} className="flex items-start gap-4">
                         <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 font-display text-sm font-bold text-gold ring-1 ring-white/15">
                           {i + 1}
                         </span>
                         <span>
-                          <span className="block font-display font-bold text-white">
+                          <span
+                            {...cms(`site.contact.steps.${i}.title`)}
+                            className="block font-display font-bold text-white"
+                          >
                             {step.title}
                           </span>
-                          <span className="block text-sm leading-relaxed text-white/75">
+                          <span
+                            {...cms(`site.contact.steps.${i}.text`)}
+                            className="block text-sm leading-relaxed text-white/75"
+                          >
                             {step.text}
                           </span>
                         </span>
@@ -112,7 +127,9 @@ export default function Contact() {
                   </ol>
 
                   <div className="mt-8">
-                    <p className="text-sm font-bold text-gold">{contact.topicsLabel}</p>
+                    <p {...cms("site.contact.topicsLabel")} className="text-sm font-bold text-gold">
+                      {contact.topicsLabel}
+                    </p>
                     <ul className="mt-3 flex flex-wrap gap-2">
                       {services.map((service) => (
                         <li

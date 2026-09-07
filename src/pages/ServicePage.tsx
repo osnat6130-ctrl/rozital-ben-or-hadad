@@ -7,42 +7,51 @@ import HeroMedia from "@/components/HeroMedia";
 import Testimonials from "@/components/Testimonials";
 import { ArrowDownIcon, CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
+import { cms, serviceIndex } from "@/cms/paths";
 import { site, telLink, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
 
 type Props = { id: Service["id"] };
 
 /** רשימת נקודות עם וי בצבע התחום */
-function Bullets({ items }: { items: string[] }) {
+function Bullets({ items, path }: { items: string[]; path: string }) {
   return (
     <ul className="mt-5 space-y-3">
-      {items.map((item) => (
-        <li key={item} className="flex items-start gap-3">
+      {items.map((item, i) => (
+        <li key={i} className="flex items-start gap-3">
           <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-dark">
             <CheckIcon className="h-4 w-4" />
           </span>
-          <span className="leading-relaxed text-muted">{item}</span>
+          <span {...cms(`${path}.${i}`)} className="leading-relaxed text-muted">
+            {item}
+          </span>
         </li>
       ))}
     </ul>
   );
 }
 
-function SectionBody({ section }: { section: ServiceSection }) {
+function SectionBody({ section, path }: { section: ServiceSection; path: string }) {
   return (
     <>
-      {section.paragraphs?.map((paragraph) => (
-        <p key={paragraph} className="mt-0 text-lg leading-snug text-muted first-of-type:mt-3">
+      {section.paragraphs?.map((paragraph, i) => (
+        <p
+          key={i}
+          {...cms(`${path}.paragraphs.${i}`)}
+          className="mt-0 text-lg leading-snug text-muted first-of-type:mt-3"
+        >
           {paragraph}
         </p>
       ))}
-      {section.bullets && <Bullets items={section.bullets} />}
+      {section.bullets && <Bullets items={section.bullets} path={`${path}.bullets`} />}
     </>
   );
 }
 
 export default function ServicePage({ id }: Props) {
   const service = getService(id);
+  /* בסיס הנתיבים לעריכה, למשל services.2.heroTitle */
+  const p = `services.${serviceIndex(id)}`;
   const reveal = service.motion === "calm" ? "calm" : "pop";
 
   const [first, ...rest] = service.sections;
@@ -97,7 +106,7 @@ export default function ServicePage({ id }: Props) {
               {service.heroEyebrow && (
                 <span className="mb-3 inline-flex items-center gap-2.5 font-display text-sm font-bold text-accent">
                   <span aria-hidden className="h-px w-6 bg-accent" />
-                  {service.heroEyebrow}
+                  <span {...cms(`${p}.heroEyebrow`)}>{service.heroEyebrow}</span>
                 </span>
               )}
 
@@ -112,13 +121,16 @@ export default function ServicePage({ id }: Props) {
                     : "text-[2.4rem] font-bold leading-[1.2] text-accent-dark sm:text-5xl lg:text-[3.4rem]"
                 }
               >
-                {service.heroTitle}
+                <span {...cms(`${p}.heroTitle`)}>{service.heroTitle}</span>
               </h1>
 
               {/* משפט המפתח של התחום. מעוצב ככותרת אך אינו h1 נוסף,
                   כדי לא לשבור את היררכיית הכותרות של העמוד. */}
               {service.heroTagline && (
-                <p className="mt-3 font-display text-4xl font-bold leading-[1.15] text-accent sm:text-5xl">
+                <p
+                  {...cms(`${p}.heroTagline`)}
+                  className="mt-3 font-display text-4xl font-bold leading-[1.15] text-accent sm:text-5xl"
+                >
                   {service.heroTagline}
                 </p>
               )}
@@ -127,7 +139,10 @@ export default function ServicePage({ id }: Props) {
             <Reveal delay={100}>
               {[service.heroSubtitle].flat().map((paragraph, i) => (
                 <p
-                  key={paragraph}
+                  key={i}
+                  {...cms(
+                    Array.isArray(service.heroSubtitle) ? `${p}.heroSubtitle.${i}` : `${p}.heroSubtitle`,
+                  )}
                   className={`mx-auto max-w-xl text-lg leading-relaxed text-muted lg:mx-0 lg:text-xl ${i === 0 ? "mt-6" : "mt-4"}`}
                 >
                   {paragraph}
@@ -151,7 +166,7 @@ export default function ServicePage({ id }: Props) {
                   rel="noopener noreferrer"
                   className="btn-whatsapp w-full sm:w-auto"
                 >
-                  {service.heroCta ?? "שלחו וואטסאפ"}
+                  <span {...cms(`${p}.heroCta`)}>{service.heroCta ?? "שלחו וואטסאפ"}</span>
                   <WhatsappIcon className="h-5 w-5" />
                 </a>
               </div>
@@ -183,11 +198,19 @@ export default function ServicePage({ id }: Props) {
             <Reveal variant={reveal}>
               <div className="flex flex-col items-center gap-5 rounded-[2rem] bg-accent px-6 py-7 text-center text-white shadow-card md:flex-row md:justify-between md:px-9 md:text-right">
                 <div>
-                  <h2 id="service-hero-banner" className="text-2xl text-white">
+                  <h2
+                    id="service-hero-banner"
+                    {...cms(`${p}.heroBanner.title`)}
+                    className="text-2xl text-white"
+                  >
                     {service.heroBanner.title}
                   </h2>
-                  {service.heroBanner.paragraphs?.map((paragraph) => (
-                    <p key={paragraph} className="mt-3 max-w-2xl leading-relaxed text-white/90">
+                  {service.heroBanner.paragraphs?.map((paragraph, i) => (
+                    <p
+                      key={i}
+                      {...cms(`${p}.heroBanner.paragraphs.${i}`)}
+                      className="mt-3 max-w-2xl leading-relaxed text-white/90"
+                    >
                       {paragraph}
                     </p>
                   ))}
@@ -198,7 +221,7 @@ export default function ServicePage({ id }: Props) {
                   rel="noopener noreferrer"
                   className="btn-whatsapp w-full shrink-0 sm:w-auto"
                 >
-                  {service.heroBanner.button}
+                  <span {...cms(`${p}.heroBanner.button`)}>{service.heroBanner.button}</span>
                   <WhatsappIcon className="h-5 w-5" />
                 </a>
               </div>
@@ -219,18 +242,26 @@ export default function ServicePage({ id }: Props) {
                 />
                 <div className="relative grid gap-8 md:grid-cols-2 md:gap-12">
                   <div>
-                    <h2 id="service-spotlight" className="text-3xl text-accent-dark sm:text-4xl">
+                    <h2
+                      id="service-spotlight"
+                      {...cms(`${p}.spotlight.title`)}
+                      className="text-3xl text-accent-dark sm:text-4xl"
+                    >
                       {service.spotlight.title}
                     </h2>
-                    {service.spotlight.paragraphs?.map((paragraph) => (
-                      <p key={paragraph} className="mt-4 text-lg leading-relaxed text-muted">
+                    {service.spotlight.paragraphs?.map((paragraph, i) => (
+                      <p
+                        key={i}
+                        {...cms(`${p}.spotlight.paragraphs.${i}`)}
+                        className="mt-4 text-lg leading-relaxed text-muted"
+                      >
                         {paragraph}
                       </p>
                     ))}
                   </div>
                   {service.spotlight.bullets && (
                     <div className="md:pt-2">
-                      <Bullets items={service.spotlight.bullets} />
+                      <Bullets items={service.spotlight.bullets} path={`${p}.spotlight.bullets`} />
                     </div>
                   )}
                 </div>
@@ -246,15 +277,25 @@ export default function ServicePage({ id }: Props) {
                     <h3 className="text-center text-2xl text-accent-dark sm:text-3xl">
                       מה אומרים ההורים
                     </h3>
-                    <Testimonials items={service.spotlight.testimonials} motion={service.motion} />
+                    <Testimonials
+                      items={service.spotlight.testimonials}
+                      motion={service.motion}
+                      cmsPath={`${p}.spotlight.testimonials`}
+                    />
                   </div>
                 )}
                 {service.spotlight.banner && (
                   <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
                     <div>
-                      <h3 className="text-2xl text-white">{service.spotlight.banner.title}</h3>
-                      {service.spotlight.banner.paragraphs?.map((paragraph) => (
-                        <p key={paragraph} className="mt-3 max-w-2xl leading-relaxed text-white/90">
+                      <h3 {...cms(`${p}.spotlight.banner.title`)} className="text-2xl text-white">
+                        {service.spotlight.banner.title}
+                      </h3>
+                      {service.spotlight.banner.paragraphs?.map((paragraph, i) => (
+                        <p
+                          key={i}
+                          {...cms(`${p}.spotlight.banner.paragraphs.${i}`)}
+                          className="mt-3 max-w-2xl leading-relaxed text-white/90"
+                        >
                           {paragraph}
                         </p>
                       ))}
@@ -265,7 +306,7 @@ export default function ServicePage({ id }: Props) {
                       rel="noopener noreferrer"
                       className="btn-whatsapp w-full shrink-0 sm:w-auto"
                     >
-                      {service.spotlight.banner.button}
+                      <span {...cms(`${p}.spotlight.banner.button`)}>{service.spotlight.banner.button}</span>
                       <WhatsappIcon className="h-5 w-5" />
                     </a>
                   </div>
@@ -316,11 +357,19 @@ export default function ServicePage({ id }: Props) {
           </Reveal>
 
           <Reveal variant={reveal} delay={100} className="mx-auto mt-12 max-w-2xl text-center">
-            <h2 id="service-intro" className="text-3xl text-accent-dark sm:text-4xl">
+            <h2
+              id="service-intro"
+              {...cms(`${p}.sections.0.title`)}
+              className="text-3xl text-accent-dark sm:text-4xl"
+            >
               {first.title}
             </h2>
-            {first.paragraphs?.map((paragraph) => (
-              <p key={paragraph} className="mt-4 text-lg leading-relaxed text-muted">
+            {first.paragraphs?.map((paragraph, i) => (
+              <p
+                key={i}
+                {...cms(`${p}.sections.0.paragraphs.${i}`)}
+                className="mt-4 text-lg leading-relaxed text-muted"
+              >
                 {paragraph}
               </p>
             ))}
@@ -329,12 +378,14 @@ export default function ServicePage({ id }: Props) {
           {first.bullets && (
             <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {first.bullets.map((item, i) => (
-                <Reveal as="li" key={item} variant={reveal} delay={i * 90}>
+                <Reveal as="li" key={i} variant={reveal} delay={i * 90}>
                   <div className="flex h-full flex-col items-center rounded-2xl bg-surface p-6 text-center shadow-soft ring-1 ring-line/60 transition-transform duration-500 md:hover:-translate-y-1.5">
                     <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-accent-soft text-accent-dark">
                       <CheckIcon className="h-6 w-6" />
                     </span>
-                    <p className="font-display font-bold leading-snug text-ink">{item}</p>
+                    <p {...cms(`${p}.sections.0.bullets.${i}`)} className="font-display font-bold leading-snug text-ink">
+                      {item}
+                    </p>
                   </div>
                 </Reveal>
               ))}
@@ -348,10 +399,12 @@ export default function ServicePage({ id }: Props) {
         <section className="section pb-0">
           <div className="container grid gap-6 md:grid-cols-2 md:gap-7">
             {middle.map((section, i) => (
-              <Reveal key={section.title} variant={reveal} delay={i * 120}>
+              <Reveal key={i} variant={reveal} delay={i * 120}>
                 <article className="card h-full p-8 md:p-9">
-                  <h2 className="text-2xl text-accent-dark">{section.title}</h2>
-                  <SectionBody section={section} />
+                  <h2 {...cms(`${p}.sections.${i + 1}.title`)} className="text-2xl text-accent-dark">
+                    {section.title}
+                  </h2>
+                  <SectionBody section={section} path={`${p}.sections.${i + 1}`} />
                 </article>
               </Reveal>
             ))}
@@ -373,12 +426,17 @@ export default function ServicePage({ id }: Props) {
                   aria-hidden
                   className="absolute -bottom-12 -left-6 h-48 w-48 rounded-full bg-gold/20"
                 />
-                <h2 id="service-highlight" className="relative text-3xl text-white sm:text-4xl">
+                <h2
+                  id="service-highlight"
+                  {...cms(`${p}.sections.${service.sections.length - 1}.title`)}
+                  className="relative text-3xl text-white sm:text-4xl"
+                >
                   {last.title}
                 </h2>
-                {last.paragraphs?.map((paragraph) => (
+                {last.paragraphs?.map((paragraph, i) => (
                   <p
-                    key={paragraph}
+                    key={i}
+                    {...cms(`${p}.sections.${service.sections.length - 1}.paragraphs.${i}`)}
                     className="relative mx-auto mt-0 max-w-2xl text-lg leading-normal text-white/90 first-of-type:mt-4"
                   >
                     {paragraph}
@@ -386,10 +444,15 @@ export default function ServicePage({ id }: Props) {
                 ))}
                 {last.bullets && (
                   <ul className="relative mx-auto mt-6 grid max-w-2xl gap-3 text-right sm:grid-cols-2">
-                    {last.bullets.map((item) => (
-                      <li key={item} className="flex items-start gap-2.5">
+                    {last.bullets.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
                         <CheckIcon className="mt-1 h-5 w-5 shrink-0 text-gold" />
-                        <span className="text-white/90">{item}</span>
+                        <span
+                          {...cms(`${p}.sections.${service.sections.length - 1}.bullets.${i}`)}
+                          className="text-white/90"
+                        >
+                          {item}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -397,7 +460,10 @@ export default function ServicePage({ id }: Props) {
                 {last.cta && (
                   <>
                     {last.ctaNote && (
-                      <p className="relative mt-5 font-display text-lg font-bold text-ink">
+                      <p
+                        {...cms(`${p}.sections.${service.sections.length - 1}.ctaNote`)}
+                        className="relative mt-5 font-display text-lg font-bold text-ink"
+                      >
                         {last.ctaNote}
                       </p>
                     )}
@@ -411,7 +477,7 @@ export default function ServicePage({ id }: Props) {
                       rel="noopener noreferrer"
                       className="btn-whatsapp relative mt-3"
                     >
-                      {last.cta}
+                      <span {...cms(`${p}.sections.${service.sections.length - 1}.cta`)}>{last.cta}</span>
                       <WhatsappIcon className="h-5 w-5" />
                     </a>
                   </>
@@ -447,7 +513,11 @@ export default function ServicePage({ id }: Props) {
           <div className="container">
             {service.videosTitle && (
               <Reveal variant={reveal} className="mx-auto mb-8 max-w-2xl text-center">
-                <h2 id="service-videos" className="text-3xl text-accent-dark sm:text-4xl">
+                <h2
+                  id="service-videos"
+                  {...cms(`${p}.videosTitle`)}
+                  className="text-3xl text-accent-dark sm:text-4xl"
+                >
                   {service.videosTitle}
                 </h2>
               </Reveal>
@@ -480,7 +550,9 @@ export default function ServicePage({ id }: Props) {
             <SectionTitle
               title={
                 <span id="testimonials-title">
-                  {service.testimonialsTitle ?? "מה אומרים אחרי המפגש"}
+                  <span {...cms(`${p}.testimonialsTitle`)}>
+                    {service.testimonialsTitle ?? "מה אומרים אחרי המפגש"}
+                  </span>
                 </span>
               }
             />
@@ -488,6 +560,7 @@ export default function ServicePage({ id }: Props) {
               items={service.testimonials}
               motion={service.motion}
               image={service.testimonialsImage}
+              cmsPath={`${p}.testimonials`}
             />
           </div>
         </section>
@@ -497,10 +570,12 @@ export default function ServicePage({ id }: Props) {
       <section id="contact" className="section scroll-mt-24 bg-accent-soft/45" aria-labelledby="form-title">
         <div className="container">
           <Reveal className="mx-auto max-w-xl text-center">
-            <h2 id="form-title" className="text-3xl text-accent-dark sm:text-4xl">
+            <h2 id="form-title" {...cms(`${p}.cta.title`)} className="text-3xl text-accent-dark sm:text-4xl">
               {service.cta.title}
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-muted">{service.cta.text}</p>
+            <p {...cms(`${p}.cta.text`)} className="mt-4 text-lg leading-relaxed text-muted">
+              {service.cta.text}
+            </p>
 
             <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
               <a
@@ -509,7 +584,7 @@ export default function ServicePage({ id }: Props) {
                 rel="noopener noreferrer"
                 className="btn-whatsapp w-full sm:w-auto"
               >
-                {service.cta.button ?? "שלחו וואטסאפ"}
+                <span {...cms(`${p}.cta.button`)}>{service.cta.button ?? "שלחו וואטסאפ"}</span>
                 <WhatsappIcon className="h-5 w-5" />
               </a>
               <a href={telLink} className="btn-primary w-full sm:w-auto">

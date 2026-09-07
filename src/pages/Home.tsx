@@ -7,6 +7,7 @@ import Reasons from "@/components/Reasons";
 import CTASection from "@/components/CTASection";
 import { services } from "@/data/services";
 import { home, site } from "@/data/site";
+import { cms } from "@/cms/paths";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -39,7 +40,11 @@ export default function Home() {
       <section id="services" className="section scroll-mt-24" aria-labelledby="services-title">
         <div className="container">
           <SectionTitle
-            title={<span id="services-title">{home.servicesTitle}</span>}
+            title={
+              <span id="services-title" {...cms("site.home.servicesTitle")}>
+                {home.servicesTitle}
+              </span>
+            }
           />
 
           <div className="mt-12 grid gap-6 md:grid-cols-2 md:gap-7 xl:grid-cols-4">
@@ -56,6 +61,7 @@ export default function Home() {
       <CTASection
         title={home.cta.title}
         text={home.cta.text}
+        cmsPath="site.home.cta"
         className="bg-brand-soft"
       />
     </>

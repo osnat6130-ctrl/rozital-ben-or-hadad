@@ -85,6 +85,9 @@ type SiteContent = {
 
 const content = siteJson as unknown as SiteContent;
 
+/** האובייקט המלא - מצב העריכה כותב לתוכו במקום (ראו src/cms/store.ts) */
+export const siteContent = content;
+
 export const site = content.site;
 export const navItems = content.nav;
 export const home = content.home;
