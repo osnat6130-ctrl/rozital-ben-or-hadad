@@ -132,8 +132,11 @@ src/
 
 האתר הוא SPA, ולכן השרת צריך להחזיר את `index.html` לכל נתיב:
 
-- **Netlify** - מטופל ע"י `public/_redirects`
-- **Vercel** - מטופל ע"י `vercel.json`
+האתר מתארח ב-**Cloudflare Pages**:
+
+- הניתוב מטופל ע"י `public/_redirects`
+- כותרות המטמון ב-`public/_headers`
+- פונקציות הפאנל ב-`functions/api/`, והקוד המשותף שלהן ב-`server/`
 - **אחסון אחר** - להגדיר rewrite של `/*` ל-`/index.html`
 
 ---

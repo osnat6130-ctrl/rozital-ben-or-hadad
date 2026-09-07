@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
-  // נתיב הבסיס: "/" ב-Vercel (ברירת מחדל). GitHub Pages מגדיר
+  // נתיב הבסיס: "/" ב-Cloudflare Pages (ברירת מחדל). GitHub Pages מגדיר
   // VITE_BASE_PATH=/rozital-ben-or-hadad/ ב-workflow שלו, עד שיוצא משימוש.
   base: process.env.VITE_BASE_PATH || "/",
   plugins: [react()],

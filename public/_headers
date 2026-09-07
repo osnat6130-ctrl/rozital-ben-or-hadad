@@ -1,0 +1,27 @@
+# כותרות שמוגשות על ידי Cloudflare Pages.
+# קבצי הבנייה מקבלים שם עם hash ולכן אפשר לשמור אותם לנצח; מדיה מתעדכנת
+# מדי פעם דרך הפאנל, ולכן שבוע + הגשה מהמטמון תוך רענון ברקע.
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/videos/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/*.png
+  Cache-Control: public, max-age=604800
+
+/*.svg
+  Cache-Control: public, max-age=604800
+
+# הפאנל לא אמור להופיע בתוצאות חיפוש
+/admin
+  X-Robots-Tag: noindex, nofollow
+/admin/*
+  X-Robots-Tag: noindex, nofollow
+
+/api/*
+  Cache-Control: no-store
