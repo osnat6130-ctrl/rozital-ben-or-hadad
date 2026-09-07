@@ -62,8 +62,8 @@ export type NavItem = { label: string; to: string };
 export const navItems: NavItem[] = [
   { label: "דף הבית", to: "/" },
   { label: "צרכים מיוחדים", to: "/lectures" },
-  { label: "יוגה צחוק", to: "/laughter-yoga" },
   { label: "הורים וילדים", to: "/parents-kids" },
+  { label: "יוגה צחוק", to: "/laughter-yoga" },
   { label: "בנות מצווה", to: "/bat-mitzvah" },
   { label: "אודות", to: "/about" },
   { label: "צור קשר", to: "/contact" },
