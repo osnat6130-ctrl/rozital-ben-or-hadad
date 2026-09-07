@@ -252,7 +252,7 @@ export const services: Service[] = [
     bannerVideo: "/videos/parents-kids.mp4",
     gallery: [
       { src: "/images/parents-kids-6.jpg", alt: "אמהות וילדות מצטלמות סלפי בסיום הסדנה" },
-      { src: "/images/parents-kids-7.jpg", alt: "רוזיטל ומשתתפת עם מסכה ואביזרי צחוק בסדנה" },
+      { src: "/images/parents-kids-10.jpg", alt: "מפגש ערב בחצר - חיבוקים, מחיאות כפיים ואווירה שמחה" },
       { src: "/images/parents-kids-2.jpg", alt: "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים" },
       { src: "/images/parents-kids-5.jpg", alt: "הורים וילדים במשחק מסכות בסדנה" },
       { src: "/images/parents-kids-9.jpg", alt: "פעילות ערב בחצר - הורים וילדים במשחק עם מסכות" },
