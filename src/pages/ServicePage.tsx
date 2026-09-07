@@ -171,11 +171,12 @@ export default function ServicePage({ id }: Props) {
       </section>
 
       {/* ================= באנר שכנוע מתחת ל-Hero =================
-          רקע חצוי חד: למעלה לבן, ולמטה אותו גוון בדיוק של האזור הבא
-          ("למי זה מתאים"), כדי שהמעבר בין האזורים ייראה רציף. */}
+          רקע חצוי חד בלי ריפוד משלו: החצי העליון בצבע הרקע של הדף (מה
+          שרואים בתחתית ה-Hero), והתחתון בגוון של האזור הבא ("למי זה מתאים").
+          כך הבאנר "רוכב" על התפר בין שני האזורים. */}
       {service.heroBanner && (
         <section
-          className="bg-[linear-gradient(to_bottom,#ffffff_0,#ffffff_50%,hsl(var(--accent-soft)_/_0.4)_50%,hsl(var(--accent-soft)_/_0.4)_100%)] pt-8 md:pt-12"
+          className="bg-[linear-gradient(to_bottom,hsl(var(--background))_0,hsl(var(--background))_50%,hsl(var(--accent-soft)_/_0.4)_50%,hsl(var(--accent-soft)_/_0.4)_100%)]"
           aria-labelledby="service-hero-banner"
         >
           <div className="container">
