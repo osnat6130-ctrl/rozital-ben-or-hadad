@@ -5,3 +5,8 @@ dist
 .DS_Store
 *.local
 *.tsbuildinfo
+
+# סקריפט עזר זמני לאיתור פנים בתמונות - נוצר מחדש בכל פעם שצריך
+scripts/_zoom.mjs
+# תמונה יתומה שאף דף לא משתמש בה, ו-OneDrive מחזיר אותה שוב ושוב
+public/images/bat-mitzvah-1.jpg
