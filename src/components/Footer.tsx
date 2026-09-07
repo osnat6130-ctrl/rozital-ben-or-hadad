@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { PhoneIcon, WhatsappIcon, MailIcon } from "./Icons";
 import { navItems, site, telLink, whatsappLink } from "@/data/site";
-import { services } from "@/data/services";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -71,16 +70,6 @@ export default function Footer() {
                 </a>
               </li>
             )}
-          </ul>
-
-          <ul className="mt-6 space-y-2 text-sm text-white/55">
-            {services.map((s) => (
-              <li key={s.id}>
-                <Link to={s.path} className="inline-block py-1 transition-colors hover:text-gold">
-                  {s.cardTitle}
-                </Link>
-              </li>
-            ))}
           </ul>
         </div>
       </div>
