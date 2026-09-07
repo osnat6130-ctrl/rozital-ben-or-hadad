@@ -8,11 +8,11 @@ export default function Footer() {
 
   return (
     <footer className="mt-auto bg-brand-dark text-white/80">
-      <div className="container grid gap-10 py-14 md:grid-cols-[1.3fr_1fr_1fr] md:gap-12 md:py-16">
+      <div className="container grid gap-8 py-10 md:grid-cols-[1.3fr_1fr_1fr] md:gap-10 md:py-12">
         {/* מותג */}
         <div>
           <Logo variant="horizontal" withTagline invert />
-          <p className="mt-5 max-w-sm text-[0.98rem] leading-relaxed text-white/70">
+          <p className="mt-4 max-w-sm text-[0.94rem] leading-snug text-white/70">
             הרצאות להורים / אחים / צוותי חינוך / בתי ספר, סדנאות יוגה צחוק ופעילות בת מצווה -
             בהנחיה אישית, מקצועית ומלאת שמחה.
           </p>
@@ -20,13 +20,13 @@ export default function Footer() {
 
         {/* ניווט */}
         <nav aria-label="ניווט בתחתית האתר">
-          <h2 className="mb-4 font-display text-lg font-bold text-white">מפת האתר</h2>
-          <ul className="space-y-2.5">
+          <h2 className="mb-2 font-display text-base font-bold text-white">מפת האתר</h2>
+          <ul className="space-y-0.5">
             {navItems.map((item) => (
               <li key={item.to}>
                 <Link
                   to={item.to}
-                  className="inline-block py-1.5 text-white/75 transition-colors duration-200 hover:text-gold"
+                  className="inline-block py-1 text-white/75 transition-colors duration-200 hover:text-gold"
                 >
                   {item.label}
                 </Link>
@@ -37,8 +37,8 @@ export default function Footer() {
 
         {/* יצירת קשר */}
         <div>
-          <h2 className="mb-4 font-display text-lg font-bold text-white">דברו איתי</h2>
-          <ul className="space-y-3">
+          <h2 className="mb-2 font-display text-base font-bold text-white">דברו איתי</h2>
+          <ul className="space-y-2">
             <li>
               <a
                 href={whatsappLink()}
@@ -75,7 +75,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="container flex flex-col items-center justify-between gap-2 py-5 text-center text-sm text-white/55 sm:flex-row sm:text-right">
+        <div className="container flex flex-col items-center justify-between gap-2 py-4 text-center text-sm text-white/55 sm:flex-row sm:text-right">
           <p>
             © {year} {site.name}. כל הזכויות שמורות.
           </p>
