@@ -241,6 +241,18 @@ export default function ServicePage({ id }: Props) {
       >
         <div className="container">
           <Reveal variant={reveal}>
+            {/* בתחום שהוגדר לו bannerVideo מוצג נגן במקום תמונת הרוחב.
+                אין שכבת גרדיאנט מעל וידאו - היא מכהה את התמונה וחוסמת את הכפתורים. */}
+            {service.bannerVideo ? (
+              <video
+                src={asset(service.bannerVideo)}
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={service.title}
+                className="mx-auto aspect-[9/16] w-full max-w-sm rounded-[2rem] bg-black object-contain shadow-card"
+              />
+            ) : (
             <div className="relative overflow-hidden rounded-[2rem] shadow-card">
               <img
                 src={asset(service.bannerImage)}
@@ -256,6 +268,7 @@ export default function ServicePage({ id }: Props) {
                 className="absolute inset-0 bg-gradient-to-t from-accent-dark/35 via-transparent to-transparent"
               />
             </div>
+            )}
           </Reveal>
 
           <Reveal variant={reveal} delay={100} className="mx-auto mt-12 max-w-2xl text-center">

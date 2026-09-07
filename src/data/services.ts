@@ -58,6 +58,9 @@ export type Service = {
   heroVideo?: string;
   /** תמונת רוחב לאזור "למי זה מתאים" - יחס 16:7 */
   bannerImage: string;
+  /** סרטון שמחליף את תמונת הרוחב באזור "למי זה מתאים".
+   *  bannerImage ממשיך לשמש כתמונת הפוסטר לפני הניגון. */
+  bannerVideo?: string;
   gallery: { src: string; alt: string }[];
   /** סרטון באזור משלו אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי) */
   video?: { src: string };
@@ -246,6 +249,7 @@ export const services: Service[] = [
     cardImage: "/images/parents-kids-card.jpg",
     heroImage: "/images/siblings-2.jpg",
     bannerImage: "/images/parents-kids-banner.jpg",
+    bannerVideo: "/videos/parents-kids.mp4",
     gallery: [
       { src: "/images/parents-kids-6.jpg", alt: "אמהות וילדות מצטלמות סלפי בסיום הסדנה" },
       { src: "/images/parents-kids-7.jpg", alt: "רוזיטל ומשתתפת עם מסכה ואביזרי צחוק בסדנה" },
