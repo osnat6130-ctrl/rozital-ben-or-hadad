@@ -244,7 +244,6 @@ export const services: Service[] = [
       "הפעילות מגיעה ישירות אליכם לקבוצה, לבית הספר או לקהילה שלכם :)",
     ],
     heroCta: "לפרטים ולהרשמה",
-    heroCtaNote: "להרשמה לחצו כאן",
     motion: "joyful",
     theme: {
       accent: "262 48% 55%",
