@@ -29,7 +29,9 @@ export default function SectionTitle({
       )}
     >
       {eyebrow && <span className="eyebrow mb-4">{eyebrow}</span>}
-      <Heading className="text-3xl sm:text-4xl md:text-[2.6rem]">{title}</Heading>
+      {/* text-accent-dark: בדפי התחומים זה גוון התחום, ובשאר האתר
+          המשתנה נופל חזרה ל-brand-dark - בדיוק צבע הכותרות הרגיל */}
+      <Heading className="text-3xl text-accent-dark sm:text-4xl md:text-[2.6rem]">{title}</Heading>
       {subtitle && (
         <p className="mt-4 text-lg leading-relaxed text-muted">{subtitle}</p>
       )}
