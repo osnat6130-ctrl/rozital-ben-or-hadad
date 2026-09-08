@@ -5,7 +5,7 @@ import SectionTitle from "@/components/SectionTitle";
 import ImageGallery from "@/components/ImageGallery";
 import HeroMedia from "@/components/HeroMedia";
 import Testimonials from "@/components/Testimonials";
-import { ArrowDownIcon, CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
+import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
 import { cms, serviceIndex } from "@/cms/paths";
 import { site, telLink, whatsappLink } from "@/data/site";
@@ -154,7 +154,6 @@ export default function ServicePage({ id }: Props) {
               {service.heroCtaNote && (
                 <div className="mt-6 flex flex-col items-center lg:w-64 lg:items-center">
                   <p className="font-display font-bold text-ink">{service.heroCtaNote}</p>
-                  <ArrowDownIcon aria-hidden className="mt-1 h-8 w-8 animate-bounce text-ink" />
                 </div>
               )}
               <div
@@ -466,14 +465,6 @@ export default function ServicePage({ id }: Props) {
                       >
                         {last.ctaNote}
                       </p>
-                    )}
-                    {/* החץ נלווה לכיתוב ומצביע ממנו אל הכפתור - בלי כיתוב
-                        אין לו על מה להצביע, ולכן שניהם מופיעים או נעלמים יחד */}
-                    {last.ctaNote && (
-                      <ArrowDownIcon
-                        aria-hidden
-                        className="relative mx-auto mt-1 h-8 w-8 animate-bounce text-ink"
-                      />
                     )}
                     <a
                       href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
