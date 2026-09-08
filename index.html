@@ -40,17 +40,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      // משחזר את הנתיב ששמר public/404.html - ראו הסבר שם.
-      // חייב לרוץ לפני שה-React Router מתחיל, אחרת יטען את דף הבית תמיד.
-      (function () {
-        var redirect = sessionStorage.getItem("spa-redirect");
-        if (redirect) {
-          sessionStorage.removeItem("spa-redirect");
-          history.replaceState(null, "", location.pathname.replace(/\/$/, "") + redirect);
-        }
-      })();
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
