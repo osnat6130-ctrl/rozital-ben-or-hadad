@@ -467,10 +467,14 @@ export default function ServicePage({ id }: Props) {
                         {last.ctaNote}
                       </p>
                     )}
-                    <ArrowDownIcon
-                      aria-hidden
-                      className={`relative mx-auto h-8 w-8 animate-bounce text-ink ${last.ctaNote ? "mt-1" : "mt-4"}`}
-                    />
+                    {/* החץ נלווה לכיתוב ומצביע ממנו אל הכפתור - בלי כיתוב
+                        אין לו על מה להצביע, ולכן שניהם מופיעים או נעלמים יחד */}
+                    {last.ctaNote && (
+                      <ArrowDownIcon
+                        aria-hidden
+                        className="relative mx-auto mt-1 h-8 w-8 animate-bounce text-ink"
+                      />
+                    )}
                     <a
                       href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשריין מקום ל${service.cardTitle} :)`)}
                       target="_blank"
