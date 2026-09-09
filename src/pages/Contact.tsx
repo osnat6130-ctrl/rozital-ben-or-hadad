@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
 import WhatsappForm from "@/components/WhatsappForm";
@@ -132,11 +133,13 @@ export default function Contact() {
                     </p>
                     <ul className="mt-3 flex flex-wrap gap-2">
                       {services.map((service) => (
-                        <li
-                          key={service.id}
-                          className="rounded-full bg-white/10 px-3.5 py-1.5 text-sm text-white/90 ring-1 ring-white/15"
-                        >
-                          {service.navLabel}
+                        <li key={service.id}>
+                          <Link
+                            to={service.path}
+                            className="block rounded-full bg-white/10 px-3.5 py-1.5 text-sm text-white/90 ring-1 ring-white/15 transition-colors duration-200 hover:bg-white/20 hover:text-white hover:ring-white/40 focus-visible:bg-white/20 focus-visible:text-white"
+                          >
+                            {service.navLabel}
+                          </Link>
                         </li>
                       ))}
                     </ul>
