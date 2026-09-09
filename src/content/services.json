@@ -449,10 +449,14 @@
     ],
     "videos": [
       {
-        "src": "/videos/bat-mitzvah.mp4"
+        "src": "/videos/bat-mitzvah.mp4",
+        "width": 478,
+        "height": 850
       },
       {
-        "src": "/videos/bat-mitzvah-2.mp4"
+        "src": "/videos/bat-mitzvah-2.mp4",
+        "width": 392,
+        "height": 848
       }
     ],
     "videosTitle": "רוצים לראות איך זה עובד? קבלו הצצה",

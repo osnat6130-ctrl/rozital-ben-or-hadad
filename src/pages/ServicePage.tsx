@@ -518,9 +518,10 @@ export default function ServicePage({ id }: Props) {
               </Reveal>
             )}
             <Reveal variant={reveal} className="mx-auto max-w-3xl">
-              {/* היחס נגזר מהסרטונים עצמם (מצולמים בטלפון, לאורך),
-                  כדי שלא ייווצרו פסים שחורים רחבים משני הצדדים */}
-              <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
+              {/* כל סרטון מקבל את היחס שלו מהמידות שבתוכן. סרטוני טלפון
+                  נבדלים ביניהם ביחס, ומסגרת אחידה הייתה יוצרת פסים שחורים.
+                  items-start כדי ששניים בגבהים שונים יתחילו באותו קו. */}
+              <div className="grid items-start gap-4 sm:grid-cols-2 sm:gap-5">
                 {service.videos.map((clip) => (
                   <video
                     key={clip.src}
@@ -528,7 +529,8 @@ export default function ServicePage({ id }: Props) {
                     controls
                     playsInline
                     preload="metadata"
-                    className="aspect-[392/848] w-full rounded-2xl bg-black object-contain shadow-card"
+                    style={{ aspectRatio: clip.width && clip.height ? `${clip.width} / ${clip.height}` : "9 / 16" }}
+                    className="w-full rounded-2xl bg-black object-contain shadow-card"
                   />
                 ))}
               </div>
