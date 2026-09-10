@@ -26,9 +26,37 @@ const ALLOWED: Record<string, { extension: string; dir: string; maxBytes: number
   "video/webm": { extension: "webm", dir: "public/videos", maxBytes: 20 * 1024 * 1024 },
 };
 
+/* ‼️ חתימת הבתים הראשונים של הקובץ ("magic bytes").
+   contentType מגיע מהדפדפן ואפשר לכתוב בו מה שרוצים, כלומר עד כאן
+   "image/png" היה מספיק כדי לשמור קובץ שאינו תמונה בכלל תחת סיומת
+   png. החתימה נבדקת מול הקובץ עצמו, ולכן היא לא ניתנת לשקר.
+   זו שכבה שנייה מעל nosniff שב-_headers, ולא תחליף לו. */
+const startsWith = (bytes: Uint8Array, ...signature: number[]) =>
+  signature.every((byte, i) => bytes[i] === byte);
+const ascii = (bytes: Uint8Array, offset: number, text: string) =>
+  [...text].every((char, i) => bytes[offset + i] === char.charCodeAt(0));
+
+const SIGNATURES: Record<string, (bytes: Uint8Array) => boolean> = {
+  "image/jpeg": (b) => startsWith(b, 0xff, 0xd8, 0xff),
+  "image/png": (b) => startsWith(b, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a),
+  "image/webp": (b) => ascii(b, 0, "RIFF") && ascii(b, 8, "WEBP"),
+  /* ל-MP4 אין חתימה בתחילת הקובץ: הראשונים הם אורך התיבה, ואחריהם "ftyp" */
+  "video/mp4": (b) => ascii(b, 4, "ftyp"),
+  "video/webm": (b) => startsWith(b, 0x1a, 0x45, 0xdf, 0xa3),
+};
+
+/** תקרה גלובלית לגוף הבקשה, נבדקת לפני הקריאה שלו לזיכרון.
+ *  20MB של וידאו + ניפוח base64 של שליש, ועוד מרווח ל-JSON. */
+const MAX_BODY_BYTES = 30 * 1024 * 1024;
+
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const session = await getSession(env, request);
   if (!session) return error(401, "לא מחוברת");
+
+  /* בדיקת הגודל לפני readJson: אחרי הקריאה הגוף כבר בזיכרון, וזו
+     הנקודה שבה בקשה אחת גדולה מפילה את הפונקציה. */
+  const declared = Number(request.headers.get("Content-Length") ?? 0);
+  if (declared > MAX_BODY_BYTES) return error(413, "הקובץ גדול מדי");
 
   let body: { name?: unknown; contentType?: unknown; base64?: unknown };
   try {
@@ -57,6 +85,17 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     );
   }
   if (!/^[A-Za-z0-9+/]+={0,2}$/.test(base64)) return error(400, "הקובץ לא הגיע בפורמט תקין");
+
+  let head: Uint8Array;
+  try {
+    const binary = atob(base64.slice(0, 24)); // 18 בתים ראשונים, מספיק לכל החתימות
+    head = Uint8Array.from(binary, (char) => char.charCodeAt(0));
+  } catch {
+    return error(400, "הקובץ לא הגיע בפורמט תקין");
+  }
+  if (!SIGNATURES[contentType](head)) {
+    return error(400, `הקובץ לא נראה כמו ${isVideo ? "סרטון" : "תמונה"} מסוג ${contentType}`);
+  }
 
   /* שם הקובץ נבנה מחדש ולא מתקבל כמו שהוא: מונע ../ , ומונע דריסה של
      תמונה קיימת כשמעלים קובץ עם אותו שם.

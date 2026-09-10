@@ -2,6 +2,23 @@
 # קבצי הבנייה מקבלים שם עם hash ולכן אפשר לשמור אותם לנצח; מדיה מתעדכנת
 # מדי פעם דרך הפאנל, ולכן שבוע + הגשה מהמטמון תוך רענון ברקע.
 
+# ---------------------------------------------------------------------------
+# כותרות אבטחה לכל האתר.
+# שכבת בלימה: גם אם תוכן זדוני יגיע פעם ל-HTML (למשל דרך הפאנל), הדפדפן
+# יסרב להריץ סקריפט שלא מהאתר עצמו, יסרב לנחש טיפוס תוכן על קובץ שהועלה,
+# ויסרב להטמיע את האתר ב-iframe.
+#
+# ה-CSP מתיר את מה שהאתר באמת צריך: פונטים מ-Google, וידאו ותמונות
+# מהדומיין עצמו, ו-wa.me ליציאה. 'unsafe-inline' לסגנונות נדרש כי
+# Tailwind ו-React מציבים סגנונות ישירות על אלמנטים.
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 

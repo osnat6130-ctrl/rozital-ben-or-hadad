@@ -24,11 +24,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error(401, "שם משתמש או סיסמה שגויים");
   }
 
-  const token = await createToken(env, { username: user.username, name: user.name }, remember);
+  const token = await createToken(env, user, remember);
   return json(
     200,
     { name: user.name, username: user.username },
-    { "Set-Cookie": sessionCookie(env, token, remember) },
+    { "Set-Cookie": sessionCookie(env, request, token, remember) },
   );
 };
 

@@ -3,5 +3,5 @@ import type { Env } from "../../server/env";
 import { json } from "../../server/http";
 import { clearedCookie } from "../../server/session";
 
-export const onRequestPost: PagesFunction<Env> = async ({ env }) =>
-  json(200, { ok: true }, { "Set-Cookie": clearedCookie(env) });
+export const onRequestPost: PagesFunction<Env> = async ({ env, request }) =>
+  json(200, { ok: true }, { "Set-Cookie": clearedCookie(env, request) });
