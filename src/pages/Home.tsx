@@ -6,24 +6,15 @@ import AboutPreview from "@/components/AboutPreview";
 import Reasons from "@/components/Reasons";
 import CTASection from "@/components/CTASection";
 import { services } from "@/data/services";
-import { home, site } from "@/data/site";
+import { home } from "@/data/site";
 import { cms } from "@/cms/paths";
 import { useCmsVersion } from "@/cms/store";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  name: site.name,
-  slogan: site.tagline,
-  url: site.url,
-  telephone: site.phone.dial,
-  areaServed: "IL",
-  availableLanguage: "he",
-  makesOffer: services.map((service) => ({
-    "@type": "Offer",
-    itemOffered: { "@type": "Service", name: service.cardTitle },
-  })),
-};
+/* ‼️ אין כאן JSON-LD.
+   הנתונים המובנים נכתבים לתוך ה-HTML בבנייה (scripts/prerender.mjs),
+   ולכן הם מגיעים לכל סורק - גם למי שלא מריץ JavaScript. הגרסה שנוספה
+   כאן בזמן ריצה יצרה בלוק שני על אותו עמוד, שמתאר את אותו דבר בפחות
+   פירוט. בלוק אחד, במקום אחד. */
 
 export default function Home() {
   /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
@@ -35,7 +26,6 @@ export default function Home() {
         title={home.seo.title}
         description={home.seo.description}
         path="/"
-        jsonLd={jsonLd}
       />
 
       <HomeHero />

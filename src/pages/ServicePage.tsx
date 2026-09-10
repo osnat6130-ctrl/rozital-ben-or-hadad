@@ -75,20 +75,6 @@ export default function ServicePage({ id }: Props) {
   const middle = rest.slice(0, -1);
   const last = rest[rest.length - 1];
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    name: service.title,
-    description: service.seo.description,
-    serviceType: service.cardTitle,
-    provider: {
-      "@type": "Person",
-      name: site.name,
-      telephone: site.phone.dial,
-      url: site.url,
-    },
-    areaServed: "IL",
-  };
 
   return (
     <ServiceTheme theme={service.theme}>
@@ -97,7 +83,6 @@ export default function ServicePage({ id }: Props) {
         description={service.seo.description}
         path={service.path}
         image={service.heroImage}
-        jsonLd={jsonLd}
       />
 
       {/* ================= HERO ================= */}

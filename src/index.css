@@ -233,3 +233,13 @@ html.a11y-reduce-motion [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }
+
+/* ‼️ התוכן הסטטי שנכתב על ידי scripts/prerender.mjs.
+   הוא קיים ב-HTML הגולמי כדי שסורק שלא מריץ JavaScript (וואטסאפ,
+   ChatGPT, Perplexity) יראה את תוכן העמוד, ומוסתר כאן כי React מציג
+   את האתר האמיתי. ההסתרה ב-CSS ולא בסקריפט: ה-CSP אוסר סקריפט inline,
+   ו-CSS חל לפני הציור הראשון ולכן אין הבהוב.
+   מי שאין לו JavaScript מקבל אותו בחזרה דרך <noscript> שבעמוד עצמו. */
+#prerendered {
+  display: none;
+}

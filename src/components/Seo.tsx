@@ -7,8 +7,6 @@ type SeoProps = {
   /** נתיב יחסי, למשל "/laughter-yoga" */
   path: string;
   image?: string;
-  /** JSON-LD אופציונלי לעמוד */
-  jsonLd?: Record<string, unknown>;
 };
 
 function setMeta(selector: string, attr: "name" | "property", key: string, content: string) {
@@ -22,10 +20,12 @@ function setMeta(selector: string, attr: "name" | "property", key: string, conte
 }
 
 /**
- * מנהל את תגיות ה-head לכל עמוד (title / description / canonical / OG / JSON-LD).
+ * מנהל את תגיות ה-head לכל עמוד (title / description / canonical / OG).
+ * הנתונים המובנים (JSON-LD) נכתבים בבנייה ב-scripts/prerender.mjs ולא כאן,
+ * כדי שגם סורק שלא מריץ JavaScript יקבל אותם.
  * במעבר ל-Lovable או ל-SSR אפשר להחליף ב-react-helmet-async בלי לשנות את הקריאות.
  */
-export default function Seo({ title, description, path, image, jsonLd }: SeoProps) {
+export default function Seo({ title, description, path, image }: SeoProps) {
   useEffect(() => {
     const url = `${site.url}${path}`;
     const ogImage = image ? `${site.url}${image}` : `${site.url}/logo-original.jpg`;
@@ -46,20 +46,7 @@ export default function Seo({ title, description, path, image, jsonLd }: SeoProp
       document.head.appendChild(canonical);
     }
     canonical.href = url;
-
-    let script: HTMLScriptElement | null = null;
-    if (jsonLd) {
-      script = document.createElement("script");
-      script.type = "application/ld+json";
-      script.textContent = JSON.stringify(jsonLd);
-      script.dataset.page = "true";
-      document.head.appendChild(script);
-    }
-
-    return () => {
-      script?.remove();
-    };
-  }, [title, description, path, image, jsonLd]);
+  }, [title, description, path, image]);
 
   return null;
 }

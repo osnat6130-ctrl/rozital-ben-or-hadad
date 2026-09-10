@@ -6,20 +6,17 @@ import Certificates from "@/components/Certificates";
 import CTASection from "@/components/CTASection";
 import ServiceTheme from "@/components/ServiceTheme";
 import { ArrowIcon } from "@/components/Icons";
-import { aboutPage, about, site } from "@/data/site";
+import { aboutPage, about } from "@/data/site";
 import { asset } from "@/lib/utils";
 import { cms, cmsImage } from "@/cms/paths";
 import { services } from "@/data/services";
 import { useCmsVersion } from "@/cms/store";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: site.name,
-  jobTitle: "מרצה ומנחת סדנאות",
-  telephone: site.phone.dial,
-  url: `${site.url}/about`,
-};
+/* ‼️ אין כאן JSON-LD.
+   הנתונים המובנים נכתבים לתוך ה-HTML בבנייה (scripts/prerender.mjs),
+   ולכן הם מגיעים לכל סורק - גם למי שלא מריץ JavaScript. הגרסה שנוספה
+   כאן בזמן ריצה יצרה בלוק שני על אותו עמוד, שמתאר את אותו דבר בפחות
+   פירוט. בלוק אחד, במקום אחד. */
 
 export default function About() {
   /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
@@ -31,7 +28,6 @@ export default function About() {
         title={aboutPage.seo.title}
         description={aboutPage.seo.description}
         path="/about"
-        jsonLd={jsonLd}
       />
 
       {/* ================= HERO + הדרך שלי =================

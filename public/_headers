@@ -11,13 +11,18 @@
 # ה-CSP מתיר את מה שהאתר באמת צריך: פונטים מ-Google, וידאו ותמונות
 # מהדומיין עצמו, ו-wa.me ליציאה. 'unsafe-inline' לסגנונות נדרש כי
 # Tailwind ו-React מציבים סגנונות ישירות על אלמנטים.
+#
+# ‼️ blob: ב-img-src וב-media-src נדרש לפאנל הניהול, ולא ל"נוחות":
+# העלאת תמונה או סרטון טוענת את הקובץ שנבחר דרך URL.createObjectURL
+# כדי למדוד ולדחוס אותו (src/cms/image.ts). בלי blob: הדפדפן חוסם את
+# הטעינה, הדחיסה נכשלת בשקט, ולא ניתן להעלות מדיה בכלל.
 /*
   X-Frame-Options: DENY
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
@@ -34,9 +39,13 @@
 /*.svg
   Cache-Control: public, max-age=604800
 
-# הפאנל לא אמור להופיע בתוצאות חיפוש
+# הפאנל לא אמור להופיע בתוצאות חיפוש.
+# X-Route: /admin הוא נתיב אמיתי אבל הוא לא בסייטמאפ ולכן
+# scripts/prerender.mjs לא כותב לו כותרת. בלי השורה הזו
+# functions/_middleware.ts היה מחזיר עליו 404 - ראו ההסבר שם.
 /admin
   X-Robots-Tag: noindex, nofollow
+  X-Route: /admin
 /admin/*
   X-Robots-Tag: noindex, nofollow
 
