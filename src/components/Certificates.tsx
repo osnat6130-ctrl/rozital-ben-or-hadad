@@ -26,9 +26,12 @@ export default function Certificates() {
             aria-label={`הגדלת התעודה: ${cert.title}`}
             className="group flex h-full w-full flex-col overflow-hidden rounded-2xl bg-surface text-right shadow-soft ring-1 ring-line/70 transition-all duration-300 hover:shadow-card md:hover:-translate-y-1"
           >
-            <span className="relative block overflow-hidden bg-brand-soft/40">
+            {/* התיוג על העוטף ולא על ה-img - שכבת האייקון מכסה את התמונה */}
+            <span
+              {...cmsImage(`site.certificates.${i}.src`)}
+              className="relative block overflow-hidden bg-brand-soft/40"
+            >
               <img
-                {...cmsImage(`site.certificates.${i}.src`)}
                 src={asset(cert.src)}
                 alt={cert.title}
                 loading="lazy"

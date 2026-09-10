@@ -62,8 +62,13 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
                         : "aspect-square",
                   )}
                 >
+                  {/* ‼️ התיוג לעריכה על הכפתור ולא על ה-img: שכבת אייקון
+                      ההגדלה שמתחתיה פרוסה absolute inset-0 מעל התמונה,
+                      ולחיצת עכבר אמיתית פוגעת בה ולא בתמונה. תיוג על
+                      ה-img גרם ללחיצה לפתוח הגדלה במקום עריכה. */}
                   <button
                     type="button"
+                    {...(cmsPath ? cmsImage(`${cmsPath}.${i}`) : {})}
                     onClick={() => setActive(i)}
                     aria-label={`הגדלת התמונה: ${image.alt}`}
                     className={cn(
@@ -72,7 +77,6 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
                     )}
                   >
                     <img
-                      {...(cmsPath ? cmsImage(`${cmsPath}.${i}`) : {})}
                       src={asset(image.src)}
                       alt={image.alt}
                       loading="lazy"

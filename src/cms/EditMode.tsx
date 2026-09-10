@@ -114,7 +114,19 @@ export default function EditMode() {
     if (!editing) return;
 
     const onClick = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest<HTMLElement>("[data-cms]");
+      const clicked = e.target as HTMLElement;
+      let target = clicked.closest<HTMLElement>("[data-cms]");
+
+      /* רשת ביטחון: תמונה עטופה בכפתור עם שכבה שפרוסה מעליה
+         (absolute inset-0) - לחיצת עכבר פוגעת בשכבה, שאינה צאצא של
+         התמונה, ואז closest לא מוצא כלום והלחיצה משתחררת לכפתור. זה
+         גרם ללחיצה על תמונה בגלריה לפתוח הגדלה במקום עריכה.
+         התיוג הועבר לעוטפים, וזה מכסה גם מקרים עתידיים. */
+      if (!target) {
+        const container = clicked.closest<HTMLElement>("button, a, figure, [data-cms-scope]");
+        const inside = container?.querySelector<HTMLElement>('[data-cms-type="image"], [data-cms]');
+        if (inside) target = inside;
+      }
       // לחיצה בתוך הסרגל או מחוץ לאלמנט ניתן לעריכה
       if (!target || target.closest("[data-cms-toolbar]")) {
         if (activeRef.current && !(e.target as HTMLElement).closest("[data-cms-toolbar]")) commit();

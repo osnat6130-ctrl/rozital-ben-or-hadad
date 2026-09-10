@@ -25,9 +25,9 @@ export default function ServiceCard({ service, index = 0 }: Props) {
           {/* פס צבע התחום */}
           <span className="absolute inset-x-0 top-0 z-10 h-1.5 bg-accent" />
 
-          <div className="relative aspect-[4/3] overflow-hidden">
+          {/* התיוג על העוטף ולא על ה-img - שכבת המדרון מכסה את התמונה */}
+          <div {...cmsImage(`${p}.cardImage`)} className="relative aspect-[4/3] overflow-hidden">
             <img
-              {...cmsImage(`${p}.cardImage`)}
               src={asset(service.cardImage)}
               alt={service.cardTitle}
               loading={index === 0 ? "eager" : "lazy"}

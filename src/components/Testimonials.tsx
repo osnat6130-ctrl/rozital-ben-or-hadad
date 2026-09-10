@@ -30,14 +30,15 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
     <div className="mt-12 gap-5 [column-fill:_balance] sm:columns-2 lg:columns-3">
       {image && (
         <Reveal variant={reveal} className="mb-5 block break-inside-avoid">
+          {/* התיוג על הכפתור ולא על ה-img - שכבת האייקון מכסה את התמונה */}
           <button
             type="button"
+            {...(cmsPath ? cmsImage(`${cmsPath.replace(/\.testimonials$/, "")}.testimonialsImage`) : {})}
             onClick={() => setImageOpen(true)}
             aria-label={`הגדלת התמונה: ${image.alt}`}
             className="group relative block w-full overflow-hidden rounded-3xl shadow-card ring-1 ring-line/60"
           >
             <img
-              {...(cmsPath ? cmsImage(`${cmsPath.replace(/\.testimonials$/, "")}.testimonialsImage`) : {})}
               src={asset(image.src)}
               alt={image.alt}
               loading="lazy"
