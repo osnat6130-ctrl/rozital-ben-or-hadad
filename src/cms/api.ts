@@ -19,10 +19,24 @@ export class ApiError extends Error {
   }
 }
 
+export type CommitSummary = {
+  sha: string;
+  date: string;
+  author: string;
+  message: string;
+  url: string;
+};
+
+/** התוכן כפי שהיה בגרסה מסוימת. null = הקובץ לא היה קיים אז */
+export type HistoryVersion = { sha: string; site: unknown | null; services: unknown | null };
+
 export const api = {
   me: () => request<Me>("/api/me"),
-  login: (username: string, password: string) =>
-    request<Me>("/api/login", { method: "POST", body: JSON.stringify({ username, password }) }),
+  history: (limit?: number) =>
+    request<{ commits: CommitSummary[] }>(`/api/history${limit ? `?limit=${limit}` : ""}`),
+  version: (sha: string) => request<HistoryVersion>(`/api/history?sha=${encodeURIComponent(sha)}`),
+  login: (username: string, password: string, remember = false) =>
+    request<Me>("/api/login", { method: "POST", body: JSON.stringify({ username, password, remember }) }),
   logout: () => request<{ ok: true }>("/api/logout", { method: "POST" }),
   content: () =>
     request<{ site: unknown; services: unknown; shas: { site: string; services: string } }>("/api/content"),

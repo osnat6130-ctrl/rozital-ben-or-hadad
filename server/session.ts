@@ -8,13 +8,23 @@ import { isLocal, requireEnv, type Env } from "./env";
 
 export const COOKIE_NAME = "rz_admin";
 const MAX_AGE_SECONDS = 60 * 60 * 24 * 7; // שבוע
+/** "זכור אותי" - כדי שהלקוחה לא תתחבר מחדש בכל פעם שהיא נכנסת לערוך */
+const REMEMBER_MAX_AGE_SECONDS = 60 * 60 * 24 * 180; // חצי שנה
 const encoder = new TextEncoder();
+
+export const maxAge = (remember: boolean) => (remember ? REMEMBER_MAX_AGE_SECONDS : MAX_AGE_SECONDS);
 
 export type Session = { username: string; name: string; exp: number };
 
-export async function createToken(env: Env, session: Omit<Session, "exp">): Promise<string> {
+/** תפוגת הטוקן והעוגייה חייבות להיות זהות - אחרת העוגייה תישלח אחרי
+ *  שהטוקן שבתוכה כבר פג, וזה נראה כמו התנתקות מקרית. */
+export async function createToken(
+  env: Env,
+  session: Omit<Session, "exp">,
+  remember = false,
+): Promise<string> {
   const payload = b64urlEncode(
-    JSON.stringify({ u: session.username, n: session.name, exp: Date.now() + MAX_AGE_SECONDS * 1000 }),
+    JSON.stringify({ u: session.username, n: session.name, exp: Date.now() + maxAge(remember) * 1000 }),
   );
   return `${payload}.${await hmacSign(requireEnv(env, "SESSION_SECRET"), payload)}`;
 }
@@ -56,8 +66,8 @@ function cookieAttributes(env: Env, maxAge: number): string {
   return `Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`;
 }
 
-export function sessionCookie(env: Env, token: string): string {
-  return `${COOKIE_NAME}=${encodeURIComponent(token)}; ${cookieAttributes(env, MAX_AGE_SECONDS)}`;
+export function sessionCookie(env: Env, token: string, remember = false): string {
+  return `${COOKIE_NAME}=${encodeURIComponent(token)}; ${cookieAttributes(env, maxAge(remember))}`;
 }
 
 export function clearedCookie(env: Env): string {

@@ -54,6 +54,52 @@ export async function readFile(env: Env, path: string): Promise<{ text: string; 
   return { text: fromBase64(data.content), sha: data.sha };
 }
 
+/** קורא קובץ כפי שהיה ב-commit מסוים - הבסיס למסך ההיסטוריה והשחזור.
+ *  404 מוחזר כ-null, כי קובץ יכול פשוט לא להתקיים באותה נקודה בזמן. */
+export async function readFileAtRef(env: Env, path: string, ref: string): Promise<string | null> {
+  const res = await gh(env, `/contents/${path}?ref=${encodeURIComponent(ref)}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new GitHubError(res.status, `קריאת ${path} בגרסה ${ref.slice(0, 7)} נכשלה (${res.status})`);
+  const data = (await res.json()) as FileResponse;
+  return fromBase64(data.content);
+}
+
+export type CommitSummary = {
+  sha: string;
+  /** ISO. מוצג בעברית בצד הלקוח */
+  date: string;
+  author: string;
+  message: string;
+  url: string;
+};
+
+type CommitsResponse = {
+  sha: string;
+  html_url: string;
+  commit: { message: string; author: { name: string; date: string } };
+}[];
+
+/** ההיסטוריה של תיקיית התוכן, מהחדש לישן.
+ *  מסננים לפי path כדי שקומיטים של קוד לא יציפו את המסך - את הלקוחה
+ *  מעניין רק מה השתנה בתוכן. */
+export async function listContentCommits(env: Env, path: string, limit: number): Promise<CommitSummary[]> {
+  const params = new URLSearchParams({
+    path,
+    sha: branch(env),
+    per_page: String(Math.min(Math.max(limit, 1), 100)),
+  });
+  const res = await gh(env, `/commits?${params}`);
+  if (!res.ok) throw new GitHubError(res.status, `קריאת ההיסטוריה נכשלה (${res.status})`);
+  const data = (await res.json()) as CommitsResponse;
+  return data.map((c) => ({
+    sha: c.sha,
+    date: c.commit.author.date,
+    author: c.commit.author.name,
+    message: c.commit.message.split("\n")[0],
+    url: c.html_url,
+  }));
+}
+
 export type CommitAuthor = { name: string; email: string };
 
 /** כותב קובץ ויוצר commit. sha חייב להתאים לגרסה שנקראה - אחרת 409

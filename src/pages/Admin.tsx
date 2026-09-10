@@ -6,10 +6,27 @@ import Seo from "@/components/Seo";
 import { api } from "@/cms/api";
 import { hasAdminFlag, setAdminFlag } from "@/cms/gate";
 
+/* שם המשתמש נשמר מקומית כדי לא להקליד אותו בכל כניסה. הסיסמה לא
+   נשמרת כאן בכוונה - היא נשמרת במנהל הסיסמאות של הדפדפן, שמוצפן ומוגן
+   בנעילת המחשב, ולא ב-localStorage שכל סקריפט בדף יכול לקרוא. */
+const REMEMBER_KEY = "rz-admin-user";
+
+const readRemembered = () => {
+  try {
+    return localStorage.getItem(REMEMBER_KEY) ?? "";
+  } catch {
+    return "";
+  }
+};
+
 export default function Admin() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState("");
+  const remembered = readRemembered();
+  const [username, setUsername] = useState(remembered);
   const [password, setPassword] = useState("");
+  /* דולק כברירת מחדל: זה מחשב פרטי של בעלת האתר, והחלופה היא התחברות
+     מחדש בכל עריכה קטנה. מי שעובדת ממחשב משותף פשוט מכבה. */
+  const [remember, setRemember] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [me, setMe] = useState<string | null>(null);
@@ -33,7 +50,13 @@ export default function Admin() {
     setBusy(true);
     setError(null);
     try {
-      const m = await api.login(username, password);
+      const m = await api.login(username, password, remember);
+      try {
+        if (remember) localStorage.setItem(REMEMBER_KEY, username);
+        else localStorage.removeItem(REMEMBER_KEY);
+      } catch {
+        /* אחסון חסום - פשוט לא נזכור את שם המשתמש */
+      }
       setAdminFlag(true);
       sessionStorage.setItem("rz-editing", "1");
       navigate("/", { replace: true });
@@ -66,9 +89,12 @@ export default function Admin() {
               </div>
             ) : (
               <form onSubmit={submit} className="mt-6 space-y-4">
-                <label className="block">
+                <label className="block" htmlFor="admin-username">
                   <span className="mb-1.5 block text-sm font-bold">שם משתמש</span>
                   <input
+                    id="admin-username"
+                    name="username"
+                    type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     autoComplete="username"
@@ -76,9 +102,11 @@ export default function Admin() {
                     className="w-full rounded-xl border border-line bg-surface px-4 py-3 outline-none focus:border-accent"
                   />
                 </label>
-                <label className="block">
+                <label className="block" htmlFor="admin-password">
                   <span className="mb-1.5 block text-sm font-bold">סיסמה</span>
                   <input
+                    id="admin-password"
+                    name="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -86,6 +114,17 @@ export default function Admin() {
                     required
                     className="w-full rounded-xl border border-line bg-surface px-4 py-3 outline-none focus:border-accent"
                   />
+                </label>
+
+                <label className="flex cursor-pointer items-center gap-2.5 text-sm">
+                  <input
+                    type="checkbox"
+                    name="remember"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    className="h-4 w-4 shrink-0 accent-brand"
+                  />
+                  <span>זכור אותי במחשב הזה</span>
                 </label>
                 {error && (
                   <p role="alert" className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">

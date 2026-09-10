@@ -120,6 +120,61 @@ export function loadFromRepo(data: { site: unknown; services: unknown; shas: typ
   emit();
 }
 
+/** התוכן הנוכחי (כולל שינויים לא שמורים) - להשוואה מול גרסה מההיסטוריה */
+export function getSnapshot(): { site: unknown; services: unknown } {
+  return { site: roots.site, services: roots.services };
+}
+
+/** התוכן כפי שנטען מהריפו, בלי השינויים שלא נשמרו */
+export function getOriginal(): { site: unknown; services: unknown } | null {
+  return original;
+}
+
+/** אוסף את הנתיבים שבהם שני עצים נבדלים, ברמת השדה הבודד */
+function collectDiffPaths(a: unknown, b: unknown, prefix: string, out: Set<string>) {
+  const leaf = (v: unknown) => v === null || typeof v !== "object";
+  if (leaf(a) || leaf(b)) {
+    if (JSON.stringify(a) !== JSON.stringify(b)) out.add(prefix);
+    return;
+  }
+  const keys = new Set([
+    ...Object.keys(a as Record<string, unknown>),
+    ...Object.keys(b as Record<string, unknown>),
+  ]);
+  for (const key of keys) {
+    collectDiffPaths(
+      (a as Record<string, unknown>)[key],
+      (b as Record<string, unknown>)[key],
+      `${prefix}.${key}`,
+      out,
+    );
+  }
+}
+
+/** מחשב מחדש אילו שדות שונים מהגרסה שנטענה מהריפו.
+ *  נדרש אחרי שחזור גרסה שלמה, שיכול להוסיף ולהסיר שדות ולא רק לשנות. */
+function recomputeDirty() {
+  dirty.clear();
+  if (!original) return;
+  collectDiffPaths(original.site, roots.site, "site", dirty);
+  collectDiffPaths(original.services, roots.services, "services", dirty);
+}
+
+/**
+ * מחזיר את התוכן לגרסה מההיסטוריה - כשינויים שלא נשמרו.
+ * כלומר: אפשר לראות את התוצאה באתר, לבטל, או לשמור אותה כגרסה חדשה.
+ * שחזור לא מוחק היסטוריה - הוא יוצר commit חדש שמחזיר את התוכן הישן.
+ *
+ * עובד גם כשהגרסה הישנה כוללת שדות שנוספו או נמחקו מאז, כי מה שנשלח
+ * לשמירה הוא הקובץ המלא ולא רשימת שדות.
+ */
+export function restoreSnapshot(data: { site?: unknown | null; services?: unknown | null }) {
+  if (data.site !== null && data.site !== undefined) assignDeep(roots.site, data.site);
+  if (data.services !== null && data.services !== undefined) assignDeep(roots.services, data.services);
+  recomputeDirty();
+  emit();
+}
+
 export function discardChanges() {
   if (!original) return;
   assignDeep(roots.site, original.site);

@@ -6,7 +6,7 @@ import { error, json, readJson, sleep } from "../../server/http";
 import { createToken, sessionCookie } from "../../server/session";
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  let body: { username?: unknown; password?: unknown };
+  let body: { username?: unknown; password?: unknown; remember?: unknown };
   try {
     body = await readJson(request);
   } catch {
@@ -15,6 +15,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const username = typeof body.username === "string" ? body.username : "";
   const password = typeof body.password === "string" ? body.password : "";
+  const remember = body.remember === true;
   if (!username || !password) return error(400, "צריך שם משתמש וסיסמה");
 
   const user = await authenticate(env, username, password);
@@ -23,7 +24,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error(401, "שם משתמש או סיסמה שגויים");
   }
 
-  const token = await createToken(env, { username: user.username, name: user.name });
-  return json(200, { name: user.name, username: user.username }, { "Set-Cookie": sessionCookie(env, token) });
+  const token = await createToken(env, { username: user.username, name: user.name }, remember);
+  return json(
+    200,
+    { name: user.name, username: user.username },
+    { "Set-Cookie": sessionCookie(env, token, remember) },
+  );
 };
 
