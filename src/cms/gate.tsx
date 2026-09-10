@@ -28,7 +28,19 @@ export function setAdminFlag(on: boolean) {
 
 function subscribe(l: () => void) {
   listeners.add(l);
-  return () => listeners.delete(l);
+  /* ‼️ גם לשינוי מטאב אחר.
+     בלי זה, התחברות בטאב אחד לא מגיעה לטאבים שהיו פתוחים לפניה: הם
+     נשארים בלי סרגל עריכה, לחיצה על תמונה פותחת הגדלה, והמשתמשת רואה
+     אתר שלא נותן לערוך - למרות שהיא מחוברת. אירע בפועל.
+     אירוע storage נשלח רק לטאבים האחרים, ולכן אין כאן לופ. */
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === FLAG || e.key === null) l();
+  };
+  window.addEventListener("storage", onStorage);
+  return () => {
+    listeners.delete(l);
+    window.removeEventListener("storage", onStorage);
+  };
 }
 
 const EditMode = lazy(() => import("./EditMode"));
