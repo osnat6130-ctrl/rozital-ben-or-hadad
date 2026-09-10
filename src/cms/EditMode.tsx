@@ -8,6 +8,7 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, ApiError } from "./api";
+import { setEditingFlag } from "./editing";
 import { setAdminFlag } from "./gate";
 import { describeChanges } from "./paths";
 import {
@@ -77,7 +78,13 @@ export default function EditMode() {
   useEffect(() => {
     document.documentElement.classList.toggle("cms-editing", editing);
     sessionStorage.setItem(EDITING_KEY, editing ? "1" : "0");
-    return () => document.documentElement.classList.remove("cms-editing");
+    /* קומפוננטות שמנהלות רשימות (המלצות) צריכות להציג פקדי הוספה
+       והסרה רק בעריכה, ולכן הדגל נחשף להן דרך חנות קטנה */
+    setEditingFlag(editing);
+    return () => {
+      document.documentElement.classList.remove("cms-editing");
+      setEditingFlag(false);
+    };
   }, [editing]);
 
   useEffect(() => {

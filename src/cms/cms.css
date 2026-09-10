@@ -32,6 +32,15 @@ html.cms-editing [data-cms-type="video"] video {
   pointer-events: none;
 }
 
+/* שדה תוכן ריק - למשל המלצה שנוספה ועוד לא הודבק בה טקסט.
+   ::before ולא טקסט אמיתי: העריכה קוראת את innerText, וטקסט מנחה אמיתי
+   היה נשמר כתוכן אם לוחצים על השדה ולא מקלידים כלום. */
+html.cms-editing [data-cms]:empty::before {
+  content: "לחצו כאן והדביקו את הטקסט";
+  opacity: 0.5;
+  font-style: italic;
+}
+
 /* בזמן הקלדה */
 html.cms-editing [data-cms][contenteditable="true"],
 html.cms-editing [data-cms][contenteditable="plaintext-only"] {

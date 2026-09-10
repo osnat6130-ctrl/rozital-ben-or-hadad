@@ -5,6 +5,8 @@ import { QuoteIcon, ZoomIcon } from "./Icons";
 import type { ServiceMotion, Testimonial } from "@/data/services";
 import { asset } from "@/lib/utils";
 import { cms, cmsImage } from "@/cms/paths";
+import { useEditing } from "@/cms/editing";
+import { insertItem, moveItem, removeItem } from "@/cms/store";
 
 type Props = {
   items: Testimonial[];
@@ -25,6 +27,20 @@ type Props = {
 export default function Testimonials({ items, motion = "calm", image, cmsPath }: Props) {
   const [imageOpen, setImageOpen] = useState(false);
   const reveal = motion === "calm" ? "calm" : "pop";
+  const editing = useEditing();
+  /** פקדי ניהול הרשימה מופיעים רק בעריכה, ורק כשיש נתיב תוכן */
+  const manageable = editing && Boolean(cmsPath);
+
+  /* ‼️ המלצה ריקה לא מוצגת לגולשת.
+     "הוספת המלצה" יוצרת פריט ריק שממתין להדבקת הטקסט האמיתי. אם הוא
+     יישמר לפני שהוקלד בו משהו, גולשת לא תראה כרטיס ריק - היא פשוט לא
+     תראה אותו. בעריכה הוא כן מוצג, כדי שאפשר יהיה למלא או להסיר.
+
+     ‼️ האינדקס המקורי נשמר ליד הפריט: הסינון משנה מקומות, ונתיב עריכה
+     שנבנה לפי מקום ברשימה המסוננת היה מצביע על המלצה אחרת. */
+  const visible = items
+    .map((item, index) => ({ item, index }))
+    .filter(({ item }) => manageable || item.text.trim().length > 0);
 
   return (
     <div className="mt-12 gap-5 [column-fill:_balance] sm:columns-2 lg:columns-3">
@@ -52,7 +68,7 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
         </Reveal>
       )}
 
-      {items.map((item, i) => (
+      {visible.map(({ item, index: i }, position) => (
         <Reveal
           key={i}
           variant={reveal}
@@ -68,6 +84,9 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
               {...(cmsPath ? cms(`${cmsPath}.${i}.text`) : {})}
               className="relative leading-relaxed text-muted"
             >
+              {/* ריק נשאר ריק. הטקסט המנחה מגיע מ-CSS (::before), כי טקסט
+                  אמיתי כאן היה נשמר כתוכן ההמלצה אם לוחצים ולא מקלידים -
+                  העריכה קוראת את innerText, ו-::before לא נכלל בו. */}
               {item.text}
             </blockquote>
             {item.context && (
@@ -76,9 +95,57 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
                 {item.context}
               </figcaption>
             )}
+
+            {manageable && (
+              <div data-cms-toolbar className="mt-4 flex flex-wrap items-center gap-1.5 border-t border-line pt-3">
+                <button
+                  type="button"
+                  onClick={() => moveItem(cmsPath!, i, i - 1)}
+                  disabled={i === 0}
+                  aria-label="להזיז את ההמלצה אחורה"
+                  className="rounded-full bg-brand-soft px-2.5 py-1 text-xs font-bold text-brand-dark transition-colors hover:bg-brand hover:text-white disabled:opacity-30"
+                >
+                  ←
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveItem(cmsPath!, i, i + 1)}
+                  disabled={position === visible.length - 1}
+                  aria-label="להזיז את ההמלצה קדימה"
+                  className="rounded-full bg-brand-soft px-2.5 py-1 text-xs font-bold text-brand-dark transition-colors hover:bg-brand hover:text-white disabled:opacity-30"
+                >
+                  →
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (confirm("להסיר את ההמלצה? אפשר לבטל לפני שמירה.")) removeItem(cmsPath!, i);
+                  }}
+                  className="ms-auto rounded-full px-2.5 py-1 text-xs font-bold text-red-700 transition-colors hover:bg-red-50"
+                >
+                  הסרה
+                </button>
+              </div>
+            )}
           </figure>
         </Reveal>
       ))}
+
+      {manageable && (
+        <div className="mb-5 block break-inside-avoid">
+          <button
+            type="button"
+            data-cms-toolbar
+            onClick={() => insertItem(cmsPath!, { text: "" }, items.length)}
+            className="flex w-full flex-col items-center justify-center gap-1 rounded-3xl border-2 border-dashed border-accent/50 bg-accent-soft/20 px-6 py-8 text-center transition-colors hover:border-accent hover:bg-accent-soft/40"
+          >
+            <span className="font-display text-lg font-bold text-accent-dark">+ הוספת המלצה</span>
+            <span className="text-xs leading-relaxed text-muted">
+              נוצר כרטיס ריק. לוחצים עליו ומדביקים את ההמלצה כלשונה.
+            </span>
+          </button>
+        </div>
+      )}
 
       {image && (
         <Lightbox
