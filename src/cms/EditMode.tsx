@@ -320,6 +320,9 @@ export default function EditMode() {
             altPath={imageEdit.altPath}
             onClose={() => setImageEdit(null)}
             onChanged={() => undefined}
+            onSave={save}
+            dirtyCount={dirtyCount}
+            saving={status.kind === "saving"}
           />
         </Suspense>
       )}

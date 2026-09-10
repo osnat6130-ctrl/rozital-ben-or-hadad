@@ -24,6 +24,13 @@ type Props = {
   altPath?: string;
   onClose: () => void;
   onChanged: () => void;
+  /** שמירה ופרסום - אותה פעולה של הסרגל.
+   *  נדרש כאן כי הסרגל מוסתר מאחורי הדיאלוג, וההפניה אליו ("לחצי
+   *  שמירה ופרסום בסרגל") שלחה את המשתמשת לכפתור שהיא לא רואה. */
+  onSave: () => Promise<void> | void;
+  /** מספר השינויים שלא נשמרו, כדי להציג את הכפתור רק כשיש מה לשמור */
+  dirtyCount: number;
+  saving: boolean;
 };
 
 type GalleryItem = { src: string; alt?: string };
@@ -40,7 +47,15 @@ function splitIndexed(path: string): { arrayPath: string; index: number } | null
   return { arrayPath, index: Number(match[2]) };
 }
 
-export default function ImageEditor({ path, altPath, onClose, onChanged }: Props) {
+export default function ImageEditor({
+  path,
+  altPath,
+  onClose,
+  onChanged,
+  onSave,
+  dirtyCount,
+  saving,
+}: Props) {
   const value = getValue(path);
   const indexed = splitIndexed(path);
   const gallery = indexed && isGalleryItem(value) ? indexed : null;
@@ -294,10 +309,33 @@ export default function ImageEditor({ path, altPath, onClose, onChanged }: Props
           )}
         </div>
 
-        <div className="border-t border-line px-5 py-3">
-          <p className="text-xs text-muted">
-            השינוי עדיין לא פורסם. לחצי "שמירה ופרסום" בסרגל כדי שיעלה לאתר.
+        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-line px-5 py-3">
+          <p className="min-w-0 flex-1 text-xs text-muted">
+            {dirtyCount > 0
+              ? "השינוי עדיין לא פורסם באתר."
+              : "אין שינויים שממתינים לפרסום."}
           </p>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              disabled={Boolean(busy) || saving}
+              className="rounded-full px-4 py-2 text-sm font-bold text-muted transition-colors hover:bg-bg hover:text-ink disabled:opacity-40"
+            >
+              סגירה
+            </button>
+            <button
+              type="button"
+              onClick={async () => {
+                await onSave();
+                onClose();
+              }}
+              disabled={dirtyCount === 0 || Boolean(busy) || saving}
+              className="rounded-full bg-whatsapp px-5 py-2 font-display text-sm font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-40"
+            >
+              {saving ? "שומרת..." : "שמירה ופרסום"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
