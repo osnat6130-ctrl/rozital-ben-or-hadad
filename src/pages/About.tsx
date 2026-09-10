@@ -28,8 +28,8 @@ export default function About() {
   return (
     <>
       <Seo
-        title={`אודות רוזיטל בן אור חדד | ${site.tagline}`}
-        description="מי אני, מה מניע אותי, ואיך נראים המפגשים שאני מנחה - הרצאות להורים לילדים עם צרכים מיוחדים, סדנאות יוגה צחוק ופעילות בת מצווה."
+        title={aboutPage.seo.title}
+        description={aboutPage.seo.description}
         path="/about"
         jsonLd={jsonLd}
       />

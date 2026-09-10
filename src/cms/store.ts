@@ -144,11 +144,23 @@ function assignDeep(target: unknown, source: unknown) {
   }
 }
 
-/** נקרא כשנכנסים למצב עריכה: התוכן העדכני מהריפו הופך לבסיס */
+/**
+ * נקרא כשנכנסים למצב עריכה: התוכן העדכני מהריפו הופך לבסיס.
+ *
+ * ‼️ מיזוג ולא שיקוף. assignDeep מוחק מפתחות שאינם במקור, וזה שבר את
+ * האתר כשהקוד כבר קרא שדה תוכן חדש (למשל seo.title) אבל הריפו עוד לא
+ * הכיל אותו: השדה נמחק בזמן ריצה, והדף קרס עם
+ * "reading 'title' of undefined" - אבל רק למי שמחוברת לפאנל, כי רק
+ * אצלה התוכן נטען מהריפו. זה יקרה בכל פריסה שבה הקוד מקדים את התוכן.
+ *
+ * לכן: הריפו מנצח על מפתחות משותפים, ומפתחות שקיימים רק בקוד נשמרים.
+ * original נגזר מהמצב שאחרי המיזוג, אחרת אותם מפתחות היו נספרים מיד
+ * כשינויים שלא נשמרו. בשמירה הבאה הקובץ המלא נכתב, והריפו משתווה.
+ */
 export function loadFromRepo(data: { site: unknown; services: unknown; shas: typeof shas }) {
-  assignDeep(roots.site, data.site);
-  assignDeep(roots.services, data.services);
-  original = { site: structuredClone(data.site), services: structuredClone(data.services) };
+  mergeRestore(roots.site, data.site);
+  mergeRestore(roots.services, data.services);
+  original = { site: structuredClone(roots.site), services: structuredClone(roots.services) };
   shas = { ...data.shas };
   dirty.clear();
   emit();

@@ -28,6 +28,9 @@ export type SiteInfo = {
   credit: { text: string };
 };
 
+/** כותרת ותיאור לתגיות ה-head. משמש גם את scripts/prerender.mjs */
+export type PageSeo = { title: string; description: string };
+
 export type NavItem = { label: string; to: string };
 
 export type HomeContent = {
@@ -37,6 +40,7 @@ export type HomeContent = {
   /** תווית הכפתור בכרטיסי התחומים (דף הבית ואודות) */
   serviceCardCta: string;
   cta: { title: string; text: string; button: string };
+  seo: PageSeo;
 };
 
 /** כל הטקסטים של טופס הפנייה - היו מקודדים בקומפוננטה עד שהפאנל דרש אותם */
@@ -79,6 +83,7 @@ export type AboutPageContent = {
   /** תווית הכפתור בכרטיסי התחומים בדף אודות */
   serviceCardCta: string;
   cta: { title: string; text: string; button: string };
+  seo: PageSeo;
 };
 
 export type ContactContent = {
@@ -93,6 +98,7 @@ export type ContactContent = {
   /** התווית ליד מספר הטלפון בפאנל הכהה */
   phoneLabel: string;
   form: ContactFormContent;
+  seo: PageSeo;
 };
 
 export type Certificate = { src: string; title: string; issuer: string; meta: string };
@@ -109,6 +115,7 @@ type SiteContent = {
   contact: ContactContent;
   certificates: Certificate[];
   reasons: Reason[];
+  accessibility: { seo: PageSeo };
 };
 
 const content = siteJson as unknown as SiteContent;
@@ -124,6 +131,7 @@ export const aboutPage = content.aboutPage;
 export const contact = content.contact;
 export const certificates = content.certificates;
 export const reasons = content.reasons;
+export const accessibility = content.accessibility;
 
 /** בונה קישור וואטסאפ עם הודעה מוכנה */
 export function whatsappLink(message: string = site.whatsappDefaultMessage) {

@@ -1,7 +1,7 @@
 import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
 import { PhoneIcon, WhatsappIcon } from "@/components/Icons";
-import { site, telLink, whatsappLink } from "@/data/site";
+import { accessibility, site, telLink, whatsappLink } from "@/data/site";
 import { useCmsVersion } from "@/cms/store";
 
 const sections: { title: string; paragraphs: string[] }[] = [
@@ -36,8 +36,8 @@ export default function Accessibility() {
   return (
     <>
       <Seo
-        title={`הצהרת נגישות | ${site.name}`}
-        description={`הצהרת הנגישות של אתר ${site.name} - ההתאמות שבוצעו, המגבלות הידועות ודרכי יצירת קשר בנושא נגישות.`}
+        title={accessibility.seo.title}
+        description={accessibility.seo.description}
         path="/accessibility"
       />
 

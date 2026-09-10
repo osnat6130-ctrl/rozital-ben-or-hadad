@@ -16,8 +16,8 @@ export default function Contact() {
   return (
     <>
       <Seo
-        title={`צרו קשר עם רוזיטל בן אור חדד | ${site.tagline}`}
-        description="רוצים לשמוע פרטים על הרצאה, סדנת יוגה צחוק, סדנת הורים וילדים או פעילות בת מצווה? השאירו פנייה שנשלחת ישירות לוואטסאפ, או פשוט התקשרו."
+        title={contact.seo.title}
+        description={contact.seo.description}
         path="/contact"
       />
 

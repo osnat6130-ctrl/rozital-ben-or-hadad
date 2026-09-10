@@ -32,8 +32,8 @@ export default function Home() {
   return (
     <>
       <Seo
-        title="רוזיטל בן אור חדד | הרצאות להורים, יוגה צחוק ופעילות בת מצווה"
-        description="הרצאות להורים לילדים עם צרכים מיוחדים, סדנאות יוגה צחוק ופעילות בת מצווה. חוויה מקצועית, חמה ומלאת שמחה, מותאמת בדיוק לקהל שלכם."
+        title={home.seo.title}
+        description={home.seo.description}
         path="/"
         jsonLd={jsonLd}
       />

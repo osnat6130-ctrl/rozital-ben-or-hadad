@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 
-# TODO: להחליף לדומיין האמיתי
+# /admin לא נחסם כאן במכוון: הוא מסומן noindex בכותרת X-Robots-Tag
+# (ראו public/_headers), וכדי שסורק יראה את הכותרת הוא חייב להיות מורשה
+# לבקש את הדף. חסימה ב-robots.txt הייתה מונעת ממנו לראות את ה-noindex.
+
 Sitemap: https://rozital.co.il/sitemap.xml
