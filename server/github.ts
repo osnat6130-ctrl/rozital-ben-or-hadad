@@ -107,6 +107,40 @@ export async function listContentCommits(env: Env, path: string, limit: number):
 
 export type CommitAuthor = { name: string; email: string };
 
+/** האם קובץ קיים בענף, ומה ה-sha שלו (נדרש כדי לדרוס) */
+export async function fileSha(env: Env, path: string): Promise<string | null> {
+  const res = await gh(env, `/contents/${path}?ref=${encodeURIComponent(branch(env))}`);
+  if (res.status === 404) return null;
+  if (!res.ok) throw new GitHubError(res.status, `בדיקת ${path} נכשלה (${res.status})`);
+  return ((await res.json()) as FileResponse).sha;
+}
+
+/** כותב קובץ בינארי (תמונה) מ-base64 מוכן, בלי לקודד מחדש.
+ *  writeFile מקבל טקסט ומקודד אותו בעצמו - וזה היה הורס תמונה. */
+export async function writeBinaryFile(
+  env: Env,
+  path: string,
+  base64: string,
+  message: string,
+  author: CommitAuthor,
+): Promise<{ sha: string; commitUrl: string }> {
+  const sha = await fileSha(env, path);
+  const res = await gh(env, `/contents/${path}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      message,
+      content: base64,
+      branch: branch(env),
+      committer: author,
+      author,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+  if (!res.ok) throw new GitHubError(res.status, `העלאת ${path} נכשלה (${res.status})`);
+  const data = (await res.json()) as { content: { sha: string }; commit: { html_url: string } };
+  return { sha: data.content.sha, commitUrl: data.commit.html_url };
+}
+
 /** כותב קובץ ויוצר commit. sha חייב להתאים לגרסה שנקראה - אחרת 409
  *  (מישהי אחרת שמרה בינתיים) והלקוח צריך לטעון מחדש. */
 export async function writeFile(

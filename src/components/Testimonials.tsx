@@ -4,7 +4,7 @@ import Lightbox from "./Lightbox";
 import { QuoteIcon, ZoomIcon } from "./Icons";
 import type { ServiceMotion, Testimonial } from "@/data/services";
 import { asset } from "@/lib/utils";
-import { cms } from "@/cms/paths";
+import { cms, cmsImage } from "@/cms/paths";
 
 type Props = {
   items: Testimonial[];
@@ -37,6 +37,7 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
             className="group relative block w-full overflow-hidden rounded-3xl shadow-card ring-1 ring-line/60"
           >
             <img
+              {...(cmsPath ? cmsImage(`${cmsPath.replace(/\.testimonials$/, "")}.testimonialsImage`) : {})}
               src={asset(image.src)}
               alt={image.alt}
               loading="lazy"

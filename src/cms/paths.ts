@@ -9,6 +9,25 @@ export function cms(path: string, type: CmsType = "text") {
   return type === "text" ? { "data-cms": path } : { "data-cms": path, "data-cms-type": type };
 }
 
+/**
+ * פרופס לתמונה ניתנת לעריכה.
+ *
+ * path מצביע על מה שנשמר בתוכן: או מחרוזת נתיב תמונה
+ * ("site.about.image"), או פריט גלריה שהוא אובייקט { src, alt }
+ * ("services.3.gallery.5"). העורך מזהה את הצורה לבד.
+ *
+ * altPath נדרש רק כשהתמונה היא מחרוזת ותיאור התמונה יושב במפתח נפרד
+ * ("site.about.imageAlt") - תיאור התמונה הוא תוכן, וגם הוא צריך להיות
+ * ניתן לעריכה בגלל נגישות.
+ */
+export function cmsImage(path: string, altPath?: string) {
+  return {
+    "data-cms": path,
+    "data-cms-type": "image" as const,
+    ...(altPath ? { "data-cms-alt": altPath } : {}),
+  };
+}
+
 /** האינדקס של תחום במערך - לבניית נתיבים כמו services.2.heroTitle */
 export function serviceIndex(id: string): number {
   const i = services.findIndex((s) => s.id === id);

@@ -8,7 +8,7 @@ import ServiceTheme from "@/components/ServiceTheme";
 import { ArrowIcon } from "@/components/Icons";
 import { aboutPage, about, site } from "@/data/site";
 import { asset } from "@/lib/utils";
-import { cms } from "@/cms/paths";
+import { cms, cmsImage } from "@/cms/paths";
 import { services } from "@/data/services";
 import { useCmsVersion } from "@/cms/store";
 
@@ -84,6 +84,7 @@ export default function About() {
                 className="absolute -right-5 -top-5 h-28 w-28 rounded-full bg-gold/40 blur-lg"
               />
               <img
+                {...cmsImage("site.about.pageImage", "site.about.imageAlt")}
                 src={asset(about.pageImage)}
                 alt={about.imageAlt}
                 width={900}

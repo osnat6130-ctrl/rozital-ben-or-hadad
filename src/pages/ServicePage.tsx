@@ -7,7 +7,7 @@ import HeroMedia from "@/components/HeroMedia";
 import Testimonials from "@/components/Testimonials";
 import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
-import { cms, serviceIndex } from "@/cms/paths";
+import { cms, cmsImage, serviceIndex } from "@/cms/paths";
 import { site, telLink, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
 import { useCmsVersion } from "@/cms/store";
@@ -183,6 +183,7 @@ export default function ServicePage({ id }: Props) {
               portrait={service.heroPortrait}
               alt={service.title}
               className="w-full rounded-[2rem] shadow-lift"
+              cmsPath={`${p}.heroImage`}
             />
           </Reveal>
         </div>
@@ -273,6 +274,7 @@ export default function ServicePage({ id }: Props) {
                     images={service.spotlight.images}
                     motion={service.motion}
                     className="relative mt-10"
+                    cmsPath={`${p}.spotlight.images`}
                   />
                 )}
                 {service.spotlight.testimonials && service.spotlight.testimonials.length > 0 && (
@@ -346,6 +348,7 @@ export default function ServicePage({ id }: Props) {
             ) : (
             <div className="relative overflow-hidden rounded-[2rem] shadow-card">
               <img
+                {...cmsImage(`${p}.bannerImage`)}
                 src={asset(service.bannerImage)}
                 alt={service.title}
                 loading="lazy"
@@ -504,6 +507,7 @@ export default function ServicePage({ id }: Props) {
             images={service.gallery}
             motion={service.motion}
             className="mt-10"
+            cmsPath={`${p}.gallery`}
           />
         </div>
       </section>

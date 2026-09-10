@@ -2,6 +2,7 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import Lightbox from "./Lightbox";
 import { ZoomIcon } from "./Icons";
+import { cmsImage } from "@/cms/paths";
 import { asset, cn } from "@/lib/utils";
 import type { ServiceMotion } from "@/data/services";
 
@@ -9,6 +10,8 @@ type Props = {
   images: { src: string; alt: string }[];
   motion?: ServiceMotion;
   className?: string;
+  /** נתיב מערך הגלריה בתוכן, למשל "services.3.gallery" - מפעיל עריכה בפאנל */
+  cmsPath?: string;
 };
 
 /**
@@ -25,7 +28,7 @@ function chunkIntoTriples<T>(items: T[]): T[][] {
   return groups;
 }
 
-export default function ImageGallery({ images, motion = "calm", className }: Props) {
+export default function ImageGallery({ images, motion = "calm", className, cmsPath }: Props) {
   const [active, setActive] = useState<number | null>(null);
   const reveal = motion === "calm" ? "calm" : "pop";
   const groups = chunkIntoTriples(images);
@@ -69,6 +72,7 @@ export default function ImageGallery({ images, motion = "calm", className }: Pro
                     )}
                   >
                     <img
+                      {...(cmsPath ? cmsImage(`${cmsPath}.${i}`) : {})}
                       src={asset(image.src)}
                       alt={image.alt}
                       loading="lazy"

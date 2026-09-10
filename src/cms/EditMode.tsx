@@ -24,8 +24,9 @@ import "./cms.css";
 
 const EDITING_KEY = "rz-editing";
 
-/* מסך ההיסטוריה נטען רק כשנפתח - הוא לא נחוץ כדי לערוך */
+/* שני המסכים נטענים רק כשנפתחים - הם לא נחוצים כדי לערוך טקסט */
 const History = lazy(() => import("./History"));
+const ImageEditor = lazy(() => import("./ImageEditor"));
 
 type Status =
   | { kind: "loading" }
@@ -39,6 +40,7 @@ export default function EditMode() {
   const [status, setStatus] = useState<Status>({ kind: "loading" });
   const [editing, setEditing] = useState(() => sessionStorage.getItem(EDITING_KEY) === "1");
   const [historyOpen, setHistoryOpen] = useState(false);
+  const [imageEdit, setImageEdit] = useState<{ path: string; altPath?: string } | null>(null);
   const dirtyCount = useDirtyCount();
   const activeRef = useRef<{ el: HTMLElement; path: string; before: string } | null>(null);
 
@@ -122,7 +124,15 @@ export default function EditMode() {
       if (activeRef.current) commit();
 
       const type = target.dataset.cmsType ?? "text";
-      if (type !== "text") return; // תמונות וסרטונים - בשלב הבא
+
+      /* תמונה נערכת בדיאלוג ולא במקום: צריך בורר קבצים, תיאור לנגישות,
+         ובגלריה גם הוספה, הסרה וסידור. */
+      if (type === "image") {
+        if (activeRef.current) commit();
+        setImageEdit({ path: target.dataset.cms!, altPath: target.dataset.cmsAlt });
+        return;
+      }
+      if (type !== "text") return; // וידאו - בשלב הבא
 
       const path = target.dataset.cms!;
       const current = getValue(path);
@@ -270,6 +280,17 @@ export default function EditMode() {
           </span>
         )}
       </div>
+
+      {imageEdit && (
+        <Suspense fallback={null}>
+          <ImageEditor
+            path={imageEdit.path}
+            altPath={imageEdit.altPath}
+            onClose={() => setImageEdit(null)}
+            onChanged={() => undefined}
+          />
+        </Suspense>
+      )}
 
       {historyOpen && (
         <Suspense fallback={null}>

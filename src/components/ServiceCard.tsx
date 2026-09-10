@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
 import ServiceTheme from "./ServiceTheme";
 import { ArrowIcon } from "./Icons";
-import { cms, serviceIndex } from "@/cms/paths";
+import { cms, cmsImage, serviceIndex } from "@/cms/paths";
 import type { Service } from "@/data/services";
 import { siteContent } from "@/data/site";
 import { asset } from "@/lib/utils";
@@ -27,6 +27,7 @@ export default function ServiceCard({ service, index = 0 }: Props) {
 
           <div className="relative aspect-[4/3] overflow-hidden">
             <img
+              {...cmsImage(`${p}.cardImage`)}
               src={asset(service.cardImage)}
               alt={service.cardTitle}
               loading={index === 0 ? "eager" : "lazy"}

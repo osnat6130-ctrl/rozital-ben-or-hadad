@@ -4,7 +4,7 @@ import Lightbox from "./Lightbox";
 import { ZoomIcon } from "./Icons";
 import { certificates } from "@/data/site";
 import { asset } from "@/lib/utils";
-import { cms } from "@/cms/paths";
+import { cms, cmsImage } from "@/cms/paths";
 
 /**
  * תעודות ההסמכה של רוזיטל - רשת תמונות שנפתחות בלייטבוקס בלחיצה.
@@ -28,6 +28,7 @@ export default function Certificates() {
           >
             <span className="relative block overflow-hidden bg-brand-soft/40">
               <img
+                {...cmsImage(`site.certificates.${i}.src`)}
                 src={asset(cert.src)}
                 alt={cert.title}
                 loading="lazy"

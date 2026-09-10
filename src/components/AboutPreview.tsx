@@ -3,7 +3,7 @@ import Reveal from "./Reveal";
 import { ArrowIcon } from "./Icons";
 import { about } from "@/data/site";
 import { asset } from "@/lib/utils";
-import { cms } from "@/cms/paths";
+import { cms, cmsImage } from "@/cms/paths";
 
 export default function AboutPreview() {
   return (
@@ -21,6 +21,7 @@ export default function AboutPreview() {
               className="absolute -bottom-5 -left-5 h-32 w-32 rounded-3xl bg-brand/10"
             />
             <img
+              {...cmsImage("site.about.image", "site.about.imageAlt")}
               src={asset(about.image)}
               alt={about.imageAlt}
               loading="lazy"

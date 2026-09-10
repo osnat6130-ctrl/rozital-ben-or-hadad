@@ -77,6 +77,40 @@ export function setValue(path: string, value: unknown) {
   emit();
 }
 
+/* ---------- פעולות על מערכים (גלריה, המלצות) ---------- */
+
+function getArray(path: string): unknown[] {
+  const value = getValue(path);
+  if (!Array.isArray(value)) throw new Error(`הנתיב אינו מערך: ${path}`);
+  return value;
+}
+
+/** מוסיף פריט לגלריה. index חסר = בסוף */
+export function insertItem(path: string, value: unknown, index?: number) {
+  const array = getArray(path);
+  array.splice(index ?? array.length, 0, structuredClone(value));
+  recomputeDirty();
+  emit();
+}
+
+export function removeItem(path: string, index: number) {
+  const array = getArray(path);
+  if (index < 0 || index >= array.length) return;
+  array.splice(index, 1);
+  recomputeDirty();
+  emit();
+}
+
+/** מזיז פריט - כך משנים סדר תמונות בגלריה */
+export function moveItem(path: string, from: number, to: number) {
+  const array = getArray(path);
+  if (from === to || from < 0 || from >= array.length || to < 0 || to >= array.length) return;
+  const [item] = array.splice(from, 1);
+  array.splice(to, 0, item);
+  recomputeDirty();
+  emit();
+}
+
 function getFrom(root: unknown, keys: string[]): unknown {
   let node = root;
   for (const key of keys) {

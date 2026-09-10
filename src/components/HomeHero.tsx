@@ -3,7 +3,7 @@ import { ArrowIcon, WhatsappIcon } from "./Icons";
 import { services } from "@/data/services";
 import { site, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
-import { cms } from "@/cms/paths";
+import { cms, cmsImage } from "@/cms/paths";
 
 /* ============================================================================
    Hero של דף הבית - "אור בין הידיים"
@@ -111,6 +111,7 @@ export default function HomeHero() {
             />
             <div className="relative h-full w-full animate-morph overflow-hidden border border-gold/35 shadow-[0_30px_70px_-20px_hsl(193_60%_20%/0.35)]">
               <img
+                {...cmsImage("site.site.heroImage")}
                 src={asset(site.heroImage)}
                 alt={`${site.name} - ${site.tagline}`}
                 width={1000}

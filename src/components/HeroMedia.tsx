@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { cmsImage } from "@/cms/paths";
 import { asset, cn } from "@/lib/utils";
 
 type Props = {
@@ -10,6 +11,8 @@ type Props = {
   /** תמונה לאורך (3:4) במקום לרוחב (4:3) - לתמונות פורטרט שנחתכות יותר מדי */
   portrait?: boolean;
   className?: string;
+  /** נתיב תמונת ה-Hero בתוכן - מפעיל החלפה מהפאנל */
+  cmsPath?: string;
 };
 
 /**
@@ -23,7 +26,7 @@ type Props = {
  *   - הדפדפן מדווח על חיסכון בנתונים או חיבור איטי
  * במקרים האלה נשארת התמונה, עם כפתור הפעלה למי שרוצה לצפות.
  */
-export default function HeroMedia({ image, video, alt, portrait = false, className }: Props) {
+export default function HeroMedia({ image, video, alt, portrait = false, className, cmsPath }: Props) {
   const [playing, setPlaying] = useState(false);
   const [allowed, setAllowed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -51,6 +54,7 @@ export default function HeroMedia({ image, video, alt, portrait = false, classNa
   if (!video) {
     return (
       <img
+        {...(cmsPath ? cmsImage(cmsPath) : {})}
         src={asset(image)}
         alt={alt}
         width={900}

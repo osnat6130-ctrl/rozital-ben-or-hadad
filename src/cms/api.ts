@@ -38,6 +38,9 @@ export const api = {
   login: (username: string, password: string, remember = false) =>
     request<Me>("/api/login", { method: "POST", body: JSON.stringify({ username, password, remember }) }),
   logout: () => request<{ ok: true }>("/api/logout", { method: "POST" }),
+  /** מעלה תמונה לריפו ומחזיר את הנתיב הציבורי שנשמר בתוכן */
+  uploadImage: (payload: { name: string; contentType: string; base64: string }) =>
+    request<{ path: string }>("/api/asset", { method: "POST", body: JSON.stringify(payload) }),
   content: () =>
     request<{ site: unknown; services: unknown; shas: { site: string; services: string } }>("/api/content"),
   save: (payload: unknown) =>
