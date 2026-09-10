@@ -225,16 +225,25 @@ export default function EditMode() {
       <div className="pointer-events-auto flex max-w-full flex-wrap items-center gap-2 rounded-full bg-ink/95 px-3 py-2 text-sm text-white shadow-lift ring-1 ring-white/15 backdrop-blur">
         <span className="hidden px-2 font-display font-bold sm:inline">שלום, {name}</span>
 
+        {/* כשהמצב כבוי הכפתור הוא קריאה לפעולה בולטת ולא תווית סתמית:
+            "מצב עריכה" לא אמר לאף אחת שצריך ללחוץ, ובלי הלחיצה לחיצה על
+            תמונה פותחת הגדלה במקום עריכה. */}
         <button
           type="button"
           onClick={() => setEditing((v) => !v)}
           className={`rounded-full px-4 py-1.5 font-display font-bold transition-colors ${
-            editing ? "bg-gold text-brand-dark" : "bg-white/10 hover:bg-white/20"
+            editing ? "bg-gold text-brand-dark" : "bg-whatsapp text-white hover:opacity-90"
           }`}
           aria-pressed={editing}
         >
-          {editing ? "מצב עריכה: פועל" : "מצב עריכה"}
+          {editing ? "מצב עריכה: פועל" : "התחלת עריכה"}
         </button>
+
+        {!editing && (
+          <span className="hidden text-xs text-white/70 sm:inline">
+            כדי לערוך טקסט או תמונה - צריך להדליק
+          </span>
+        )}
 
         {dirtyCount > 0 && (
           <span className="rounded-full bg-white/10 px-3 py-1.5">
