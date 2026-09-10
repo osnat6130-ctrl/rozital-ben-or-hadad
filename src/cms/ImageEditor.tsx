@@ -146,7 +146,7 @@ export default function ImageEditor({ path, altPath, onClose, onChanged }: Props
     <div
       data-cms-toolbar
       dir="rtl"
-      className="fixed inset-0 z-[80] flex items-end justify-center bg-ink/50 backdrop-blur-sm sm:items-center sm:p-6"
+      className="pointer-events-auto fixed inset-0 z-[80] flex items-end justify-center bg-ink/50 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={(e) => {
         if (e.target === e.currentTarget && !busy) onClose();
       }}
@@ -185,7 +185,9 @@ export default function ImageEditor({ path, altPath, onClose, onChanged }: Props
             </p>
           )}
 
-          <div className="overflow-hidden rounded-2xl bg-bg ring-1 ring-line/70">
+          {/* גובה קבוע לתצוגה המקדימה: בלעדיו הדיאלוג "קופץ" כשהתמונה
+              מסיימת להיטען, והכפתורים זזים בדיוק כשמכוונים אליהם. */}
+          <div className="flex h-64 items-center justify-center overflow-hidden rounded-2xl bg-bg ring-1 ring-line/70">
             {shownSrc ? (
               <img src={shownSrc} alt={alt || "התמונה הנוכחית"} className="max-h-64 w-full object-contain" />
             ) : (

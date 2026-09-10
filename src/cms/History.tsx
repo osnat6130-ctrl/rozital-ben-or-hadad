@@ -157,7 +157,7 @@ export default function History({ onClose, onRestored }: Props) {
     <div
       data-cms-toolbar
       dir="rtl"
-      className="fixed inset-0 z-[80] flex items-end justify-center bg-ink/50 p-0 backdrop-blur-sm sm:items-center sm:p-6"
+      className="pointer-events-auto fixed inset-0 z-[80] flex items-end justify-center bg-ink/50 p-0 backdrop-blur-sm sm:items-center sm:p-6"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

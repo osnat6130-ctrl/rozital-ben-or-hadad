@@ -232,6 +232,7 @@ export default function EditMode() {
   if (status.kind === "loading") return null;
 
   return (
+    <>
     <div
       data-cms-toolbar
       dir="rtl"
@@ -304,7 +305,14 @@ export default function EditMode() {
           </span>
         )}
       </div>
+    </div>
 
+    {/* ‼️ הדיאלוגים אחים של הסרגל ולא צאצאים שלו.
+        למעטפת הסרגל יש pointer-events-none (כדי שהיא לא תחסום את הדף
+        מסביב לכפתורים), וזה עובר בירושה. כשהם היו בתוכה, אף כפתור
+        בתוכם לא קיבל לחיצות עכבר: הדיאלוג נפתח ונראה תקין, ולא הגיב
+        לכלום. בדיקות שהשתמשו ב-element.click() לא גילו את זה, כי קליק
+        תכנותי מדלג על pointer-events. */}
       {imageEdit && (
         <Suspense fallback={null}>
           <ImageEditor
@@ -326,6 +334,6 @@ export default function EditMode() {
           />
         </Suspense>
       )}
-    </div>
+    </>
   );
 }
