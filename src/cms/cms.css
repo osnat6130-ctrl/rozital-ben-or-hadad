@@ -25,6 +25,13 @@ html.cms-editing [data-cms-type="video"] {
   cursor: pointer;
 }
 
+/* ‼️ בזמן עריכה הנגן לא תופס את הלחיצה.
+   ל-<video controls> יש פקדים משלו, והדפדפן מטפל בלחיצה עליהם בעצמו -
+   כלומר לחיצה על סרטון הייתה מפעילה ניגון במקום לפתוח את העורך. */
+html.cms-editing [data-cms-type="video"] video {
+  pointer-events: none;
+}
+
 /* בזמן הקלדה */
 html.cms-editing [data-cms][contenteditable="true"],
 html.cms-editing [data-cms][contenteditable="plaintext-only"] {

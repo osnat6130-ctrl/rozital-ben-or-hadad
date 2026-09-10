@@ -337,14 +337,19 @@ export default function ServicePage({ id }: Props) {
             {/* בתחום שהוגדר לו bannerVideo מוצג נגן במקום תמונת הרוחב.
                 אין שכבת גרדיאנט מעל וידאו - היא מכהה את התמונה וחוסמת את הכפתורים. */}
             {service.bannerVideo ? (
-              <video
-                src={asset(service.bannerVideo)}
-                controls
-                playsInline
-                preload="metadata"
-                aria-label={service.title}
-                className="mx-auto aspect-square w-full max-w-2xl rounded-[2rem] bg-black object-cover shadow-card"
-              />
+              <div
+                {...cms(`${p}.bannerVideo`, "video")}
+                className="mx-auto aspect-square w-full max-w-2xl overflow-hidden rounded-[2rem] bg-black shadow-card"
+              >
+                <video
+                  src={asset(service.bannerVideo)}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={service.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
             ) : (
             <div className="relative overflow-hidden rounded-[2rem] shadow-card">
               <img
@@ -537,16 +542,24 @@ export default function ServicePage({ id }: Props) {
                   נבדלים ביניהם ביחס, ומסגרת אחידה הייתה יוצרת פסים שחורים.
                   items-start כדי ששניים בגבהים שונים יתחילו באותו קו. */}
               <div className="grid items-start gap-4 sm:grid-cols-2 sm:gap-5">
-                {service.videos.map((clip) => (
-                  <video
+                {service.videos.map((clip, i) => (
+                  /* התיוג על העוטף ולא על ה-video: לנגן יש פקדים משלו
+                     שתופסים את הלחיצה, ובמצב עריכה הם מנוטרלים (ראו
+                     cms.css) כדי שהלחיצה תפתח את עורך הסרטונים. */
+                  <div
                     key={clip.src}
-                    src={asset(clip.src)}
-                    controls
-                    playsInline
-                    preload="metadata"
+                    {...cms(`${p}.videos.${i}`, "video")}
                     style={{ aspectRatio: clip.width && clip.height ? `${clip.width} / ${clip.height}` : "9 / 16" }}
-                    className="w-full rounded-2xl bg-black object-contain shadow-card"
-                  />
+                    className="w-full overflow-hidden rounded-2xl bg-black shadow-card"
+                  >
+                    <video
+                      src={asset(clip.src)}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      className="h-full w-full object-contain"
+                    />
+                  </div>
                 ))}
               </div>
             </Reveal>

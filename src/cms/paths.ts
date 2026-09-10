@@ -61,6 +61,14 @@ const FIELD_LABELS: Record<string, string> = {
   testimonials: "המלצה",
   testimonialsTitle: "כותרת ההמלצות",
   videosTitle: "כותרת הסרטונים",
+  videos: "סרטון",
+  bannerVideo: "סרטון הבאנר",
+  heroVideo: "סרטון ה-Hero",
+  bannerImage: "תמונת הרוחב",
+  cardImage: "תמונת הכרטיס",
+  heroImage: "תמונת ה-Hero",
+  testimonialsImage: "תמונת ההמלצות",
+  images: "תמונה",
   spotlight: "אזור ההעצמה",
   banner: "הבאנר",
   sections: "סעיף",
@@ -164,7 +172,9 @@ export function describeChanges(paths: string[]): string {
     byPage.set(page, list);
   }
   const count = paths.length;
-  const head = count === 1 ? "עדכון טקסט אחד" : `עדכון ${count} טקסטים`;
+  /* "שינוי" ולא "טקסט" - מאז שיש עריכת תמונות וסרטונים, הודעת הקומיט
+     "עדכון 2 טקסטים" על החלפת תמונה הייתה מטעה בהיסטוריה. */
+  const head = count === 1 ? "עדכון אחד" : `${count} עדכונים`;
   const details = [...byPage].map(([page, fields]) => `${page} (${fields.join(", ")})`).join("; ");
   const message = `${head}: ${details}`;
   return message.length > 200 ? message.slice(0, 197) + "..." : message;

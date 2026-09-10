@@ -27,6 +27,7 @@ const EDITING_KEY = "rz-editing";
 /* שני המסכים נטענים רק כשנפתחים - הם לא נחוצים כדי לערוך טקסט */
 const History = lazy(() => import("./History"));
 const ImageEditor = lazy(() => import("./ImageEditor"));
+const VideoEditor = lazy(() => import("./VideoEditor"));
 
 type Status =
   | { kind: "loading" }
@@ -44,6 +45,7 @@ export default function EditMode() {
   const [editing, setEditing] = useState(() => sessionStorage.getItem(EDITING_KEY) !== "0");
   const [historyOpen, setHistoryOpen] = useState(false);
   const [imageEdit, setImageEdit] = useState<{ path: string; altPath?: string } | null>(null);
+  const [videoEdit, setVideoEdit] = useState<string | null>(null);
   const dirtyCount = useDirtyCount();
   const activeRef = useRef<{ el: HTMLElement; path: string; before: string } | null>(null);
 
@@ -147,7 +149,12 @@ export default function EditMode() {
         setImageEdit({ path: target.dataset.cms!, altPath: target.dataset.cmsAlt });
         return;
       }
-      if (type !== "text") return; // וידאו - בשלב הבא
+      if (type === "video") {
+        if (activeRef.current) commit();
+        setVideoEdit(target.dataset.cms!);
+        return;
+      }
+      if (type !== "text") return;
 
       const path = target.dataset.cms!;
       const current = getValue(path);
@@ -320,6 +327,18 @@ export default function EditMode() {
             altPath={imageEdit.altPath}
             onClose={() => setImageEdit(null)}
             onChanged={() => undefined}
+            onSave={save}
+            dirtyCount={dirtyCount}
+            saving={status.kind === "saving"}
+          />
+        </Suspense>
+      )}
+
+      {videoEdit && (
+        <Suspense fallback={null}>
+          <VideoEditor
+            path={videoEdit}
+            onClose={() => setVideoEdit(null)}
             onSave={save}
             dirtyCount={dirtyCount}
             saving={status.kind === "saving"}
