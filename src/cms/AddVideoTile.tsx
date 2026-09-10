@@ -43,13 +43,11 @@ export default function AddVideoTile({ cmsPath, count }: Props) {
     }
   }
 
-  /* הרשת היא שתי עמודות. מספר אי-זוגי של סרטונים משאיר עמודה פנויה,
-     והכרטיס יושב *ליד* הסרטון. מספר זוגי - השורה מלאה, ואז עדיף שהוא
-     ייפרס על שתי העמודות כשורת הוספה מתחת, ולא ייראה כחצי בלוק בודד. */
-  const rowIsFull = count % 2 === 0;
-
+  /* טור אחד, פשוט. מספר הטורים של הרשת נגזר בדף מכמות הפריטים כולל
+     הכרטיס הזה (ראו videoColumns ב-ServicePage), ולכן הוא כבר יושב ליד
+     הסרטונים ולא מתחתיהם - בלי צורך בהתחכמות כאן. */
   return (
-    <div className={rowIsFull ? "self-stretch sm:col-span-2" : "self-stretch"}>
+    <div className="self-stretch">
       <AddCard
         compact
         className="h-full min-h-32"

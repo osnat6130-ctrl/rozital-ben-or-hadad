@@ -12,6 +12,7 @@ import { cms, cmsImage, serviceIndex } from "@/cms/paths";
 import { site, telLink, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
 import { useCmsVersion } from "@/cms/store";
+import { useEditing } from "@/cms/editing";
 
 type Props = { id: Service["id"] };
 
@@ -31,6 +32,16 @@ function Bullets({ items, path }: { items: string[]; path: string }) {
       ))}
     </ul>
   );
+}
+
+/** מספר הטורים ברשת הסרטונים, לפי מספר הפריטים שיוצגו בה.
+ *  ‼️ נגזר ולא קבוע: רשת של 3 טורים עם שני סרטונים משאירה טור ריק
+ *  ומצרה את הסרטונים בלי סיבה, ורשת של 2 טורים דוחפת את כרטיס ההוספה
+ *  לשורה נפרדת. הגזירה שומרת על שורה מלאה בשני המצבים. */
+function videoColumns(count: number): string {
+  if (count <= 1) return "mx-auto max-w-sm grid-cols-1";
+  if (count === 2) return "grid-cols-1 sm:grid-cols-2";
+  return "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
 }
 
 function SectionBody({ section, path }: { section: ServiceSection; path: string }) {
@@ -53,6 +64,7 @@ function SectionBody({ section, path }: { section: ServiceSection; path: string 
 export default function ServicePage({ id }: Props) {
   /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
   useCmsVersion();
+  const editing = useEditing();
 
   const service = getService(id);
   /* בסיס הנתיבים לעריכה, למשל services.2.heroTitle */
@@ -542,7 +554,15 @@ export default function ServicePage({ id }: Props) {
               {/* כל סרטון מקבל את היחס שלו מהמידות שבתוכן. סרטוני טלפון
                   נבדלים ביניהם ביחס, ומסגרת אחידה הייתה יוצרת פסים שחורים.
                   items-start כדי ששניים בגבהים שונים יתחילו באותו קו. */}
-              <div className="grid items-start gap-4 sm:grid-cols-2 sm:gap-5">
+              {/* מספר הטורים נגזר ממספר הפריטים, כדי שהשורה תהיה מלאה
+                  בשני המצבים: לגולשת שרואה רק סרטונים, ולעורכת שרואה
+                  גם את כרטיס ההוספה. 3 טורים לכל היותר - סרטוני פורטרט
+                  נעשים צרים מדי מעבר לזה. */}
+              <div
+                className={`grid items-start gap-4 sm:gap-5 ${videoColumns(
+                  service.videos.length + (editing ? 1 : 0),
+                )}`}
+              >
                 {service.videos.map((clip, i) => (
                   /* התיוג על העוטף ולא על ה-video: לנגן יש פקדים משלו
                      שתופסים את הלחיצה, ובמצב עריכה הם מנוטרלים (ראו
