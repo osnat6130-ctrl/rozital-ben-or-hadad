@@ -10,6 +10,7 @@ dist
 scripts/_zoom.mjs
 # תמונה יתומה שאף דף לא משתמש בה, ו-OneDrive מחזיר אותה שוב ושוב
 public/images/bat-mitzvah-1.jpg
+public/images/bat-mitzvah-1.webp
 .dev.vars
 # מצב מקומי של wrangler - נוצר בהרצת npm run dev:api
 .wrangler

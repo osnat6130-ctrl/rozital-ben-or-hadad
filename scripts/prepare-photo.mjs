@@ -9,6 +9,9 @@
  * "מיקוד" הוא מיקום החיתוך האופקי בין 0 (הצמדה לשמאל) ל-1 (הצמדה לימין).
  * ברירת מחדל 0.5 = מהמרכז.
  */
+/* ‼️ הסקריפט הזה כותב JPEG. כל התמונות באתר הן WebP, ולכן אחרי הרצה
+   שלו צריך להריץ גם:  node scripts/to-webp.mjs  - הוא ימיר את מה שנוצר
+   ויעדכן את הנתיבים בקובצי התוכן. */
 import { readFileSync, writeFileSync, statSync } from "node:fs";
 import jpeg from "jpeg-js";
 import { PNG } from "pngjs";

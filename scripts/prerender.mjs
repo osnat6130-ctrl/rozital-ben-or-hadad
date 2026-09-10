@@ -48,6 +48,18 @@ const jsonLdSafe = (data) => JSON.stringify(data).replace(/</g, "\\u003c");
 
 const absolute = (relative) => `${ORIGIN}${relative}`;
 
+/* ‼️ לתמונת שיתוף מעדיפים את התאום ה-JPEG אם הוא קיים.
+   כל התמונות באתר הן WebP (ראו scripts/to-webp.mjs), אבל התמיכה של
+   וואטסאפ ב-WebP בתצוגה מוקדמת של קישור לא עקבית - והתוצאה היא קישור
+   בלי תמונה, בערוץ ההמרה המרכזי של האתר. הסקריפט משאיר עותק JPEG
+   בדיוק לתמונות האלה, וזה המקום שבו הוא נבחר. */
+function shareImage(relative) {
+  if (!relative) return null;
+  const jpg = relative.replace(/\.webp$/i, ".jpg");
+  if (jpg === relative) return relative;
+  return fs.existsSync(path.join("public", jpg.replace(/^\//, ""))) ? jpg : relative;
+}
+
 /* ‼️ מידות התמונה החברתית, נקראות מהקובץ עצמו.
    בלי og:image:width/height וואטסאפ ופייסבוק צריכים להוריד את התמונה
    כדי לדעת את גודלה, ועד אז הם מציגים תצוגה מוקדמת קטנה בלי תמונה -
@@ -65,9 +77,19 @@ function imageSize(publicPath) {
   if (buffer.length > 24 && buffer.readUInt32BE(0) === 0x89504e47) {
     return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
   }
-  // WebP (VP8X / VP8 / VP8L) - רק הצורה הנפוצה, VP8X
-  if (buffer.length > 30 && buffer.toString("ascii", 0, 4) === "RIFF" && buffer.toString("ascii", 12, 16) === "VP8X") {
-    return { width: (buffer.readUIntLE(24, 3) & 0xffffff) + 1, height: (buffer.readUIntLE(27, 3) & 0xffffff) + 1 };
+  // WebP - שלוש הצורות: VP8X (עם תוספות), VP8 (אבד רגיל), VP8L (ללא אבדן)
+  if (buffer.length > 30 && buffer.toString("ascii", 0, 4) === "RIFF") {
+    const form = buffer.toString("ascii", 12, 16);
+    if (form === "VP8X") {
+      return { width: (buffer.readUIntLE(24, 3) & 0xffffff) + 1, height: (buffer.readUIntLE(27, 3) & 0xffffff) + 1 };
+    }
+    if (form === "VP8 ") {
+      return { width: buffer.readUInt16LE(26) & 0x3fff, height: buffer.readUInt16LE(28) & 0x3fff };
+    }
+    if (form === "VP8L") {
+      const bits = buffer.readUInt32LE(21);
+      return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+    }
   }
   // JPEG: מדלגים ממקטע למקטע עד ל-SOF, שבו יושבים הגובה והרוחב
   if (buffer.length > 4 && buffer.readUInt16BE(0) === 0xffd8) {
@@ -88,9 +110,9 @@ function imageSize(publicPath) {
 
 /* ---------------------------------------------------------------------------
    נתונים מובנים (schema.org)
-   ‼️ אותם אובייקטים בדיוק נבנים גם בקומפוננטות (src/pages/*.tsx) לטובת
-   גוגל, אבל שם הם נוספים ב-JavaScript. כאן הם ב-HTML הגולמי, וזו הגרסה
-   שסורק בלי JavaScript רואה.
+   ‼️ זה המקום היחיד שבו הם נבנים. הייתה גרסה שנייה בקומפוננטות
+   (src/pages/*.tsx) שנוספה ב-JavaScript, ולכן הגיעה רק לגוגל - ועל
+   כל עמוד היו שני בלוקים שמתארים את אותו דבר בפירוט שונה.
    ------------------------------------------------------------------------- */
 
 const person = {
@@ -100,7 +122,7 @@ const person = {
   description: site.about.pageIntro,
   telephone: S.phone.dial,
   url: `${ORIGIN}/about`,
-  image: absolute(site.about.pageImage),
+  image: absolute(shareImage(site.about.pageImage)),
   /* ההסמכות מגיעות מקובץ התוכן ולא נכתבות כאן, כדי שעריכה בפאנל
      תעדכן גם את הנתונים המובנים */
   hasCredential: site.about.credentials.map((credential) => ({
@@ -117,7 +139,7 @@ const organization = {
   description: site.home.seo.description,
   url: `${ORIGIN}/`,
   telephone: S.phone.dial,
-  image: absolute(S.heroImage),
+  image: absolute(shareImage(S.heroImage)),
   logo: DEFAULT_OG,
   /* areaServed נשאר "IL" עד שיוגדר אזור שירות מדויק ב-site.json.
      serviceArea קיים בקובץ התוכן וריק - ברגע שימולא הוא ייכנס לכאן. */
@@ -257,7 +279,7 @@ const routes = [
           description: service.seo.description,
           serviceType: service.cardTitle,
           url: absolute(service.path),
-          image: absolute(service.heroImage),
+          image: absolute(shareImage(service.heroImage)),
           provider: { "@id": `${ORIGIN}/#business` },
           areaServed: S.serviceArea || "IL",
         },
@@ -316,7 +338,8 @@ function buildPage(route) {
   const url = escapeHtml(route_ === "/" ? `${ORIGIN}/` : `${ORIGIN}${route_}`);
   const title = escapeHtml(seo.title);
   const description = escapeHtml(seo.description);
-  const ogImage = escapeHtml(image ? absolute(image) : DEFAULT_OG);
+  const ogPath = shareImage(image) ?? "/logo-original.jpg";
+  const ogImage = escapeHtml(absolute(ogPath));
 
   let html = template;
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);
@@ -342,7 +365,7 @@ function buildPage(route) {
      היא ה-LCP של העמוד, וכל דחייה שלה נמדדת ישירות ב-Core Web Vitals.
      בלי preload הדפדפן מגלה אותה רק אחרי שה-JavaScript בנה את ה-DOM. */
   const head = [];
-  const size = imageSize(image ?? "/logo-original.jpg");
+  const size = imageSize(ogPath);
   if (size) {
     head.push(`<meta property="og:image:width" content="${size.width}" />`);
     head.push(`<meta property="og:image:height" content="${size.height}" />`);

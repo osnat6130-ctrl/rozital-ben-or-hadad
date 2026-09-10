@@ -19,32 +19,32 @@
       "accentDark": "197 55% 24%",
       "accentSoft": "196 62% 80%"
     },
-    "cardImage": "/images/lectures-card.jpg",
-    "heroImage": "/images/lectures-hero.jpg",
-    "bannerImage": "/images/lectures-banner.jpg",
+    "cardImage": "/images/lectures-card.webp",
+    "heroImage": "/images/lectures-hero.webp",
+    "bannerImage": "/images/lectures-banner.webp",
     "gallery": [
       {
-        "src": "/images/lectures-1.jpg",
+        "src": "/images/lectures-1.webp",
         "alt": "הורים מקשיבים בהרצאה של רוזיטל בן אור חדד"
       },
       {
-        "src": "/images/lectures-2.jpg",
+        "src": "/images/lectures-2.webp",
         "alt": "רוזיטל בן אור חדד עם מארגנת ההרצאה, על רקע המצגת"
       },
       {
-        "src": "/images/lectures-3.jpg",
+        "src": "/images/lectures-3.webp",
         "alt": "רוזיטל בן אור חדד עונה על שאלות הקהל בהרצאה"
       },
       {
-        "src": "/images/lectures-4.jpg",
+        "src": "/images/lectures-4.webp",
         "alt": "קהל רב מקשיב להרצאה של רוזיטל בן אור חדד"
       },
       {
-        "src": "/images/lectures-5.jpg",
+        "src": "/images/lectures-5.webp",
         "alt": "משתתפים סביב שולחנות מקשיבים להרצאה"
       },
       {
-        "src": "/images/lectures-6.jpg",
+        "src": "/images/lectures-6.webp",
         "alt": "רוזיטל מרצה מול קבוצת הורים"
       }
     ],
@@ -80,15 +80,15 @@
       ],
       "images": [
         {
-          "src": "/images/siblings-1.jpg",
+          "src": "/images/siblings-1.webp",
           "alt": "רוזיטל מנחה מפגש קבוצתי במעגל"
         },
         {
-          "src": "/images/siblings-5.jpg",
+          "src": "/images/siblings-5.webp",
           "alt": "רוזיטל מרצה מול מצגת על התמודדות המשפחה"
         },
         {
-          "src": "/images/siblings-4.jpg",
+          "src": "/images/siblings-4.webp",
           "alt": "פלייר קבוצת תמיכה והעצמה לאחים מיוחדים - המרכז למשפחה, עיריית יבנה"
         }
       ],
@@ -187,7 +187,7 @@
       "accentDark": "262 45% 34%",
       "accentSoft": "262 60% 88%"
     },
-    "cardImage": "/images/parents-kids-card.jpg",
+    "cardImage": "/images/parents-kids-card.webp",
     "heroBanner": {
       "title": "רוצים מפגש שכולם יסיימו עם חיוך? ✨",
       "paragraphs": [
@@ -196,32 +196,32 @@
       ],
       "button": "לפרטים ולהרשמה"
     },
-    "heroImage": "/images/siblings-2.jpg",
-    "bannerImage": "/images/parents-kids-banner.jpg",
+    "heroImage": "/images/siblings-2.webp",
+    "bannerImage": "/images/parents-kids-banner.webp",
     "bannerVideo": "/videos/parents-kids.mp4",
     "gallery": [
       {
-        "src": "/images/parents-kids-6.jpg",
+        "src": "/images/parents-kids-6.webp",
         "alt": "אמהות וילדות מצטלמות סלפי בסיום הסדנה"
       },
       {
-        "src": "/images/parents-kids-10.jpg",
+        "src": "/images/parents-kids-10.webp",
         "alt": "מפגש ערב בחצר - חיבוקים, מחיאות כפיים ואווירה שמחה"
       },
       {
-        "src": "/images/parents-kids-2.jpg",
+        "src": "/images/parents-kids-2.webp",
         "alt": "פלייר פעילות חווייתית להורים וילדים - צוחקים, מתחברים, נהנים"
       },
       {
-        "src": "/images/parents-kids-5.jpg",
+        "src": "/images/parents-kids-5.webp",
         "alt": "הורים וילדים במשחק מסכות בסדנה"
       },
       {
-        "src": "/images/parents-kids-9.jpg",
+        "src": "/images/parents-kids-9.webp",
         "alt": "פעילות ערב בחצר - הורים וילדים במשחק עם מסכות"
       },
       {
-        "src": "/images/parents-kids-3.jpg",
+        "src": "/images/parents-kids-3.webp",
         "alt": "הורים וילדים מרימים ידיים יחד בתרגיל יוגה צחוק"
       }
     ],
@@ -289,32 +289,32 @@
       "accentDark": "22 76% 38%",
       "accentSoft": "32 90% 84%"
     },
-    "cardImage": "/images/yoga-card.jpg",
-    "heroImage": "/images/yoga-4.jpg",
-    "bannerImage": "/images/yoga-banner.jpg",
+    "cardImage": "/images/yoga-card.webp",
+    "heroImage": "/images/yoga-4.webp",
+    "bannerImage": "/images/yoga-banner.webp",
     "gallery": [
       {
-        "src": "/images/yoga-1.jpg",
+        "src": "/images/yoga-1.webp",
         "alt": "מעגל נשים מקשיב בפתיחת סדנת יוגה צחוק"
       },
       {
-        "src": "/images/yoga-2.jpg",
+        "src": "/images/yoga-2.webp",
         "alt": "תרגיל נשימה ותנועה בסדנת יוגה צחוק"
       },
       {
-        "src": "/images/yoga-3.jpg",
+        "src": "/images/yoga-3.webp",
         "alt": "אווירה שמחה ואנרגטית בסדנה של רוזיטל"
       },
       {
-        "src": "/images/yoga-hero.jpg",
+        "src": "/images/yoga-hero.webp",
         "alt": "משתתפות מרימות ידיים יחד בסדנת יוגה צחוק"
       },
       {
-        "src": "/images/yoga-5.jpg",
+        "src": "/images/yoga-5.webp",
         "alt": "מעגל משתתפות בסדנת יוגה צחוק"
       },
       {
-        "src": "/images/yoga-6.jpg",
+        "src": "/images/yoga-6.webp",
         "alt": "ריקוד ובלונים בסדנת יוגה צחוק"
       }
     ],
@@ -412,42 +412,42 @@
       "accentDark": "320 44% 34%",
       "accentSoft": "322 70% 87%"
     },
-    "cardImage": "/images/bat-mitzvah-card.jpg",
+    "cardImage": "/images/bat-mitzvah-card.webp",
     "heroCta": "לפרטים ולהרשמה",
-    "heroImage": "/images/bat-mitzvah-hero.jpg",
+    "heroImage": "/images/bat-mitzvah-hero.webp",
     "heroPortrait": true,
-    "bannerImage": "/images/bat-mitzvah-banner.jpg",
+    "bannerImage": "/images/bat-mitzvah-banner.webp",
     "gallery": [
       {
-        "src": "/images/bat-mitzvah-feedback.jpg",
+        "src": "/images/bat-mitzvah-feedback.webp",
         "alt": "דף משוב בכתב יד מאמהות ובנות שהשתתפו בסדנה"
       },
       {
-        "src": "/images/bat-mitzvah-2.jpg",
+        "src": "/images/bat-mitzvah-2.webp",
         "alt": "רגע מרגש בפעילות בת מצווה"
       },
       {
-        "src": "/images/12-mtvs2w9lieuv.jpg",
+        "src": "/images/12-mtvs2w9lieuv.webp",
         "alt": "עיצוב נרות המספר 12 בסדנת בת מצווה"
       },
       {
-        "src": "/images/bat-mitzvah-4.jpg",
+        "src": "/images/bat-mitzvah-4.webp",
         "alt": "אם ובת מדליקות נרות בטקס בת מצווה"
       },
       {
-        "src": "/images/bat-mitzvah-5.jpg",
+        "src": "/images/bat-mitzvah-5.webp",
         "alt": "אווירה חגיגית בסדנת בת מצווה"
       },
       {
-        "src": "/images/bat-mitzvah-7.jpg",
+        "src": "/images/bat-mitzvah-7.webp",
         "alt": "אמהות ובנות סביב השולחן בסדנת בת מצווה"
       },
       {
-        "src": "/images/bat-mitzvah-6.jpg",
+        "src": "/images/bat-mitzvah-6.webp",
         "alt": "פינת צילום מעוצבת בסדנת אימא ובת מצווה"
       },
       {
-        "src": "/images/whatsapp-image-2026-08-29-at-20-59-39-mtvrkxitxv3x.jpg",
+        "src": "/images/whatsapp-image-2026-08-29-at-20-59-39-mtvrkxitxv3x.webp",
         "alt": "רגע מתוך סדנת בת מצווה של רוזיטל בן אור חדד"
       }
     ],
@@ -466,7 +466,7 @@
     "videosTitle": "רוצים לראות איך זה עובד? קבלו הצצה",
     "testimonialsTitle": "מה אומרות אחרי הסדנה",
     "testimonialsImage": {
-      "src": "/images/bat-mitzvah-feedback.jpg",
+      "src": "/images/bat-mitzvah-feedback.webp",
       "alt": "דף משוב בכתב יד מאמהות ובנות שהשתתפו בסדנה"
     },
     "testimonials": [

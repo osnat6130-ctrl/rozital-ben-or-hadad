@@ -3,7 +3,7 @@
     "name": "רוזיטל בן אור חדד",
     "shortName": "רוזיטל בן אור חדד",
     "tagline": "למצוא את האור בכל אחד",
-    "heroImage": "/images/rozital-hero.jpg",
+    "heroImage": "/images/rozital-hero.webp",
     "heroFallbackImage": "/images/hero-main.svg",
     "heroTitle": "הרצאות, סדנאות ופעילויות",
     "heroSubtitle": "הרצאות להורים / אחים / צוותי חינוך / בתי ספר, סדנאות יוגה צחוק ופעילות בת מצווה - חוויה מקצועית, חמה ומלאת שמחה, שמותאמת בדיוק לקהל שלכם.",
@@ -69,8 +69,8 @@
     }
   },
   "about": {
-    "image": "/images/rozital.jpg",
-    "pageImage": "/images/rozital-about.jpg",
+    "image": "/images/rozital.webp",
+    "pageImage": "/images/rozital-about.webp",
     "imageAlt": "רוזיטל בן אור חדד",
     "previewTitle": "נעים להכיר, אני רוזיטל",
     "previewText": "אני אשת חינוך, מאמנת רגשית, מדריכת הורים ומנחת יוגה צחוק. מתוך ניסיוני המקצועי ואישיותי כאימא לבוגר עם צרכים מיוחדים, אני מעבירה הרצאות וסדנאות לילדים, הורים, נשים וצוותי חינוך.",
@@ -164,37 +164,37 @@
   },
   "certificates": [
     {
-      "src": "/images/certificates/cert-6.jpg",
+      "src": "/images/certificates/cert-6.webp",
       "title": "מוסמכת בחינוך (M.Ed.)",
       "issuer": "המכללה האקדמית אחוה",
       "meta": "2018"
     },
     {
-      "src": "/images/certificates/cert-5.jpg",
+      "src": "/images/certificates/cert-5.webp",
       "title": "תעודת הערכה על הישגים לימודיים",
       "issuer": "אחוה - המכללה האקדמית לחינוך",
       "meta": "2009"
     },
     {
-      "src": "/images/certificates/cert-1.jpg",
+      "src": "/images/certificates/cert-1.webp",
       "title": "מאמנת ילדים ונוער בשיטת האימון האינטגרטיבי",
       "issuer": "מכון דרך הדעת",
       "meta": "2018"
     },
     {
-      "src": "/images/certificates/cert-2.jpg",
+      "src": "/images/certificates/cert-2.webp",
       "title": "קורס גישור בחינוך",
       "issuer": "המרכז לדיאלוג אחר",
       "meta": "2019 · 30 שעות אקדמיות"
     },
     {
-      "src": "/images/certificates/cert-4.jpg",
+      "src": "/images/certificates/cert-4.webp",
       "title": "מנטורית מדריכת הורים",
       "issuer": "בשביל ההורות",
       "meta": "2021 · 161 שעות אקדמיות"
     },
     {
-      "src": "/images/certificates/cert-3.jpg",
+      "src": "/images/certificates/cert-3.webp",
       "title": "השתלמות \"קוד המנצח לצעירים\"",
       "issuer": "בית הספר המרכזי להשתלמות מורים",
       "meta": "2021 · 116 שעות"

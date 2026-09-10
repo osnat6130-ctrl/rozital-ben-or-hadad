@@ -9,6 +9,9 @@
  *
  * שימוש:  node scripts/prepare-certificates.mjs
  */
+/* ‼️ הסקריפט הזה כותב JPEG. כל התמונות באתר הן WebP, ולכן אחרי הרצה
+   שלו צריך להריץ גם:  node scripts/to-webp.mjs  - הוא ימיר את מה שנוצר
+   ויעדכן את הנתיבים בקובצי התוכן. */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import jpeg from "jpeg-js";
 
