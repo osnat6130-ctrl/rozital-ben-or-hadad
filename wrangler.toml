@@ -2,3 +2,15 @@
 name = "rozital-ben-or-hadad"
 compatibility_date = "2026-09-01"
 pages_build_output_dir = "dist"
+
+# הריפו והענף שפאנל הניהול כותב אליהם. לא סודות - שם ריפו ציבורי ושם ענף -
+# ולכן הם כאן ולא כ-Secret בקלאודפלייר. הדשבורד בכלל מנהל רק Secrets כשיש
+# wrangler.toml, ושלושת הסודות (SESSION_SECRET, ADMIN_USERS, GITHUB_TOKEN)
+# מוגדרים שם.
+[vars]
+GITHUB_REPO = "osnat6130-ctrl/rozital-ben-or-hadad"
+GITHUB_BRANCH = "main"
+
+[env.preview.vars]
+GITHUB_REPO = "osnat6130-ctrl/rozital-ben-or-hadad"
+GITHUB_BRANCH = "main"

@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "preview", "--", "--port", "5185"],
       "port": 5185
+    },
+    {
+      "name": "rozital-pages-functions",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "pages", "dev", "dist", "--port", "5186", "--live-reload"],
+      "port": 5186
     }
   ]
 }
