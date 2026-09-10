@@ -10,6 +10,7 @@ import { getService, type Service, type ServiceSection } from "@/data/services";
 import { cms, serviceIndex } from "@/cms/paths";
 import { site, telLink, whatsappLink } from "@/data/site";
 import { asset } from "@/lib/utils";
+import { useCmsVersion } from "@/cms/store";
 
 type Props = { id: Service["id"] };
 
@@ -49,6 +50,9 @@ function SectionBody({ section, path }: { section: ServiceSection; path: string 
 }
 
 export default function ServicePage({ id }: Props) {
+  /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
+  useCmsVersion();
+
   const service = getService(id);
   /* בסיס הנתיבים לעריכה, למשל services.2.heroTitle */
   const p = `services.${serviceIndex(id)}`;

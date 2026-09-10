@@ -161,16 +161,47 @@ function recomputeDirty() {
 }
 
 /**
+ * ממזג גרסה היסטורית לתוך התוכן הנוכחי: הערכים הישנים מנצחים, אבל
+ * מפתחות שקיימים רק בגרסה הנוכחית נשמרים.
+ *
+ * ‼️ זה העיקר, ולא החלפה מלאה. האתר מוסיף שדות תוכן לאורך הזמן
+ * (galleryTitle, טקסטים של הטופס וכו'), והקוד קורא אותם ישירות. החלפה
+ * בגרסה ישנה הייתה מוחקת אותם - והדף קורס עם "reading 'display' of
+ * undefined" במקום פשוט להציג טקסט ישן.
+ *
+ * מערכים נלקחים במלואם מהגרסה הישנה, כי זו המשמעות של שחזור עבורם:
+ * המלצה שנמחקה חוזרת, ותמונה שנוספה מאז יוצאת.
+ */
+function mergeRestore(target: unknown, source: unknown): unknown {
+  if (source === null || typeof source !== "object") return structuredClone(source);
+
+  if (Array.isArray(source)) {
+    /* חייבים לשנות את המערך במקום ולא להחזיר חדש: כל הדפים מחזיקים את
+       אותו רפרנס ל-services, ומערך חדש פשוט לא היה מגיע לאף אחד. */
+    if (!Array.isArray(target)) return structuredClone(source);
+    target.length = source.length;
+    source.forEach((item, i) => {
+      target[i] = mergeRestore(target[i], item);
+    });
+    return target;
+  }
+
+  if (target === null || typeof target !== "object" || Array.isArray(target)) return structuredClone(source);
+
+  const t = target as Record<string, unknown>;
+  const s = source as Record<string, unknown>;
+  for (const [key, value] of Object.entries(s)) t[key] = mergeRestore(t[key], value);
+  return t;
+}
+
+/**
  * מחזיר את התוכן לגרסה מההיסטוריה - כשינויים שלא נשמרו.
  * כלומר: אפשר לראות את התוצאה באתר, לבטל, או לשמור אותה כגרסה חדשה.
  * שחזור לא מוחק היסטוריה - הוא יוצר commit חדש שמחזיר את התוכן הישן.
- *
- * עובד גם כשהגרסה הישנה כוללת שדות שנוספו או נמחקו מאז, כי מה שנשלח
- * לשמירה הוא הקובץ המלא ולא רשימת שדות.
  */
 export function restoreSnapshot(data: { site?: unknown | null; services?: unknown | null }) {
-  if (data.site !== null && data.site !== undefined) assignDeep(roots.site, data.site);
-  if (data.services !== null && data.services !== undefined) assignDeep(roots.services, data.services);
+  if (data.site !== null && data.site !== undefined) mergeRestore(roots.site, data.site);
+  if (data.services !== null && data.services !== undefined) mergeRestore(roots.services, data.services);
   recomputeDirty();
   emit();
 }

@@ -2,6 +2,7 @@ import Seo from "@/components/Seo";
 import Reveal from "@/components/Reveal";
 import { PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { site, telLink, whatsappLink } from "@/data/site";
+import { useCmsVersion } from "@/cms/store";
 
 const sections: { title: string; paragraphs: string[] }[] = [
   {
@@ -29,6 +30,9 @@ const accessibilityFeatures = [
 ];
 
 export default function Accessibility() {
+  /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
+  useCmsVersion();
+
   return (
     <>
       <Seo

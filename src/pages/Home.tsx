@@ -8,6 +8,7 @@ import CTASection from "@/components/CTASection";
 import { services } from "@/data/services";
 import { home, site } from "@/data/site";
 import { cms } from "@/cms/paths";
+import { useCmsVersion } from "@/cms/store";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -25,6 +26,9 @@ const jsonLd = {
 };
 
 export default function Home() {
+  /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
+  useCmsVersion();
+
   return (
     <>
       <Seo

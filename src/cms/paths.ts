@@ -66,8 +66,34 @@ const FIELD_LABELS: Record<string, string> = {
   titleHighlight: "ההדגשה בכותרת",
   previewTitle: "כותרת",
   previewText: "טקסט",
+  previewCta: "כפתור",
   pageIntro: "תת-כותרת",
   seo: "SEO",
+  galleryTitle: "כותרת הגלריה",
+  serviceCardCta: "כפתור בכרטיס",
+  heroWhatsappCta: "כפתור הוואטסאפ",
+  phoneLabel: "תווית הטלפון",
+  form: "טופס הפנייה",
+  nameLabel: "תווית השם",
+  namePlaceholder: "טקסט מנחה לשם",
+  phonePlaceholder: "טקסט מנחה לטלפון",
+  topicLabel: "תווית הנושא",
+  otherTopic: 'הנושא "אחר"',
+  messageLabel: "תווית ההודעה",
+  messagePlaceholder: "טקסט מנחה להודעה",
+  submit: "כפתור השליחה",
+  note: "הערה מתחת לכפתור",
+  opened: "הודעה אחרי שליחה",
+  openedLink: "קישור לפתיחה ידנית",
+  display: "תצוגת הטלפון",
+  dial: "מספר לחיוג",
+  whatsapp: "מספר וואטסאפ",
+  name: "שם האתר",
+  shortName: "שם מקוצר",
+  serviceArea: "אזור השירות",
+  whatsappDefaultMessage: "הודעת וואטסאפ ברירת מחדל",
+  imageAlt: "תיאור התמונה",
+  description: "תיאור",
 };
 
 const SITE_PAGES: Record<string, string> = {
@@ -101,7 +127,10 @@ export function describePath(path: string): { page: string; field: string } {
     if (/^\d+$/.test(key)) continue;
     const next = keys[i + 1];
     const label = FIELD_LABELS[key] ?? key;
-    words.push(next !== undefined && /^\d+$/.test(next) ? `${label} ${Number(next) + 1}` : label);
+    const word = next !== undefined && /^\d+$/.test(next) ? `${label} ${Number(next) + 1}` : label;
+    /* "cta.button" ו-"spotlight.banner.button" מתרגמים שניהם ל"כפתור",
+       ואז יוצא "כפתור, כפתור". מדלגים על חזרה רצופה. */
+    if (words[words.length - 1] !== word) words.push(word);
   }
   return { page, field: words.join(", ") || "תוכן" };
 }

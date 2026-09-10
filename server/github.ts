@@ -2,7 +2,7 @@
  *
  * כל שמירה מהפאנל היא commit רגיל בענף - כך שההיסטוריה, השחזור
  * והפרסום האוטומטי ב-Cloudflare Pages עובדים בלי שום מנגנון נוסף. */
-import { branch, requireEnv, type Env } from "./env";
+import { branch, isLocal, requireEnv, type Env } from "./env";
 
 const API = "https://api.github.com";
 
@@ -18,11 +18,16 @@ export class GitHubError extends Error {
 }
 
 function gh(env: Env, path: string, init: RequestInit = {}) {
+  /* בפיתוח מקומי בלי טוקן קוראים אנונימית: הריפו ציבורי, וקריאות
+     אנונימיות מותרות. כך אפשר לפתח ולבדוק את הפאנל על המחשב בלי להחזיק
+     בו טוקן כתיבה של פרודקשן. שמירה תיכשל ב-401, וזו ההתנהגות הנכונה.
+     בפרודקשן הטוקן תמיד נדרש - כדי שהגדרה חסרה תיפול מיד ולא בשקט. */
+  const anonymous = isLocal(env) && !env.GITHUB_TOKEN;
   return fetch(`${API}/repos/${requireEnv(env, "GITHUB_REPO")}${path}`, {
     ...init,
     headers: {
       Accept: "application/vnd.github+json",
-      Authorization: `Bearer ${requireEnv(env, "GITHUB_TOKEN")}`,
+      ...(anonymous ? {} : { Authorization: `Bearer ${requireEnv(env, "GITHUB_TOKEN")}` }),
       "X-GitHub-Api-Version": "2022-11-28",
       "User-Agent": "rozital-admin",
       ...(init.body ? { "Content-Type": "application/json" } : {}),

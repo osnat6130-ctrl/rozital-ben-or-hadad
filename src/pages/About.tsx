@@ -10,6 +10,7 @@ import { aboutPage, about, site } from "@/data/site";
 import { asset } from "@/lib/utils";
 import { cms } from "@/cms/paths";
 import { services } from "@/data/services";
+import { useCmsVersion } from "@/cms/store";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -21,6 +22,9 @@ const jsonLd = {
 };
 
 export default function About() {
+  /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
+  useCmsVersion();
+
   return (
     <>
       <Seo

@@ -5,7 +5,7 @@
    data-cms לניתן לעריכה במקום (contentEditable). כל שינוי נכתב לאובייקטי
    התוכן (ראו store.ts), ו"שמירה ופרסום" שולח לשרת שיוצר commit.
    ========================================================================== */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, ApiError } from "./api";
 import { setAdminFlag } from "./gate";
@@ -24,6 +24,9 @@ import "./cms.css";
 
 const EDITING_KEY = "rz-editing";
 
+/* מסך ההיסטוריה נטען רק כשנפתח - הוא לא נחוץ כדי לערוך */
+const History = lazy(() => import("./History"));
+
 type Status =
   | { kind: "loading" }
   | { kind: "ready"; name: string }
@@ -35,6 +38,7 @@ export default function EditMode() {
   const navigate = useNavigate();
   const [status, setStatus] = useState<Status>({ kind: "loading" });
   const [editing, setEditing] = useState(() => sessionStorage.getItem(EDITING_KEY) === "1");
+  const [historyOpen, setHistoryOpen] = useState(false);
   const dirtyCount = useDirtyCount();
   const activeRef = useRef<{ el: HTMLElement; path: string; before: string } | null>(null);
 
@@ -243,6 +247,14 @@ export default function EditMode() {
           </button>
         )}
 
+        <button
+          type="button"
+          onClick={() => setHistoryOpen(true)}
+          className="rounded-full px-3 py-1.5 transition-colors hover:bg-white/10"
+        >
+          היסטוריה
+        </button>
+
         <button type="button" onClick={logout} className="rounded-full px-3 py-1.5 text-white/70 hover:bg-white/10">
           יציאה
         </button>
@@ -258,6 +270,17 @@ export default function EditMode() {
           </span>
         )}
       </div>
+
+      {historyOpen && (
+        <Suspense fallback={null}>
+          <History
+            onClose={() => setHistoryOpen(false)}
+            /* שחזור טוען ערכים ישנים כשינויים לא-שמורים. מדליקים את מצב
+               העריכה כדי שהיא תראה מיד מה השתנה ותוכל לאשר או לבטל. */
+            onRestored={() => setEditing(true)}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }

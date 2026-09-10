@@ -7,8 +7,12 @@ import { MailIcon, PhoneIcon } from "@/components/Icons";
 import { contact, site, telLink } from "@/data/site";
 import { services } from "@/data/services";
 import { cms } from "@/cms/paths";
+import { useCmsVersion } from "@/cms/store";
 
 export default function Contact() {
+  /* מאזין לשינויי מצב העריכה, אחרת עריכה ושחזור לא מתעדכנים בדף */
+  useCmsVersion();
+
   return (
     <>
       <Seo
