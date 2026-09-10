@@ -38,7 +38,10 @@ type Status =
 export default function EditMode() {
   const navigate = useNavigate();
   const [status, setStatus] = useState<Status>({ kind: "loading" });
-  const [editing, setEditing] = useState(() => sessionStorage.getItem(EDITING_KEY) === "1");
+  /* דלוק כברירת מחדל. מי שהתחברה לפאנל התחברה כדי לערוך, וברירת מחדל
+     כבויה שלחה אותה ללחוץ על תמונה ולקבל הגדלה במקום עריכה - בלי שום
+     רמז שחסר צעד. כיבוי מפורש נשמר לאורך הסשן ("0"). */
+  const [editing, setEditing] = useState(() => sessionStorage.getItem(EDITING_KEY) !== "0");
   const [historyOpen, setHistoryOpen] = useState(false);
   const [imageEdit, setImageEdit] = useState<{ path: string; altPath?: string } | null>(null);
   const dirtyCount = useDirtyCount();
