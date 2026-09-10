@@ -5,6 +5,7 @@ import { QuoteIcon, ZoomIcon } from "./Icons";
 import type { ServiceMotion, Testimonial } from "@/data/services";
 import { asset } from "@/lib/utils";
 import { cms, cmsImage } from "@/cms/paths";
+import AddCard from "@/cms/AddCard";
 import { useEditing } from "@/cms/editing";
 import { insertItem, moveItem, removeItem } from "@/cms/store";
 
@@ -133,17 +134,11 @@ export default function Testimonials({ items, motion = "calm", image, cmsPath }:
 
       {manageable && (
         <div className="mb-5 block break-inside-avoid">
-          <button
-            type="button"
-            data-cms-toolbar
+          <AddCard
+            label="הוספת המלצה"
+            hint="נוצר כרטיס ריק. לוחצים עליו ומדביקים את ההמלצה כלשונה."
             onClick={() => insertItem(cmsPath!, { text: "" }, items.length)}
-            className="flex w-full flex-col items-center justify-center gap-1 rounded-3xl border-2 border-dashed border-accent/50 bg-accent-soft/20 px-6 py-8 text-center transition-colors hover:border-accent hover:bg-accent-soft/40"
-          >
-            <span className="font-display text-lg font-bold text-accent-dark">+ הוספת המלצה</span>
-            <span className="text-xs leading-relaxed text-muted">
-              נוצר כרטיס ריק. לוחצים עליו ומדביקים את ההמלצה כלשונה.
-            </span>
-          </button>
+          />
         </div>
       )}
 

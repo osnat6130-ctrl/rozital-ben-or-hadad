@@ -28,11 +28,18 @@ export type PreparedImage = {
 
 export const MAX_UPLOAD_BYTES = 4 * 1024 * 1024;
 
-/** PNG נשמר כ-PNG כדי לא לאבד שקיפות; כל השאר הופך ל-JPEG */
-function targetType(file: File): string {
-  if (file.type === "image/png") return "image/png";
-  if (file.type === "image/webp") return "image/webp";
-  return "image/jpeg";
+/* ‼️ WebP לכל התמונות שמועלות מהפאנל: ~30% קטן מ-JPEG באותה איכות
+   נראית, ותומך בשקיפות, כך שגם PNG יכול לעבור אליו בלי לאבד כלום.
+
+   הבדיקה כאן היא לא פורמליות: canvas.toDataURL עם סוג שהדפדפן לא
+   תומך בו **נכשל בשקט** ומחזיר PNG - בלי שגיאה. בלי הבדיקה, דפדפן
+   ישן היה מעלה PNG ענק בשם קובץ .webp, והשרת היה דוחה אותו על אי
+   התאמה בין הסוג לתוכן, או גרוע מזה - שומר קובץ פגום. */
+function encode(canvas: HTMLCanvasElement): { dataUrl: string; contentType: string } {
+  const webp = canvas.toDataURL("image/webp", QUALITY);
+  if (webp.startsWith("data:image/webp")) return { dataUrl: webp, contentType: "image/webp" };
+  /* דפדפן בלי WebP - חוזרים ל-JPEG, שנתמך בכל מקום */
+  return { dataUrl: canvas.toDataURL("image/jpeg", QUALITY), contentType: "image/jpeg" };
 }
 
 function loadImage(file: File): Promise<HTMLImageElement> {
@@ -71,8 +78,7 @@ export async function prepareImage(file: File): Promise<PreparedImage> {
   ctx.imageSmoothingQuality = "high";
   ctx.drawImage(img, 0, 0, width, height);
 
-  const type = targetType(file);
-  const dataUrl = canvas.toDataURL(type, QUALITY);
+  const { dataUrl, contentType } = encode(canvas);
   const base64 = dataUrl.slice(dataUrl.indexOf(",") + 1);
   const bytes = Math.floor((base64.replace(/=+$/, "").length * 3) / 4);
 
@@ -82,7 +88,7 @@ export async function prepareImage(file: File): Promise<PreparedImage> {
     );
   }
 
-  return { name: file.name, contentType: type, base64, dataUrl, width, height, bytes };
+  return { name: file.name, contentType, base64, dataUrl, width, height, bytes };
 }
 
 export const formatBytes = (bytes: number) =>

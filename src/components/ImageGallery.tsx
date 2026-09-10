@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Reveal from "./Reveal";
 import Lightbox from "./Lightbox";
 import { ZoomIcon } from "./Icons";
+import AddCard from "@/cms/AddCard";
+import { useEditing } from "@/cms/editing";
+import { prepareImage } from "@/cms/image";
+import { api } from "@/cms/api";
 import { cmsImage } from "@/cms/paths";
+import { insertItem } from "@/cms/store";
 import { asset, cn } from "@/lib/utils";
 import type { ServiceMotion } from "@/data/services";
 
@@ -32,6 +37,32 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
   const [active, setActive] = useState<number | null>(null);
   const reveal = motion === "calm" ? "calm" : "pop";
   const groups = chunkIntoTriples(images);
+  const editing = useEditing();
+  const manageable = editing && Boolean(cmsPath);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const addRef = useRef<HTMLInputElement>(null);
+
+  /* ההוספה מעלה ישר מכאן ולא פותחת דיאלוג: הפעולה היא צעד אחד ("בחרי
+     תמונה"), ודיאלוג היה מוסיף לחיצה בלי להוסיף מידע. */
+  async function addImage(file: File) {
+    if (!cmsPath) return;
+    setError(null);
+    setBusy(true);
+    try {
+      const image = await prepareImage(file);
+      const { path } = await api.uploadImage({
+        name: image.name,
+        contentType: image.contentType,
+        base64: image.base64,
+      });
+      insertItem(cmsPath, { src: path, alt: "" }, images.length);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "ההעלאה נכשלה");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   return (
     <div className={cn(className)}>
@@ -96,6 +127,33 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
           </div>
         ))}
       </div>
+
+      {manageable && (
+        <div className="mt-3 sm:mt-4">
+          {error && (
+            <p role="alert" className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm text-red-700">
+              {error}
+            </p>
+          )}
+          <AddCard
+            compact
+            label={busy ? "מעלה תמונה..." : "הוספת תמונה לגלריה"}
+            hint="התמונה מוקטנת ונדחסת אוטומטית ל-WebP לפני ההעלאה"
+            onClick={() => !busy && addRef.current?.click()}
+          />
+          <input
+            ref={addRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            hidden
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              e.target.value = "";
+              if (file) void addImage(file);
+            }}
+          />
+        </div>
+      )}
 
       <Lightbox
         images={images}

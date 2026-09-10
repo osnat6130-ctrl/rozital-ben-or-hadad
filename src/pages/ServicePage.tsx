@@ -4,6 +4,7 @@ import ServiceTheme from "@/components/ServiceTheme";
 import SectionTitle from "@/components/SectionTitle";
 import ImageGallery from "@/components/ImageGallery";
 import HeroMedia from "@/components/HeroMedia";
+import AddVideoTile from "@/cms/AddVideoTile";
 import Testimonials from "@/components/Testimonials";
 import { CheckIcon, PhoneIcon, WhatsappIcon } from "@/components/Icons";
 import { getService, type Service, type ServiceSection } from "@/data/services";
@@ -561,6 +562,9 @@ export default function ServicePage({ id }: Props) {
                     />
                   </div>
                 ))}
+                {/* פריט ברשת ולא שורה מתחתיה, כדי שיישב ליד הסרטון
+                    כשיש עמודה פנויה */}
+                <AddVideoTile cmsPath={`${p}.videos`} count={service.videos.length} />
               </div>
             </Reveal>
           </div>
