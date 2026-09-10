@@ -52,10 +52,15 @@ function upsert(html, pattern, replacement) {
 }
 
 function buildPage({ path: route, seo, image }) {
-  const url = route === "/" ? `${ORIGIN}/` : `${ORIGIN}${route}`;
+  /* ‼️ כל ערך שנכנס ל-HTML עובר escaping, גם נתיבי תמונות וגם הכתובת.
+     הם מגיעים מקובץ התוכן, שהפאנל כותב - כלומר מי שמחוברת לפאנל
+     יכולה לשמור נתיב תמונה שסוגר את התכונה ופותח <script>, והבנייה
+     הבאה הייתה מפיצה אותו בכל עמוד לכל מבקר. נתיב תמונה לא נראה כמו
+     קלט מסוכן, ובדיוק בגלל זה הוא מסוכן. */
+  const url = escapeHtml(route === "/" ? `${ORIGIN}/` : `${ORIGIN}${route}`);
   const title = escapeHtml(seo.title);
   const description = escapeHtml(seo.description);
-  const ogImage = image ? `${ORIGIN}${image}` : DEFAULT_OG;
+  const ogImage = escapeHtml(image ? `${ORIGIN}${image}` : DEFAULT_OG);
 
   let html = template;
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`);

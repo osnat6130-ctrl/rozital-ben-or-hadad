@@ -13,7 +13,19 @@ const contentValue: z.ZodType<unknown> = z.lazy(() =>
   z.union([leaf, z.array(contentValue).max(200), z.record(z.string().max(60), contentValue)]),
 );
 
-const media = z.object({ src: z.string().min(1).max(500), alt: z.string().max(300).optional() }).passthrough();
+/* ‼️ נתיב מדיה, ולא סתם מחרוזת.
+   הנתיבים האלה נכנסים ל-HTML של העמודים בבנייה (scripts/prerender.mjs)
+   ול-src של תגיות. מחרוזת חופשית אפשרה לשמור נתיב שסוגר את התכונה
+   ופותח <script>, כלומר להפוך "עריכת תוכן" ל"קוד שרץ אצל כל מבקר".
+   כאן נחסם בשורש: נתיב פנימי בלבד, בלי מרכאות, בלי סוגריים משולשים,
+   ובלי scheme חיצוני. */
+const mediaPath = z
+  .string()
+  .min(1)
+  .max(500)
+  .regex(/^\/[A-Za-z0-9._~\-/]+$/, "נתיב תמונה או סרטון חייב להיות נתיב פנימי תקין");
+
+const media = z.object({ src: mediaPath, alt: z.string().max(300).optional() }).passthrough();
 
 export const serviceSchema = z
   .object({
@@ -52,7 +64,12 @@ export const siteSchema = z
     contact: z.record(z.string(), contentValue),
     certificates: z.array(z.record(z.string(), contentValue)).max(30),
     reasons: z.array(z.record(z.string(), contentValue)).max(10),
+    accessibility: z.record(z.string(), contentValue),
   })
+  /* ‼️ strict נשאר במכוון: הוא מה שמונע כתיבת מפתחות שרירותיים לקובץ
+     התוכן. המחיר הוא שכל מפתח חדש ב-site.json חייב להתווסף גם כאן -
+     אחרת כל שמירה שנוגעת בקובץ נדחית ב-400. זה קרה בפועל כשנוסף
+     accessibility ולא נרשם כאן, והמסלול נשבר בשקט עד שנבדק. */
   .strict();
 
 export const savePayloadSchema = z.object({
