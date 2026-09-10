@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import Reveal from "./Reveal";
 import ServiceTheme from "./ServiceTheme";
 import { ArrowIcon } from "./Icons";
+import { cms, serviceIndex } from "@/cms/paths";
 import type { Service } from "@/data/services";
+import { siteContent } from "@/data/site";
 import { asset } from "@/lib/utils";
 
 type Props = { service: Service; index?: number };
 
 export default function ServiceCard({ service, index = 0 }: Props) {
+  const p = `services.${serviceIndex(service.id)}`;
   return (
     <Reveal
       variant={service.motion === "calm" ? "calm" : "pop"}
@@ -36,13 +39,15 @@ export default function ServiceCard({ service, index = 0 }: Props) {
           </div>
 
           <div className="flex flex-1 flex-col p-6 sm:p-7">
-            <h3 className="font-display text-lg font-bold text-accent-dark sm:text-xl">
+            <h3 {...cms(`${p}.cardTitle`)} className="font-display text-lg font-bold text-accent-dark sm:text-xl">
               {service.cardTitle}
             </h3>
-            <p className="mt-3 flex-1 leading-relaxed text-muted">{service.cardText}</p>
+            <p {...cms(`${p}.cardText`)} className="mt-3 flex-1 leading-relaxed text-muted">
+              {service.cardText}
+            </p>
 
             <span className="mt-6 inline-flex items-center gap-2 font-display text-base font-bold text-accent">
-              לפרטים נוספים
+              <span {...cms("site.home.serviceCardCta")}>{siteContent.home.serviceCardCta}</span>
               <ArrowIcon className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1.5" />
             </span>
           </div>

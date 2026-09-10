@@ -6,6 +6,8 @@ import { cms } from "@/cms/paths";
 type Props = {
   title: string;
   text?: string;
+  /** תווית כפתור הוואטסאפ */
+  button: string;
   /** הודעת וואטסאפ מותאמת לתחום */
   whatsappMessage?: string;
   /** דריסה אופציונלית של צבע הרקע (ברירת מחדל bg-accent-soft) */
@@ -17,6 +19,7 @@ type Props = {
 export default function CTASection({
   title,
   text,
+  button,
   whatsappMessage,
   className = "bg-accent-soft",
   cmsPath,
@@ -60,7 +63,7 @@ export default function CTASection({
             className="btn-whatsapp w-full sm:w-auto"
           >
             <WhatsappIcon className="h-5 w-5" />
-            לפרטים ולהרשמה
+            <span {...(cmsPath ? cms(`${cmsPath}.button`) : {})}>{button}</span>
           </a>
 
           <a href={telLink} className="btn-primary w-full sm:w-auto">

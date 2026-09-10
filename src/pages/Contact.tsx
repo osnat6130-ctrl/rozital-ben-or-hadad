@@ -79,7 +79,9 @@ export default function Contact() {
                       <PhoneIcon className="h-6 w-6" />
                     </span>
                     <span>
-                      <span className="block text-sm text-white/70">טלפון</span>
+                      <span {...cms("site.contact.phoneLabel")} className="block text-sm text-white/70">
+                        {contact.phoneLabel}
+                      </span>
                       <span className="block font-display text-xl font-bold text-white" dir="ltr">
                         {site.phone.display}
                       </span>
@@ -132,13 +134,13 @@ export default function Contact() {
                       {contact.topicsLabel}
                     </p>
                     <ul className="mt-3 flex flex-wrap gap-2">
-                      {services.map((service) => (
+                      {services.map((service, i) => (
                         <li key={service.id}>
                           <Link
                             to={service.path}
                             className="block rounded-full bg-white/10 px-3.5 py-1.5 text-sm text-white/90 ring-1 ring-white/15 transition-colors duration-200 hover:bg-white/20 hover:text-white hover:ring-white/40 focus-visible:bg-white/20 focus-visible:text-white"
                           >
-                            {service.navLabel}
+                            <span {...cms(`services.${i}.navLabel`)}>{service.navLabel}</span>
                           </Link>
                         </li>
                       ))}

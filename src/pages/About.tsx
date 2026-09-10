@@ -155,10 +155,14 @@ export default function About() {
                     className="group flex h-full flex-col rounded-3xl bg-surface p-7 shadow-card ring-1 ring-line/70 transition-all duration-500 md:hover:-translate-y-1.5"
                   >
                     <span className="mb-4 h-1.5 w-12 rounded-full bg-accent" aria-hidden />
-                    <h3 className="text-xl text-accent-dark">{service.cardTitle}</h3>
-                    <p className="mt-3 flex-1 leading-relaxed text-muted">{service.cardText}</p>
+                    <h3 {...cms(`services.${i}.cardTitle`)} className="text-xl text-accent-dark">
+                      {service.cardTitle}
+                    </h3>
+                    <p {...cms(`services.${i}.cardText`)} className="mt-3 flex-1 leading-relaxed text-muted">
+                      {service.cardText}
+                    </p>
                     <span className="mt-5 inline-flex items-center gap-2 font-display font-bold text-accent">
-                      לפרטים
+                      <span {...cms("site.aboutPage.serviceCardCta")}>{aboutPage.serviceCardCta}</span>
                       <ArrowIcon className="h-5 w-5 transition-transform duration-300 group-hover:-translate-x-1.5" />
                     </span>
                   </Link>
@@ -172,6 +176,7 @@ export default function About() {
       <CTASection
         title={aboutPage.cta.title}
         text={aboutPage.cta.text}
+        button={aboutPage.cta.button}
         cmsPath="site.aboutPage.cta"
       />
     </>

@@ -273,8 +273,11 @@ export default function ServicePage({ id }: Props) {
                 )}
                 {service.spotlight.testimonials && service.spotlight.testimonials.length > 0 && (
                   <div className="relative mt-12">
-                    <h3 className="text-center text-2xl text-accent-dark sm:text-3xl">
-                      מה אומרים ההורים
+                    <h3
+                      {...cms(`${p}.spotlight.testimonialsTitle`)}
+                      className="text-center text-2xl text-accent-dark sm:text-3xl"
+                    >
+                      {service.spotlight.testimonialsTitle}
                     </h3>
                     <Testimonials
                       items={service.spotlight.testimonials}
@@ -487,7 +490,11 @@ export default function ServicePage({ id }: Props) {
       <section className="section pt-0" aria-labelledby="gallery-title">
         <div className="container">
           <SectionTitle
-            title={<span id="gallery-title">איך זה נראה במפגש</span>}
+            title={
+              <span id="gallery-title" {...cms(`${p}.galleryTitle`)}>
+                {service.galleryTitle}
+              </span>
+            }
           />
           <ImageGallery
             images={service.gallery}

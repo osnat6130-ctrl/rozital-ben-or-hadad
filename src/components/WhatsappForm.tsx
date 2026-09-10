@@ -1,15 +1,14 @@
 import { useState, type FormEvent } from "react";
 import { WhatsappIcon } from "./Icons";
+import { cms } from "@/cms/paths";
 import { services } from "@/data/services";
-import { whatsappLink } from "@/data/site";
+import { contact, whatsappLink } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 const fieldClass =
   "w-full rounded-2xl bg-bg px-4 py-3.5 text-ink ring-1 ring-line/80 placeholder:text-muted/55 transition-shadow duration-200 hover:ring-brand/40 focus:bg-surface focus:ring-2 focus:ring-brand";
 
 const labelClass = "mb-2 block font-display text-sm font-bold text-brand-dark";
-
-const topics = [...services.map((service) => service.navLabel), "אחר"];
 
 /**
  * טופס פנייה בלי שרת: בלחיצה על "שליחה" נפתח וואטסאפ עם הודעה מוכנה
@@ -21,6 +20,11 @@ export default function WhatsappForm() {
   const [topic, setTopic] = useState("");
   const [message, setMessage] = useState("");
   const [sentUrl, setSentUrl] = useState<string | null>(null);
+
+  const f = contact.form;
+  /* נגזר בכל רינדור ולא ברמת המודול, כדי שעריכה של שם לשונית בפאנל
+     תשתקף מיד גם בכפתורי הנושא */
+  const topics = [...services.map((service) => service.navLabel), f.otherTopic];
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -48,14 +52,14 @@ export default function WhatsappForm() {
       />
 
       <div className="relative">
-        <h2 id="contact-form-title" className="text-2xl sm:text-3xl">
-          השאירו פנייה
+        <h2 id="contact-form-title" {...cms("site.contact.form.title")} className="text-2xl sm:text-3xl">
+          {f.title}
         </h2>
 
         <div className="mt-6 grid gap-5 sm:grid-cols-2">
           <div>
             <label htmlFor="contact-name" className={labelClass}>
-              שם מלא
+              <span {...cms("site.contact.form.nameLabel")}>{f.nameLabel}</span>
             </label>
             <input
               id="contact-name"
@@ -63,7 +67,7 @@ export default function WhatsappForm() {
               type="text"
               required
               autoComplete="name"
-              placeholder="איך קוראים לכם?"
+              placeholder={f.namePlaceholder}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className={fieldClass}
@@ -71,7 +75,7 @@ export default function WhatsappForm() {
           </div>
           <div>
             <label htmlFor="contact-phone" className={labelClass}>
-              טלפון
+              <span {...cms("site.contact.form.phoneLabel")}>{f.phoneLabel}</span>
             </label>
             <input
               id="contact-phone"
@@ -79,7 +83,7 @@ export default function WhatsappForm() {
               type="tel"
               autoComplete="tel"
               dir="ltr"
-              placeholder="050-0000000"
+              placeholder={f.phonePlaceholder}
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               className={`${fieldClass} text-right placeholder:text-right`}
@@ -88,7 +92,9 @@ export default function WhatsappForm() {
         </div>
 
         <fieldset className="mt-5">
-          <legend className={labelClass}>במה אפשר לעזור?</legend>
+          <legend className={labelClass}>
+            <span {...cms("site.contact.form.topicLabel")}>{f.topicLabel}</span>
+          </legend>
           <div className="flex flex-wrap gap-2">
             {topics.map((item) => {
               const selected = topic === item;
@@ -114,14 +120,14 @@ export default function WhatsappForm() {
 
         <div className="mt-5">
           <label htmlFor="contact-message" className={labelClass}>
-            הודעה
+            <span {...cms("site.contact.form.messageLabel")}>{f.messageLabel}</span>
           </label>
           <textarea
             id="contact-message"
             name="message"
             required
             rows={4}
-            placeholder="ספרו לי בקצרה על הקבוצה, האירוע או השאלה שלכם"
+            placeholder={f.messagePlaceholder}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             className={`${fieldClass} resize-y`}
@@ -129,25 +135,25 @@ export default function WhatsappForm() {
         </div>
 
         <button type="submit" className="btn-whatsapp mt-7 w-full !py-4 !text-lg">
-          שלח פניה לוואטסאפ
+          <span {...cms("site.contact.form.submit")}>{f.submit}</span>
           <WhatsappIcon className="h-6 w-6" />
         </button>
 
         <p className="mt-4 text-center text-sm text-muted" aria-live="polite">
           {sentUrl ? (
             <>
-              ההודעה נפתחה בוואטסאפ. לא נפתח לכם חלון?{" "}
+              <span {...cms("site.contact.form.opened")}>{f.opened}</span>{" "}
               <a
                 href={sentUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-bold text-brand underline underline-offset-2"
               >
-                לחצו כאן
+                <span {...cms("site.contact.form.openedLink")}>{f.openedLink}</span>
               </a>
             </>
           ) : (
-            "ההודעה נפתחת בוואטסאפ עם כל הפרטים - נשאר רק ללחוץ שליחה."
+            <span {...cms("site.contact.form.note")}>{f.note}</span>
           )}
         </p>
       </div>

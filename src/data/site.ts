@@ -18,6 +18,8 @@ export type SiteInfo = {
   heroSubtitle: string;
   /** כפתור הפעולה הראשי ב-Hero (גולל לתחומים) */
   heroPrimaryCta: string;
+  /** תווית כפתור הוואטסאפ ב-Hero */
+  heroWhatsappCta: string;
   phone: { display: string; dial: string; whatsapp: string };
   url: string;
   email: string;
@@ -32,7 +34,26 @@ export type HomeContent = {
   servicesTitle: string;
   reasonsTitle: string;
   reasonsTitleHighlight: string;
-  cta: { title: string; text: string };
+  /** תווית הכפתור בכרטיסי התחומים (דף הבית ואודות) */
+  serviceCardCta: string;
+  cta: { title: string; text: string; button: string };
+};
+
+/** כל הטקסטים של טופס הפנייה - היו מקודדים בקומפוננטה עד שהפאנל דרש אותם */
+export type ContactFormContent = {
+  title: string;
+  nameLabel: string;
+  namePlaceholder: string;
+  phoneLabel: string;
+  phonePlaceholder: string;
+  topicLabel: string;
+  otherTopic: string;
+  messageLabel: string;
+  messagePlaceholder: string;
+  submit: string;
+  note: string;
+  opened: string;
+  openedLink: string;
 };
 
 export type AboutContent = {
@@ -41,6 +62,8 @@ export type AboutContent = {
   imageAlt: string;
   previewTitle: string;
   previewText: string;
+  /** תווית הכפתור לדף אודות */
+  previewCta: string;
   pageIntro: string;
   story: string[];
   credentials: string[];
@@ -53,7 +76,9 @@ export type AboutPageContent = {
   principlesTitle: string;
   servicesTitle: string;
   servicesSubtitle: string;
-  cta: { title: string; text: string };
+  /** תווית הכפתור בכרטיסי התחומים בדף אודות */
+  serviceCardCta: string;
+  cta: { title: string; text: string; button: string };
 };
 
 export type ContactContent = {
@@ -65,6 +90,9 @@ export type ContactContent = {
   panelText: string;
   steps: { title: string; text: string }[];
   topicsLabel: string;
+  /** התווית ליד מספר הטלפון בפאנל הכהה */
+  phoneLabel: string;
+  form: ContactFormContent;
 };
 
 export type Certificate = { src: string; title: string; issuer: string; meta: string };

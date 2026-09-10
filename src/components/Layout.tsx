@@ -5,6 +5,7 @@ import Footer from "./Footer";
 import FloatingActions from "./FloatingActions";
 import AccessibilityWidget from "./AccessibilityWidget";
 import CmsGate from "@/cms/gate";
+import { useCmsVersion } from "@/cms/store";
 import { cn } from "@/lib/utils";
 
 /** גלילה לראש העמוד בכל מעבר בין דפים (למעט עוגנים) */
@@ -27,6 +28,12 @@ function ScrollToTop() {
 
 export default function Layout() {
   const { pathname } = useLocation();
+
+  /* מאזין לשינויי התוכן של מצב העריכה. בלי זה, ערך שמופיע ביותר ממקום
+     אחד (מספר הטלפון, שם לשונית) מתעדכן רק במקום שנלחץ - כי העריכה
+     משנה את ה-DOM ישירות, ושאר המופעים ממשיכים להציג את הערך הישן עד
+     לרענון. לגולשת רגילה זה מנוי למשתנה שלא משתנה לעולם. */
+  useCmsVersion();
 
   /* ב-Hero הכהה של דף הבית ה-Header שקוף ויושב על גבי התמונה,
      ולכן שם אין ריווח עליון - ה-Hero עצמו מספק אותו. */

@@ -61,6 +61,7 @@ export default function Home() {
       <CTASection
         title={home.cta.title}
         text={home.cta.text}
+        button={home.cta.button}
         cmsPath="site.home.cta"
         className="bg-brand-soft"
       />

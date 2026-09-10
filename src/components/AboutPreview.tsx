@@ -45,7 +45,7 @@ export default function AboutPreview() {
 
           <Reveal delay={120}>
             <Link to="/about" className="btn-outline mt-8">
-              קצת יותר עליי
+              <span {...cms("site.about.previewCta")}>{about.previewCta}</span>
               <ArrowIcon className="h-5 w-5" />
             </Link>
           </Reveal>

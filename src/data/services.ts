@@ -66,6 +66,8 @@ export type Service = {
    *  bannerImage ממשיך לשמש כתמונת הפוסטר לפני הניגון. */
   bannerVideo?: string;
   gallery: { src: string; alt: string }[];
+  /** כותרת אזור הגלריה. ברירת מחדל: "איך זה נראה במפגש" */
+  galleryTitle?: string;
   /** סרטונים באזור משלהם אחרי הגלריה (עם כפתורי ניגון, בלי ניגון אוטומטי).
    *  שניים ומעלה מוצגים זה לצד זה בדסקטופ, ואחד מתחת לשני במובייל.
    *  width/height נותנים לכל סרטון את היחס שלו - סרטוני טלפון נבדלים
@@ -84,6 +86,8 @@ export type Service = {
     images?: { src: string; alt: string }[];
     /** המלצות שמתייחסות לפעילות הזו ספציפית (במקום באזור ההמלצות הכללי של הדף) */
     testimonials?: Testimonial[];
+    /** כותרת ההמלצות של האזור הזה. ברירת מחדל: "מה אומרים ההורים" */
+    testimonialsTitle?: string;
     /** באנר קריאה לפעולה בתחתית האזור, עם כפתור וואטסאפ */
     banner?: { title: string; paragraphs?: string[]; button: string };
   };

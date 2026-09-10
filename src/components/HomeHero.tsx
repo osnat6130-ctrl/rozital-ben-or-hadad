@@ -73,7 +73,7 @@ export default function HomeHero() {
                 className="btn-whatsapp w-full sm:w-auto"
               >
                 <WhatsappIcon className="h-5 w-5" />
-                לפרטים ולהרשמה
+                <span {...cms("site.site.heroWhatsappCta")}>{site.heroWhatsappCta}</span>
               </a>
             </div>
           </Reveal>
@@ -81,7 +81,7 @@ export default function HomeHero() {
           {/* שלושת התחומים, כל אחד עם נקודת הצבע שלו */}
           <Reveal delay={320}>
             <ul className="mt-11 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 border-t border-hero-ink/12 pt-6 lg:justify-start">
-              {services.map((service) => (
+              {services.map((service, i) => (
                 <li
                   key={service.id}
                   className="flex items-center gap-2.5 text-sm font-semibold text-hero-muted"
@@ -91,7 +91,7 @@ export default function HomeHero() {
                     className="h-2 w-2 shrink-0 rounded-full"
                     style={{ background: `hsl(${service.theme.accent})` }}
                   />
-                  {service.navLabel}
+                  <span {...cms(`services.${i}.navLabel`)}>{service.navLabel}</span>
                 </li>
               ))}
             </ul>
