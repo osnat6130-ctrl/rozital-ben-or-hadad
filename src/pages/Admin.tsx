@@ -1,10 +1,10 @@
 /* /admin - כניסה לפאנל הניהול.
  * אחרי כניסה מוצלחת: סימון מקומי + חזרה לדף הבית עם סרגל העריכה. */
 import { useEffect, useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Seo from "@/components/Seo";
 import { api } from "@/cms/api";
-import { hasAdminFlag, setAdminFlag } from "@/cms/gate";
+import { setAdminFlag } from "@/cms/gate";
 
 /* שם המשתמש נשמר מקומית כדי לא להקליד אותו בכל כניסה. הסיסמה לא
    נשמרת כאן בכוונה - היא נשמרת במנהל הסיסמאות של הדפדפן, שמוצפן ומוגן
@@ -20,7 +20,6 @@ const readRemembered = () => {
 };
 
 export default function Admin() {
-  const navigate = useNavigate();
   const remembered = readRemembered();
   const [username, setUsername] = useState(remembered);
   const [password, setPassword] = useState("");
@@ -40,9 +39,20 @@ export default function Admin() {
     return () => meta.remove();
   }, []);
 
+  /* ‼️ בודקים את הסשן בשרת תמיד, גם בלי הסימון המקומי.
+     הסימון (rz-admin ב-localStorage) הוא רק "לטעון את קוד העריכה", והוא
+     נעלם בניקוי נתוני האתר, במחשב אחר, בחלון פרטי או אחרי החלפת דפדפן -
+     בזמן שעוגיית ההתחברות עדיין תקפה 60 יום. קודם התנאי הזה חסם את
+     הבדיקה, ולכן המשתמשת ראתה טופס כניסה והקלידה סיסמה כשהיא בעצם
+     מחוברת. זה נראה בדיוק כמו "'זכור אותי' לא עובד". */
   useEffect(() => {
-    if (!hasAdminFlag()) return;
-    api.me().then((m) => setMe(m.name)).catch(() => setAdminFlag(false));
+    api
+      .me()
+      .then((m) => {
+        setMe(m.name);
+        setAdminFlag(true);
+      })
+      .catch(() => setAdminFlag(false));
   }, []);
 
   async function submit(e: FormEvent) {
@@ -59,8 +69,14 @@ export default function Admin() {
       }
       setAdminFlag(true);
       sessionStorage.setItem("rz-editing", "1");
-      navigate("/", { replace: true });
       setMe(m.name);
+      /* ‼️ טעינה מלאה של הדף ולא ניווט של React.
+         כרום מציע "לשמור את הסיסמה?" כשהוא רואה טופס שנשלח ואחריו
+         ניווט. ניווט פנימי של ה-SPA - ובמיוחד replace, שמחליף את הרשומה
+         בהיסטוריה - מזוהה בצורה לא עקבית, וההצעה פשוט לא מופיעה. אז
+         הסיסמה לא נשמרת במנהל הסיסמאות וצריך להקליד אותה בכל פעם.
+         זו כניסה שקורית פעם ב-60 יום, וטעינה אחת לא נורא. */
+      window.location.assign("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "הכניסה נכשלה");
     } finally {
