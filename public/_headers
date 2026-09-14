@@ -12,6 +12,10 @@
 # מהדומיין עצמו, ו-wa.me ליציאה. 'unsafe-inline' לסגנונות נדרש כי
 # Tailwind ו-React מציבים סגנונות ישירות על אלמנטים.
 #
+# ‼️ cloudflareinsights הוא הנתונים על המבקרים באתר (Web Analytics),
+# שקלאודפלייר מזריקה לעמוד בעצמה. ה-CSP חסם אותו, והמונה פשוט הפסיק
+# לעבוד בשקט - בלי שגיאה שרואים, רק שורה בקונסולה. אין בו עוגיות.
+#
 # ‼️ blob: ב-img-src וב-media-src נדרש לפאנל הניהול, ולא ל"נוחות":
 # העלאת תמונה או סרטון טוענת את הקובץ שנבחר דרך URL.createObjectURL
 # כדי למדוד ולדחוס אותו (src/cms/image.ts). בלי blob: הדפדפן חוסם את
@@ -22,7 +26,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://cloudflareinsights.com; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
