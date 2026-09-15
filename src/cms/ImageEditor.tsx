@@ -13,6 +13,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api, ApiError } from "./api";
 import { prepareImage } from "./image";
+import { rememberUpload } from "./pending";
 import { describePath } from "./paths";
 import { getValue, insertItem, moveItem, removeItem, setValue } from "./store";
 import { asset } from "@/lib/utils";
@@ -96,6 +97,9 @@ export default function ImageEditor({
         contentType: image.contentType,
         base64: image.base64,
       });
+      /* הקובץ יוגש מהאתר רק אחרי הבנייה הבאה - עד אז מציגים בדף את
+         העותק שכבר בדפדפן, אחרת נראה מלבן ריק. ראו src/cms/pending.ts */
+      rememberUpload(publicPath, image.dataUrl);
       return publicPath;
     } catch (e) {
       setPreview(null);

@@ -16,6 +16,7 @@
 import { useEffect, useRef, useState } from "react";
 import { api, ApiError } from "./api";
 import { formatBytes, prepareVideo, VIDEO_WARN_BYTES } from "./image";
+import { rememberUpload } from "./pending";
 import { describePath } from "./paths";
 import { getValue, insertItem, moveItem, removeItem, setValue } from "./store";
 import { asset } from "@/lib/utils";
@@ -86,6 +87,9 @@ export default function VideoEditor({ path, onClose, onSave, dirtyCount, saving 
         contentType: video.contentType,
         base64: video.base64,
       });
+      /* הקובץ יוגש מהאתר רק אחרי הבנייה הבאה - עד אז מציגים את העותק
+         שכבר בדפדפן. ראו src/cms/pending.ts */
+      rememberUpload(publicPath, video.objectUrl);
       return { publicPath, width: video.width, height: video.height };
     } catch (e) {
       setPreview(null);

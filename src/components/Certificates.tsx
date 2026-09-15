@@ -6,6 +6,7 @@ import AddCard from "@/cms/AddCard";
 import { api } from "@/cms/api";
 import { useEditing } from "@/cms/editing";
 import { prepareImage } from "@/cms/image";
+import { rememberUpload } from "@/cms/pending";
 import { cms, cmsImage } from "@/cms/paths";
 import { insertItem, moveItem, removeItem } from "@/cms/store";
 import { certificates } from "@/data/site";
@@ -54,6 +55,7 @@ export default function Certificates() {
         contentType: image.contentType,
         base64: image.base64,
       });
+      rememberUpload(path, image.dataUrl); // ראו src/cms/pending.ts
       insertItem(PATH, { src: path, title: "", issuer: "", meta: "" }, certificates.length);
     } catch (e) {
       setError(e instanceof Error ? e.message : "ההעלאה נכשלה");

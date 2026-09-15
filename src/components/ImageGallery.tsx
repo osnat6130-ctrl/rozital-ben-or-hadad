@@ -5,6 +5,7 @@ import { ZoomIcon } from "./Icons";
 import AddCard from "@/cms/AddCard";
 import { useEditing } from "@/cms/editing";
 import { prepareImage } from "@/cms/image";
+import { rememberUpload } from "@/cms/pending";
 import { api } from "@/cms/api";
 import { cmsImage } from "@/cms/paths";
 import { insertItem } from "@/cms/store";
@@ -56,6 +57,7 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
         contentType: image.contentType,
         base64: image.base64,
       });
+      rememberUpload(path, image.dataUrl); // ראו src/cms/pending.ts
       insertItem(cmsPath, { src: path, alt: "" }, images.length);
     } catch (e) {
       setError(e instanceof Error ? e.message : "ההעלאה נכשלה");
