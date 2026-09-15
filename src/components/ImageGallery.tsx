@@ -73,8 +73,14 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
           <div key={group[0].src} className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {group.map((image, j) => {
               const i = g * 3 + j;
-              // תמונה שנשארה לבד בשלשה האחרונה מוצגת ממורכזת ובגודל מתון,
-              // ובלי חיתוך - כדי שגם פלייר או תמונה לגובה ייראו במלואם
+              /* תמונה שנשארה לבד בשלשה האחרונה תופסת את כל רוחב הרשת,
+                 בגובה הטבעי שלה ובלי חיתוך.
+
+                 ‼️ קודם היא הוגדרה max-w-lg בתוך מסגרת 4/3 עם
+                 object-contain, וזה נראה קטן ומוקף בפס תכלת - רוזיטל
+                 ביקשה שתיראה בגודל של שאר התמונות. ההגנה מפני חיתוך
+                 נשמרת (object-contain ובלי יחס כפוי), אבל בלי להקטין:
+                 רוחב מלא, וגובה שנקבע מהתמונה עצמה. */
               const alone = group.length === 1;
               return (
                 <Reveal
@@ -82,17 +88,11 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
                   variant={reveal}
                   delay={j * 90}
                   className={cn(
-                    j === 0 &&
-                      (alone
-                        ? "col-span-2 mx-auto w-full max-w-lg md:col-span-3"
-                        : "col-span-2 md:row-span-2"),
+                    j === 0 && (alone ? "col-span-2 w-full md:col-span-3" : "col-span-2 md:row-span-2"),
                     // הגדולה תופסת 2x2 משבצות, ולכן ריבועית בדסקטופ - אחרת תמונת
-                    // פורטרט גבוהה מותחת את השורות ופותחת רווחים בין הקטנות
-                    alone
-                      ? "aspect-[4/3]"
-                      : j === 0
-                        ? "aspect-[4/3] md:aspect-square"
-                        : "aspect-square",
+                    // פורטרט גבוהה מותחת את השורות ופותחת רווחים בין הקטנות.
+                    // הבודדת בלי יחס כפוי בכלל - הגובה נקבע מהתמונה.
+                    !alone && (j === 0 ? "aspect-[4/3] md:aspect-square" : "aspect-square"),
                   )}
                 >
                   {/* ‼️ התיוג לעריכה על הכפתור ולא על ה-img: שכבת אייקון
@@ -105,8 +105,9 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
                     onClick={() => setActive(i)}
                     aria-label={`הגדלת התמונה: ${image.alt}`}
                     className={cn(
-                      "group relative block h-full w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-line/60 transition-shadow duration-300 hover:shadow-card",
-                      alone && "bg-accent-soft/25",
+                      "group relative block w-full overflow-hidden rounded-2xl shadow-soft ring-1 ring-line/60 transition-shadow duration-300 hover:shadow-card",
+                      // בלי יחס כפוי אין תיבה למלא, ולכן גם אין מה לצבוע מסביב
+                      alone ? "h-auto" : "h-full",
                     )}
                   >
                     <img
@@ -115,8 +116,8 @@ export default function ImageGallery({ images, motion = "calm", className, cmsPa
                       loading="lazy"
                       decoding="async"
                       className={cn(
-                        "h-full w-full transition-transform duration-700 ease-out group-hover:scale-105",
-                        alone ? "object-contain" : "object-cover",
+                        "w-full transition-transform duration-700 ease-out group-hover:scale-105",
+                        alone ? "h-auto object-contain" : "h-full object-cover",
                       )}
                     />
                     <span className="absolute inset-0 flex items-center justify-center bg-accent-dark/0 transition-colors duration-300 group-hover:bg-accent-dark/35">

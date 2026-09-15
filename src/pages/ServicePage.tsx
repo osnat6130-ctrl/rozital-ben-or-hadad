@@ -75,6 +75,50 @@ export default function ServicePage({ id }: Props) {
   const middle = rest.slice(0, -1);
   const last = rest[rest.length - 1];
 
+  /* ‼️ תמונת הרוחב מוגדרת פעם אחת ומוצגת באחד משני מקומות, לפי הדגל
+     bannerImageInGallery שבתוכן: או באזור "למי זה מתאים" (ברירת המחדל),
+     או אחרי הכותרת של הגלריה. משתנה ולא JSX כפול, כדי שתיקון בה לא
+     יצטרך להיעשות בשני מקומות.
+
+     בתחום שהוגדר לו bannerVideo מוצג נגן במקום תמונת הרוחב. אין שכבת
+     גרדיאנט מעל וידאו - היא מכהה את התמונה וחוסמת את הכפתורים. */
+  const bannerMedia = (
+    <Reveal variant={reveal}>
+      {service.bannerVideo ? (
+        <div
+          {...cms(`${p}.bannerVideo`, "video")}
+          className="mx-auto aspect-square w-full max-w-2xl overflow-hidden rounded-[2rem] bg-black shadow-card"
+        >
+          <video
+            src={asset(service.bannerVideo)}
+            controls
+            playsInline
+            preload="metadata"
+            aria-label={service.title}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      ) : (
+        <div className="relative overflow-hidden rounded-[2rem] shadow-card">
+          <img
+            {...cmsImage(`${p}.bannerImage`)}
+            src={asset(service.bannerImage)}
+            alt={service.title}
+            loading="lazy"
+            decoding="async"
+            width={1400}
+            height={613}
+            className="aspect-[16/7] w-full object-cover"
+          />
+          <span
+            aria-hidden
+            className="absolute inset-0 bg-gradient-to-t from-accent-dark/35 via-transparent to-transparent"
+          />
+        </div>
+      )}
+    </Reveal>
+  );
+
 
   return (
     <ServiceTheme theme={service.theme}>
@@ -84,6 +128,118 @@ export default function ServicePage({ id }: Props) {
         path={service.path}
         image={service.heroImage}
       />
+
+      {/* ================= אזור מודגש, מעל ה-Hero =================
+          מוצג רק בתחומים שהוגדר להם spotlight (כרגע: קבוצת העצמה לאחים).
+
+          ‼️ הוא מעל ה-Hero ולא מתחתיו לפי בקשת רוזיטל: בדף הזה קבוצת
+          ההעצמה לאחים היא מה שהיא רוצה שיראו קודם. ה-H1 נשאר ראשון
+          ב-HTML שהסורקים מקבלים, כי scripts/prerender.mjs בונה את הטקסט
+          לפי קובץ התוכן ולא לפי סדר האזורים בדף - ולכן הסדר כאן הוא
+          החלטה חזותית בלבד.
+
+          ריפוד עליון כמו של ה-Hero, כי כאן הוא הדבר הראשון מתחת לתפריט. */}
+      {service.spotlight && (
+        <section className="pb-2 pt-10 md:pb-3 md:pt-14" aria-labelledby="service-spotlight">
+          <div className="container">
+            <Reveal variant={reveal}>
+              <div className="relative overflow-hidden rounded-[2rem] bg-surface p-8 shadow-card ring-1 ring-line/60 md:p-12">
+                <span
+                  aria-hidden
+                  className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent-soft/60 blur-2xl"
+                />
+                <div className="relative grid gap-8 md:grid-cols-2 md:gap-12">
+                  <div>
+                    <h2
+                      id="service-spotlight"
+                      {...cms(`${p}.spotlight.title`)}
+                      className="text-3xl text-accent-dark sm:text-4xl"
+                    >
+                      {service.spotlight.title}
+                    </h2>
+                    {service.spotlight.paragraphs?.map((paragraph, i) => (
+                      <p
+                        key={i}
+                        {...cms(`${p}.spotlight.paragraphs.${i}`)}
+                        className="mt-4 text-lg leading-relaxed text-muted"
+                      >
+                        {paragraph}
+                      </p>
+                    ))}
+                  </div>
+                  {service.spotlight.bullets && (
+                    <div className="md:pt-2">
+                      <Bullets items={service.spotlight.bullets} path={`${p}.spotlight.bullets`} />
+                    </div>
+                  )}
+                </div>
+                {/* ‼️ גלריית התמונות של האזור הזה לא כאן - היא באזור
+                    הגלריה, אחרי הכותרת "איך זה נראה במפגש".
+
+                    הפלייר כן כאן, כשדה תוכן נפרד (spotlight.flyer) ולא
+                    כפריט בגלריה: הוא מסמך ולא תמונת אווירה, ומקומו לפני
+                    ההמלצות. שדה נפרד גם אומר שסידור הגלריה מהפאנל לא
+                    יזיז אותו בטעות. object-contain כדי שכל הפרטים
+                    הקטנים בפלייר יישארו קריאים ולא ייחתכו. */}
+                {service.spotlight.flyer && (
+                  <div className="relative mt-10 flex justify-center">
+                    <img
+                      {...cmsImage(`${p}.spotlight.flyer`)}
+                      src={asset(service.spotlight.flyer.src)}
+                      alt={service.spotlight.flyer.alt}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full max-w-sm rounded-2xl object-contain shadow-soft ring-1 ring-line/60"
+                    />
+                  </div>
+                )}
+                {service.spotlight.testimonials && service.spotlight.testimonials.length > 0 && (
+                  <div className="relative mt-12">
+                    <h3
+                      {...cms(`${p}.spotlight.testimonialsTitle`)}
+                      className="text-center text-2xl text-accent-dark sm:text-3xl"
+                    >
+                      {service.spotlight.testimonialsTitle}
+                    </h3>
+                    <Testimonials
+                      items={service.spotlight.testimonials}
+                      motion={service.motion}
+                      cmsPath={`${p}.spotlight.testimonials`}
+                    />
+                  </div>
+                )}
+                {service.spotlight.banner && (
+                  <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
+                    <div>
+                      <h3 {...cms(`${p}.spotlight.banner.title`)} className="text-2xl text-white">
+                        {service.spotlight.banner.title}
+                      </h3>
+                      {service.spotlight.banner.paragraphs?.map((paragraph, i) => (
+                        <p
+                          key={i}
+                          {...cms(`${p}.spotlight.banner.paragraphs.${i}`)}
+                          className="mt-3 max-w-2xl leading-relaxed text-white/90"
+                        >
+                          {paragraph}
+                        </p>
+                      ))}
+                    </div>
+                    <a
+                      href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.spotlight.title} :)`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-whatsapp w-full shrink-0 sm:w-auto"
+                    >
+                      <span {...cms(`${p}.spotlight.banner.button`)}>{service.spotlight.banner.button}</span>
+                      <WhatsappIcon className="h-5 w-5" />
+                    </a>
+                  </div>
+                )}
+              </div>
+            </Reveal>
+          </div>
+        </section>
+      )}
 
       {/* ================= HERO ================= */}
       <section className="relative overflow-hidden bg-accent-wash pb-14 pt-10 md:pb-20 md:pt-14">
@@ -231,144 +387,24 @@ export default function ServicePage({ id }: Props) {
           </div>
         </section>
       )}
-      {/* ================= אזור מודגש מתחת ל-Hero =================
-          מוצג רק בתחומים שהוגדר להם spotlight (כרגע: קבוצת העצמה לאחים) */}
-      {service.spotlight && (
-        <section className="pb-2 pt-8 md:pb-3 md:pt-12" aria-labelledby="service-spotlight">
-          <div className="container">
-            <Reveal variant={reveal}>
-              <div className="relative overflow-hidden rounded-[2rem] bg-surface p-8 shadow-card ring-1 ring-line/60 md:p-12">
-                <span
-                  aria-hidden
-                  className="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-accent-soft/60 blur-2xl"
-                />
-                <div className="relative grid gap-8 md:grid-cols-2 md:gap-12">
-                  <div>
-                    <h2
-                      id="service-spotlight"
-                      {...cms(`${p}.spotlight.title`)}
-                      className="text-3xl text-accent-dark sm:text-4xl"
-                    >
-                      {service.spotlight.title}
-                    </h2>
-                    {service.spotlight.paragraphs?.map((paragraph, i) => (
-                      <p
-                        key={i}
-                        {...cms(`${p}.spotlight.paragraphs.${i}`)}
-                        className="mt-4 text-lg leading-relaxed text-muted"
-                      >
-                        {paragraph}
-                      </p>
-                    ))}
-                  </div>
-                  {service.spotlight.bullets && (
-                    <div className="md:pt-2">
-                      <Bullets items={service.spotlight.bullets} path={`${p}.spotlight.bullets`} />
-                    </div>
-                  )}
-                </div>
-                {service.spotlight.images && (
-                  <ImageGallery
-                    images={service.spotlight.images}
-                    motion={service.motion}
-                    className="relative mt-10"
-                    cmsPath={`${p}.spotlight.images`}
-                  />
-                )}
-                {service.spotlight.testimonials && service.spotlight.testimonials.length > 0 && (
-                  <div className="relative mt-12">
-                    <h3
-                      {...cms(`${p}.spotlight.testimonialsTitle`)}
-                      className="text-center text-2xl text-accent-dark sm:text-3xl"
-                    >
-                      {service.spotlight.testimonialsTitle}
-                    </h3>
-                    <Testimonials
-                      items={service.spotlight.testimonials}
-                      motion={service.motion}
-                      cmsPath={`${p}.spotlight.testimonials`}
-                    />
-                  </div>
-                )}
-                {service.spotlight.banner && (
-                  <div className="relative mt-8 flex flex-col items-center gap-5 rounded-2xl bg-accent px-6 py-7 text-center text-white md:flex-row md:justify-between md:px-9 md:text-right">
-                    <div>
-                      <h3 {...cms(`${p}.spotlight.banner.title`)} className="text-2xl text-white">
-                        {service.spotlight.banner.title}
-                      </h3>
-                      {service.spotlight.banner.paragraphs?.map((paragraph, i) => (
-                        <p
-                          key={i}
-                          {...cms(`${p}.spotlight.banner.paragraphs.${i}`)}
-                          className="mt-3 max-w-2xl leading-relaxed text-white/90"
-                        >
-                          {paragraph}
-                        </p>
-                      ))}
-                    </div>
-                    <a
-                      href={whatsappLink(`היי רוזיטל, הגעתי דרך האתר ואשמח לשמוע פרטים על ${service.spotlight.title} :)`)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-whatsapp w-full shrink-0 sm:w-auto"
-                    >
-                      <span {...cms(`${p}.spotlight.banner.button`)}>{service.spotlight.banner.button}</span>
-                      <WhatsappIcon className="h-5 w-5" />
-                    </a>
-                  </div>
-                )}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-      )}
 
       {/* ================= "למי זה מתאים" =================
           קומפוזיציה שונה בכוונה מזו של ה-Hero: באנר רוחב, כותרת ממורכזת,
           וקהלי היעד ככרטיסים - במקום עוד פיצול טקסט/תמונה. */}
-      <section
-        className={`section bg-accent-soft/40 ${service.spotlight ? "pt-8 md:pt-12" : ""}`}
-        aria-labelledby="service-intro"
-      >
+      {/* הריפוד העליון היה מותנה ב-spotlight, כי הוא נשען עליו מלמעלה.
+          מאז שה-spotlight עלה מעל ה-Hero, מה שמעל כאן הוא תמיד הבאנר -
+          ולבאנר יש ריפוד משלו. */}
+      <section className="section bg-accent-soft/40" aria-labelledby="service-intro">
         <div className="container">
-          <Reveal variant={reveal}>
-            {/* בתחום שהוגדר לו bannerVideo מוצג נגן במקום תמונת הרוחב.
-                אין שכבת גרדיאנט מעל וידאו - היא מכהה את התמונה וחוסמת את הכפתורים. */}
-            {service.bannerVideo ? (
-              <div
-                {...cms(`${p}.bannerVideo`, "video")}
-                className="mx-auto aspect-square w-full max-w-2xl overflow-hidden rounded-[2rem] bg-black shadow-card"
-              >
-                <video
-                  src={asset(service.bannerVideo)}
-                  controls
-                  playsInline
-                  preload="metadata"
-                  aria-label={service.title}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-            ) : (
-            <div className="relative overflow-hidden rounded-[2rem] shadow-card">
-              <img
-                {...cmsImage(`${p}.bannerImage`)}
-                src={asset(service.bannerImage)}
-                alt={service.title}
-                loading="lazy"
-                decoding="async"
-                width={1400}
-                height={613}
-                className="aspect-[16/7] w-full object-cover"
-              />
-              <span
-                aria-hidden
-                className="absolute inset-0 bg-gradient-to-t from-accent-dark/35 via-transparent to-transparent"
-              />
-            </div>
-            )}
-          </Reveal>
+          {!service.bannerImageInGallery && bannerMedia}
 
-          <Reveal variant={reveal} delay={100} className="mx-auto mt-12 max-w-2xl text-center">
+          <Reveal
+            variant={reveal}
+            delay={100}
+            /* בלי תמונת הרוחב מעליה הכותרת פותחת את האזור, ואז mt-12
+               על גבי הריפוד של הסקציה היה פותח חור לבן */
+            className={`mx-auto max-w-2xl text-center ${service.bannerImageInGallery ? "" : "mt-12"}`}
+          >
             <h2
               id="service-intro"
               {...cms(`${p}.sections.0.title`)}
@@ -506,10 +542,44 @@ export default function ServicePage({ id }: Props) {
               </span>
             }
           />
+          {/* ================= תמונות אזור ההעצמה =================
+              הן היו בתוך הכרטיס של "קבוצת העצמה לאחים מיוחדים", ולפי בקשת
+              רוזיטל הן ירדו לכאן - מתחת לבאנר.
+
+              מותנה ב-spotlight.images, ולכן מופיע רק בתחום שיש לו אזור
+              העצמה - כרגע צרכים מיוחדים בלבד, בלי שום תנאי על שם הדף.
+
+              רקע accent-soft/40 ולא שקוף: החצי התחתון של הבאנר צבוע בגוון
+              הזה כדי להישפך לאזור שאחריו, וסקציה שקופה כאן הייתה קוטעת את
+              המעבר בפס בהיר. */}
+          {/* תמונת הרוחב, כשהוגדר לה להופיע כאן ולא באזור "למי זה מתאים".
+              ראו bannerMedia בראש הקומפוננטה. */}
+          {service.bannerImageInGallery && <div className="mt-10">{bannerMedia}</div>}
+
+          {/* ‼️ תמונות אזור ההעצמה, מיד אחרי הכותרת "איך זה נראה במפגש"
+              ולפני הגלריה הרגילה - לפי בקשת רוזיטל.
+
+              מותנה ב-spotlight.images, ולכן מופיע רק בתחום שיש לו אזור
+              העצמה (כרגע צרכים מיוחדים בלבד) - בלי שום תנאי על שם הדף.
+
+              שתי גלריות נפרדות ולא מערך מאוחד, כי cmsPath יכול להצביע
+              על מערך אחד בלבד: איחוד היה משאיר חצי מהתמונות בלי עריכה
+              מהפאנל. אין כאן container משלו - הוא יושב בתוך ה-container
+              של אזור הגלריה. */}
+          {service.spotlight?.images && (
+            <ImageGallery
+              images={service.spotlight.images}
+              motion={service.motion}
+              className="mt-10"
+              cmsPath={`${p}.spotlight.images`}
+            />
+          )}
           <ImageGallery
             images={service.gallery}
             motion={service.motion}
-            className="mt-10"
+            /* רווח קטן כשגלריית אזור ההעצמה נמצאת מעליה, ורווח מלא
+               מהכותרת כשהיא הראשונה - כלומר בשאר התחומים */
+            className={service.spotlight?.images ? "mt-3 sm:mt-4" : "mt-10"}
             cmsPath={`${p}.gallery`}
           />
         </div>
