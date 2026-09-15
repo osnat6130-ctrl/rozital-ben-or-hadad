@@ -164,12 +164,6 @@
   },
   "certificates": [
     {
-      "src": "/images/certificates/cert-6.webp",
-      "title": "מוסמכת בחינוך (M.Ed.)",
-      "issuer": "המכללה האקדמית אחוה",
-      "meta": "2018"
-    },
-    {
       "src": "/images/certificates/cert-5.webp",
       "title": "תעודת הערכה על הישגים לימודיים",
       "issuer": "אחוה - המכללה האקדמית לחינוך",
@@ -198,6 +192,12 @@
       "title": "השתלמות \"קוד המנצח לצעירים\"",
       "issuer": "בית הספר המרכזי להשתלמות מורים",
       "meta": "2021 · 116 שעות"
+    },
+    {
+      "src": "/images/image-mu2tmklk7kso.webp",
+      "title": "קורס מנחי יוגה צחוק",
+      "issuer": "בית הספר הבינלאומי ליוגה צחוק",
+      "meta": "2020"
     }
   ],
   "reasons": [
