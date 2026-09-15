@@ -25,16 +25,8 @@
     "bannerImageInGallery": true,
     "gallery": [
       {
-        "src": "/images/lectures-1.webp",
-        "alt": "הורים מקשיבים בהרצאה של רוזיטל בן אור חדד"
-      },
-      {
         "src": "/images/lectures-2.webp",
         "alt": "רוזיטל בן אור חדד עם מארגנת ההרצאה, על רקע המצגת"
-      },
-      {
-        "src": "/images/lectures-3.webp",
-        "alt": "רוזיטל בן אור חדד עונה על שאלות הקהל בהרצאה"
       },
       {
         "src": "/images/lectures-4.webp",
@@ -81,20 +73,16 @@
       ],
       "images": [
         {
-          "src": "/images/lectures-circle-clean.webp",
-          "alt": "רוזיטל בן אור חדד מרצה מול קהל באולם"
-        },
-        {
           "src": "/images/siblings-5.webp",
           "alt": "רוזיטל מרצה מול מצגת על התמודדות המשפחה"
         },
         {
-          "src": "/images/lectures-hall-blurred.webp",
-          "alt": "רוזיטל בן אור חדד מרצה באולם מול קהל"
-        },
-        {
           "src": "/images/siblings-group-blurred.webp",
           "alt": "רוזיטל בן אור חדד מנחה מפגש קבוצתי לאחים מיוחדים"
+        },
+        {
+          "src": "/images/lectures-hall-blurred.webp",
+          "alt": "רוזיטל בן אור חדד מרצה באולם מול קהל"
         }
       ],
       "banner": {
