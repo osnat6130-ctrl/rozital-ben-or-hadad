@@ -6,7 +6,8 @@
    התוכן (ראו store.ts), ו"שמירה ופרסום" שולח לשרת שיוצר commit.
    ========================================================================== */
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { navItems } from "@/data/site";
 import { api, ApiError } from "./api";
 import { setEditingFlag } from "./editing";
 import { setAdminFlag } from "./gate";
@@ -39,6 +40,7 @@ type Status =
 
 export default function EditMode() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [status, setStatus] = useState<Status>({ kind: "loading" });
   /* דלוק כברירת מחדל. מי שהתחברה לפאנל התחברה כדי לערוך, וברירת מחדל
      כבויה שלחה אותה ללחוץ על תמונה ולקבל הגדלה במקום עריכה - בלי שום
@@ -273,6 +275,43 @@ export default function EditMode() {
           <span className="hidden text-xs text-white/70 sm:inline">
             כדי לערוך טקסט או תמונה - צריך להדליק
           </span>
+        )}
+
+        {/* ‼️ מעבר בין דפים מתוך הסרגל, ורק במצב עריכה.
+            במצב עריכה לחיצה על קישור **עורכת את הטקסט שלו** ולא מנווטת -
+            זה מה שמאפשר לתקן את הכתובית של כפתור. המחיר הוא שכל הקישורים
+            באתר, כולל התפריט העליון, מפסיקים לנווט: המשתמשת נעולה בדף
+            אחד ואין לה שום דרך להגיע לדף אחר בלי לכבות את מצב העריכה.
+            זה קרה בפועל - רוזיטל לחצה "קצת יותר עליי" כדי להגיע לדף
+            אודות, קיבלה עריכה של שלוש המילים האלה, והסיקה שאי אפשר
+            לערוך את הדף.
+            רשימת הדפים היא ה-nav של האתר, כדי שדף שיתווסף יופיע גם כאן.
+            השינויים שלא נשמרו שורדים את המעבר - הניווט הוא בצד הלקוח
+            והתוכן יושב בזיכרון (store.ts). */}
+        {editing && (
+          <label className="flex items-center gap-1.5">
+            {/* תווית גלויה ולא רק לקורא מסך: בלעדיה הבורר נראה כמו שם
+                הדף הנוכחי, ולא כמו משהו שאפשר ללחוץ עליו ולעבור. */}
+            <span className="hidden text-xs text-white/70 sm:inline">דף:</span>
+            <select
+              value={navItems.some((item) => item.to === pathname) ? pathname : ""}
+              onChange={(e) => {
+                if (!e.target.value) return;
+                commit();
+                navigate(e.target.value);
+              }}
+              className="max-w-[9rem] rounded-full bg-white/10 px-3 py-1.5 text-white outline-none ring-1 ring-white/20 focus:ring-gold"
+            >
+              <option value="" disabled>
+                מעבר לדף...
+              </option>
+              {navItems.map((item) => (
+                <option key={item.to} value={item.to} className="text-ink">
+                  {item.label}
+                </option>
+              ))}
+            </select>
+          </label>
         )}
 
         {dirtyCount > 0 && (
