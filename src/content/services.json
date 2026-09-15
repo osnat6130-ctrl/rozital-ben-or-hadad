@@ -291,12 +291,12 @@
     "bannerImage": "/images/yoga-banner.webp",
     "gallery": [
       {
-        "src": "/images/yoga-1.webp",
-        "alt": "מעגל נשים מקשיב בפתיחת סדנת יוגה צחוק"
-      },
-      {
         "src": "/images/yoga-2.webp",
         "alt": "תרגיל נשימה ותנועה בסדנת יוגה צחוק"
+      },
+      {
+        "src": "/images/yoga-1.webp",
+        "alt": "מעגל נשים מקשיב בפתיחת סדנת יוגה צחוק"
       },
       {
         "src": "/images/yoga-3.webp",
@@ -313,6 +313,10 @@
       {
         "src": "/images/yoga-6.webp",
         "alt": "ריקוד ובלונים בסדנת יוגה צחוק"
+      },
+      {
+        "src": "/images/image-mu32lk6vb7rn.webp",
+        "alt": ""
       }
     ],
     "testimonialsTitle": "מה אומרות אחרי הסדנה",
