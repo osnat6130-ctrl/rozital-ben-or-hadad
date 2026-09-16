@@ -249,16 +249,19 @@ function legalBody(page) {
       parts.push(`<h2>${escapeHtml(section.title)}</h2>`, ...paragraphs(section.paragraphs));
     }
   }
-  for (const [titleKey, bodyKey] of [
+  for (const [titleKey, bodyKey, listKey, outroKey] of [
     ["commitmentTitle", "commitment"],
-    ["featuresTitle", "featuresIntro"],
-    ["limitsTitle", "limits"],
+    ["featuresTitle", "featuresIntro", "features", "standardNote"],
+    ["limitsTitle", "limitsIntro", "limitsList", "limitsOutro"],
+    ["physicalTitle", "physical"],
     ["coordinatorTitle", "coordinator"],
     ["contactTitle", "contact"],
+    ["complaintTitle", "complaint"],
   ]) {
     if (page[titleKey]) parts.push(`<h2>${escapeHtml(page[titleKey])}</h2>`);
     if (page[bodyKey]) parts.push(...paragraphs(page[bodyKey]));
-    if (bodyKey === "featuresIntro" && page.features) parts.push(...list(page.features));
+    if (listKey && page[listKey]) parts.push(...list(page[listKey]));
+    if (outroKey && page[outroKey]) parts.push(...paragraphs(page[outroKey]));
   }
   if (page.updated) parts.push(`<p>${escapeHtml(page.updated)}</p>`);
   return parts;

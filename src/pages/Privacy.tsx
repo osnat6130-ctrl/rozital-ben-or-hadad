@@ -91,7 +91,7 @@ export default function Privacy() {
             <Reveal delay={p.sections.length * 80 + 60}>
               <p
                 {...cms("site.privacy.updated")}
-                className="border-t border-line pt-6 text-sm text-muted/80"
+                className="border-t border-line pt-6 text-sm text-muted"
               >
                 {p.updated}
               </p>

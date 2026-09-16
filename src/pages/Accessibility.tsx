@@ -72,14 +72,52 @@ export default function Accessibility() {
                   </li>
                 ))}
               </ul>
+              {/* ‼️ הסייג מוצג בתוך אותו אזור של רשימת ההתאמות ולא
+                  בשוליים: הצהרה שמפרטת מה נעשה חייבת לומר באותה נשימה
+                  מה טרם נבדק, אחרת היא נקראת כהצהרת עמידה בתקן. */}
+              <p
+                {...cms("site.accessibility.standardNote")}
+                className="mt-5 rounded-xl bg-brand-soft/40 px-5 py-4 text-base leading-relaxed text-brand-dark"
+              >
+                {a.standardNote}
+              </p>
             </Reveal>
 
             <Reveal delay={160}>
               <h2 {...cms("site.accessibility.limitsTitle")} className="text-2xl text-brand-dark">
                 {a.limitsTitle}
               </h2>
-              <p {...cms("site.accessibility.limits")} className="mt-4 text-lg leading-relaxed text-muted">
-                {a.limits}
+              <p
+                {...cms("site.accessibility.limitsIntro")}
+                className="mt-4 text-lg leading-relaxed text-muted"
+              >
+                {a.limitsIntro}
+              </p>
+              <ul className="mt-4 space-y-2.5 text-lg leading-relaxed text-muted">
+                {a.limitsList.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2.5">
+                    <span aria-hidden className="mt-3 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                    <span {...cms(`site.accessibility.limitsList.${i}`)}>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <p
+                {...cms("site.accessibility.limitsOutro")}
+                className="mt-4 text-lg leading-relaxed text-muted"
+              >
+                {a.limitsOutro}
+              </p>
+            </Reveal>
+
+            {/* ‼️ נגישות השירות עצמו, ולא רק האתר. הצהרה של נותן שירות
+                מכסה גם את המקום שבו השירות ניתן - וכאן אין מקום קבלת
+                קהל קבוע, כי רוזיטל מגיעה אל המזמין. */}
+            <Reveal delay={200}>
+              <h2 {...cms("site.accessibility.physicalTitle")} className="text-2xl text-brand-dark">
+                {a.physicalTitle}
+              </h2>
+              <p {...cms("site.accessibility.physical")} className="mt-4 text-lg leading-relaxed text-muted">
+                {a.physical}
               </p>
             </Reveal>
 
@@ -120,10 +158,20 @@ export default function Accessibility() {
               </div>
             </Reveal>
 
-            <Reveal delay={340}>
+            {/* דרך פנייה לנציבות, למי שלא קיבל מענה */}
+            <Reveal delay={320}>
+              <h2 {...cms("site.accessibility.complaintTitle")} className="text-2xl text-brand-dark">
+                {a.complaintTitle}
+              </h2>
+              <p {...cms("site.accessibility.complaint")} className="mt-4 text-lg leading-relaxed text-muted">
+                {a.complaint}
+              </p>
+            </Reveal>
+
+            <Reveal delay={360}>
               <p
                 {...cms("site.accessibility.updated")}
-                className="border-t border-line pt-6 text-sm text-muted/80"
+                className="border-t border-line pt-6 text-sm text-muted"
               >
                 {a.updated}
               </p>

@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { WhatsappIcon } from "./Icons";
 import { cms } from "@/cms/paths";
 import { services } from "@/data/services";
@@ -138,6 +139,16 @@ export default function WhatsappForm() {
           <span {...cms("site.contact.form.submit")}>{f.submit}</span>
           <WhatsappIcon className="h-6 w-6" />
         </button>
+
+        {/* ‼️ חובת היידוע חלה בנקודה שבה מבקשים את הפרטים, ולא רק
+            בעמוד נפרד שצריך לחפש בפוטר. הטקסט קצר במכוון - הוא אומר
+            את העיקר (שום דבר לא נשלח לשרת) ומקשר להרחבה. */}
+        <p className="mt-3 text-center text-xs leading-relaxed text-muted">
+          הפרטים לא נשלחים לשרת - הם נפתחים אצלכם בוואטסאפ ואתם בוחרים אם לשלוח.{" "}
+          <Link to="/privacy" className="font-bold text-brand underline underline-offset-2">
+            מדיניות פרטיות
+          </Link>
+        </p>
 
         <p className="mt-4 text-center text-sm text-muted" aria-live="polite">
           {sentUrl ? (

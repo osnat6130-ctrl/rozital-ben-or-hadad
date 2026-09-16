@@ -124,12 +124,19 @@ type SiteContent = {
     featuresTitle: string;
     featuresIntro: string;
     features: string[];
+    standardNote: string;
     limitsTitle: string;
-    limits: string;
+    limitsIntro: string;
+    limitsList: string[];
+    limitsOutro: string;
+    physicalTitle: string;
+    physical: string;
     coordinatorTitle: string;
     coordinator: string;
     contactTitle: string;
     contact: string;
+    complaintTitle: string;
+    complaint: string;
     updated: string;
   };
   /** מדיניות פרטיות. הטקסט בתוכן ולא בקומפוננטה, כדי שרוזיטל תוכל
