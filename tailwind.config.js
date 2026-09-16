@@ -39,7 +39,7 @@ export default {
           dark: "hsl(var(--accent-dark) / <alpha-value>)",
           soft: "hsl(var(--accent-soft) / <alpha-value>)",
         },
-        whatsapp: "#25D366",
+        whatsapp: "#188640",
       },
       // כל האתר בפונט אחד - Google Sans. שלושת המפתחות מצביעים לאותו
       // פונט כדי ש-font-display / font-serif בקומפוננטות ימשיכו לעבוד.
