@@ -5,6 +5,7 @@ import ServicePage from "@/pages/ServicePage";
 import About from "@/pages/About";
 import Contact from "@/pages/Contact";
 import Accessibility from "@/pages/Accessibility";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/NotFound";
 import Admin from "@/pages/Admin";
 
@@ -22,6 +23,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Route>

@@ -65,6 +65,7 @@ export const siteSchema = z
     certificates: z.array(z.record(z.string(), contentValue)).max(30),
     reasons: z.array(z.record(z.string(), contentValue)).max(10),
     accessibility: z.record(z.string(), contentValue),
+    privacy: z.record(z.string(), contentValue),
   })
   /* ‼️ strict נשאר במכוון: הוא מה שמונע כתיבת מפתחות שרירותיים לקובץ
      התוכן. המחיר הוא שכל מפתח חדש ב-site.json חייב להתווסף גם כאן -

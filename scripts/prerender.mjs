@@ -240,6 +240,30 @@ function aboutBody() {
   ];
 }
 
+function legalBody(page) {
+  const parts = [`<h1>${escapeHtml(page.title)}</h1>`, ...paragraphs(page.intro)];
+  /* הצהרת הנגישות ומדיניות הפרטיות בנויות שונה זו מזו, ולכן עוברים על
+     מה שקיים ולא על מבנה קבוע: שתיהן מסמכים שנערכים מהפאנל. */
+  if (page.sections) {
+    for (const section of page.sections) {
+      parts.push(`<h2>${escapeHtml(section.title)}</h2>`, ...paragraphs(section.paragraphs));
+    }
+  }
+  for (const [titleKey, bodyKey] of [
+    ["commitmentTitle", "commitment"],
+    ["featuresTitle", "featuresIntro"],
+    ["limitsTitle", "limits"],
+    ["coordinatorTitle", "coordinator"],
+    ["contactTitle", "contact"],
+  ]) {
+    if (page[titleKey]) parts.push(`<h2>${escapeHtml(page[titleKey])}</h2>`);
+    if (page[bodyKey]) parts.push(...paragraphs(page[bodyKey]));
+    if (bodyKey === "featuresIntro" && page.features) parts.push(...list(page.features));
+  }
+  if (page.updated) parts.push(`<p>${escapeHtml(page.updated)}</p>`);
+  return parts;
+}
+
 function contactBody() {
   return [
     `<h1>${escapeHtml(`${site.contact.title} ${site.contact.titleHighlight}`)}</h1>`,
@@ -316,8 +340,17 @@ const routes = [
     seo: site.accessibility.seo,
     image: null,
     priority: "0.3",
-    body: () => [`<h1>${escapeHtml(site.accessibility.seo.title.split("|")[0].trim())}</h1>`],
+    body: () => legalBody(site.accessibility),
     jsonLd: () => graph(breadcrumbs("/accessibility", "הצהרת נגישות")),
+  },
+  {
+    path: "/privacy",
+    label: "מדיניות פרטיות",
+    seo: site.privacy.seo,
+    image: null,
+    priority: "0.3",
+    body: () => legalBody(site.privacy),
+    jsonLd: () => graph(breadcrumbs("/privacy", "מדיניות פרטיות")),
   },
 ];
 

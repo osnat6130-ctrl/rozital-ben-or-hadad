@@ -87,6 +87,9 @@ export default function Footer() {
             <Link to="/accessibility" className="transition-colors hover:text-gold">
               הצהרת נגישות
             </Link>
+            <Link to="/privacy" className="transition-colors hover:text-gold">
+              מדיניות פרטיות
+            </Link>
             <a
               href="https://wa.me/972556825885"
               target="_blank"

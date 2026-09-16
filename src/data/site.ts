@@ -115,7 +115,34 @@ type SiteContent = {
   contact: ContactContent;
   certificates: Certificate[];
   reasons: Reason[];
-  accessibility: { seo: PageSeo };
+  accessibility: {
+    seo: PageSeo;
+    title: string;
+    intro: string;
+    commitmentTitle: string;
+    commitment: string;
+    featuresTitle: string;
+    featuresIntro: string;
+    features: string[];
+    limitsTitle: string;
+    limits: string;
+    coordinatorTitle: string;
+    coordinator: string;
+    contactTitle: string;
+    contact: string;
+    updated: string;
+  };
+  /** מדיניות פרטיות. הטקסט בתוכן ולא בקומפוננטה, כדי שרוזיטל תוכל
+   *  לערוך אותו מהפאנל - זה מסמך שמתיישן. */
+  privacy: {
+    seo: PageSeo;
+    title: string;
+    intro: string;
+    sections: { title: string; paragraphs: string[] }[];
+    contactTitle: string;
+    contact: string;
+    updated: string;
+  };
 };
 
 const content = siteJson as unknown as SiteContent;
@@ -132,6 +159,7 @@ export const contact = content.contact;
 export const certificates = content.certificates;
 export const reasons = content.reasons;
 export const accessibility = content.accessibility;
+export const privacy = content.privacy;
 
 /** בונה קישור וואטסאפ עם הודעה מוכנה */
 export function whatsappLink(message: string = site.whatsappDefaultMessage) {
