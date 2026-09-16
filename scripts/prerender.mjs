@@ -415,11 +415,19 @@ function buildPage(route) {
      ב-HTML הגולמי, וזה כל העניין. */
   const body = [
     '<noscript><style>#prerendered{display:block !important}</style></noscript>',
+    /* ‼️ email_off מכבה את "Email Address Obfuscation" של קלאודפלייר
+       באזור הזה. בלעדיו היא מחליפה כל כתובת מייל ב-HTML בקישור
+       /cdn-cgi/l/email-protection שמפוענח בסקריפט - כלומר הכתובת נעלמת
+       בדיוק מהעותק שנבנה כאן עבור מי שלא מריץ JavaScript. בהצהרת
+       הנגישות המייל הוא ערוץ פנייה מחויב, ואסור לו להיות תלוי בסקריפט.
+       הדפדפן מתעלם מההערות האלה, ולכן אין להן מחיר. */
+    "<!--email_off-->",
     '<div id="prerendered">',
     ...route.body(),
     internalLinks(),
     contactBlock(),
     "</div>",
+    "<!--/email_off-->",
   ].join("\n      ");
   html = html.replace('<div id="root"></div>', `<div id="root"></div>\n      ${body}`);
 
